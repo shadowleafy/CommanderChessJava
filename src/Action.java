@@ -7,6 +7,7 @@ class Action {
   private String type;
   private String actionId;
   private String displayName;
+  private Piece ownerPiece;
   private ArrayList<String> tags;
   
   public Action(){
@@ -24,17 +25,37 @@ class Action {
   public String getDisplayName(){
     return displayName;
   }
+
+  public Piece getOwnerPiece(){
+    return ownerPiece;
+  }
+
+  public void setOwnerPiece(Piece piece){
+    ownerPiece = piece;
+  }
+
+  public void addTag(String tag){
+    Utility.noRepeatAdd(tags, tag);
+  }
+
+  public void removeTag(String tag){
+    tags.remove(tag);
+  }
   
   public boolean canUse(){
     return true;
   }
   
-  public void activate(){
-    if (canUse()){
-      onUse();
-    }
-  }
-  
   public void onUse(){}
   
+}
+
+// This specific action ends your turn. Please make it available when no piece is selected.
+class Done extends Action{
+    super();
+    public Done(){
+        type = "menu";
+        actionId = "end_turn";
+        displayName = null;
+    }
 }

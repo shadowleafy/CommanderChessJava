@@ -128,6 +128,8 @@ class Piece {
   public void onTurnStart(){}
   
   public void onTurnEnd(){}
+
+  public void onActionUse(Action action){}
   
   public void onMoveTo(int[] location){}
   
