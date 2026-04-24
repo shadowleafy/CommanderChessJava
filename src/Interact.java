@@ -13,22 +13,4 @@ class Interact {
     String output = "[" + speaker + "]: " + message;
     System.out.println(output);
   }
-  
-  public static String selectOption(ArrayList<String> options, String playerName){
-    String output = playerName + ", please select an option. Your options are:\n";
-    for (String option : options){
-      output += option + "\n";
-    }
-    log(output);
-    Scanner read = new Scanner(System.in);
-    String selection = "";
-    while (!Utility.inArrayList(options, selection)){
-      selection = read.nextLine();
-      if (!Utility.inArrayList(options, selection)){
-        log("Please select a valid option.");
-      }
-    }
-    return selection;
-  }
-  
 }
