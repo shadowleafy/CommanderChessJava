@@ -1,7 +1,5 @@
 class UI{
 
-
-
     // UI code here please :3
 
     // These are the general idea of methods we'll need

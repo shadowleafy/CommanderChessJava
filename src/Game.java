@@ -15,7 +15,6 @@ public class Game {
     // Display status of current board
     ui.log("Turn start!")
     ui.log("It is currently turn " + board.getTurnNumber() + ", and the active player is player " + activePlayer.getDisplayName() + ".");
-    ui.log("The boardstate is as follows:");
     board.printBoardState();
     ui.updateBoard();
     
