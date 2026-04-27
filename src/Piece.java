@@ -153,3 +153,5 @@ class Piece {
     Utility.noRepeatAdd(tags, "beenCapturedThisTurn");
   }
 }
+
+

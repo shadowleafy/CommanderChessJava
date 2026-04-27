@@ -10,8 +10,9 @@ class Action {
   private Piece ownerPiece;
   private ArrayList<String> tags;
   
-  public Action(){
+  public Action(Piece owner){
     tags = new ArrayList<String>();
+    ownerPiece = owner;
   }
   
   public String getType(){
@@ -52,10 +53,26 @@ class Action {
 
 // This specific action ends your turn. Please make it available when no piece is selected.
 class Done extends Action{
-    super();
-    public Done(){
-        type = "menu";
-        actionId = "end_turn";
-        displayName = null;
+    
+    public Done(Piece owner){
+      super(owner);
+      type = "menu";
+      actionId = "end_turn";
+      displayName = null;
     }
+}
+
+// Now for the real actions! :3
+
+class PawnMove extends Action{
+  public PawnMove(Piece owner){
+    super(owner);
+    type = "move";
+    actionId = "pawn_move";
+    displayName = "Pawn Move";
+  }
+
+  public boolean canUse(){
+    
+  }
 }
