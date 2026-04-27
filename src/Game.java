@@ -37,6 +37,7 @@ public class Game {
         }
         else if (requestedAction.canUse()){
             // Check for on action use triggers
+            
             for (ArrayList<Piece>[] arr : board.getBoardstate()){
                 for (ArrayList<Piece> arrl : arr){
                     for (Piece piece : arrl){
