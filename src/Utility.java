@@ -78,6 +78,19 @@ class Utility {
       return null;
     }
   }
+
+  public static int[] diffVectors(int[] a, int[] b){
+    if (a.length == b.length){
+      int[] c = new int[a.length];
+      for (int i = 0; i < a.length; i++){
+        c[i] = a[i] - b[i];
+      }
+      return c;
+    }
+    else{
+      return null;
+    }
+  }
   
   public static int[] collisionPoint(Piece[][] gameboard, int[] start, int[] rayValue){
     int[] newStart = copyArray(start);

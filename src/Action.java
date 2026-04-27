@@ -52,7 +52,7 @@ class Action {
 }
 
 // This specific action ends your turn. Please make it available when no piece is selected.
-class Done extends Action{
+class Done extends Action {
     
     public Done(Piece owner){
       super(owner);
@@ -64,7 +64,7 @@ class Done extends Action{
 
 // Now for the real actions! :3
 
-class PawnMove extends Action{
+class PawnMove extends Action {
   public PawnMove(Piece owner){
     super(owner);
     type = "move";
@@ -73,7 +73,16 @@ class PawnMove extends Action{
   }
 
   public boolean canUse(){
-    
+    if (ownerPiece.getController().getActions() > 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  public boolean onUse(){
+    int[] loc = UI.requestLocation();
   }
 }
 

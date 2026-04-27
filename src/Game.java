@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Game {
   
-  public void gameLoop(Board board, UI ui){
+  public void gameLoop(Board board){
     
     Scanner scan = new Scanner(System.in);
     
@@ -13,17 +13,17 @@ public class Game {
     Player passivePlayer = board.getPassivePlayer();
     
     // Display status of current board
-    ui.log("Turn start!")
-    ui.log("It is currently turn " + board.getTurnNumber() + ", and the active player is player " + activePlayer.getDisplayName() + ".");
+    UI.log("Turn start!")
+    UI.log("It is currently turn " + board.getTurnNumber() + ", and the active player is player " + activePlayer.getDisplayName() + ".");
     board.printBoardState();
-    ui.updateBoard();
+    UI.updateBoard();
     
     // Check for on turn start triggers
     for (ArrayList<Piece>[] arr : board.getBoardstate()){
       for (ArrayList<Piece> arrl : arr){
         for (Piece piece : arrl){
           piece.onTurnStart();
-          ui.updateBoard();
+          UI.updateBoard();
         }
       }
     }
@@ -43,7 +43,7 @@ public class Game {
                 for (ArrayList<Piece> arrl : arr){
                   for (Piece piece : arrl){
                     piece.onActionUse(requestedAction);
-                    ui.updateBoard();
+                    UI.updateBoard();
                   }
                 }
               }
@@ -51,7 +51,7 @@ public class Game {
             
         }
         else{
-            ui.log("Sorry, " + activePlayer + ", this move is illegal. Please select a different move.")
+            UI.log("Sorry, " + activePlayer + ", this move is illegal. Please select a different move.")
         }
     }
 
@@ -60,7 +60,7 @@ public class Game {
       for (ArrayList<Piece> arrl : arr){
         for (Piece piece : arrl){
           piece.onTurnEnd();
-          ui.updateBoard();
+          UI.updateBoard();
         }
       }
     }
