@@ -47,7 +47,7 @@ class Action {
     return true;
   }
   
-  public void onUse(){}
+  public boolean onUse(){} // return true if the move resolved, otherwise return false.
   
 }
 

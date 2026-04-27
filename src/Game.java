@@ -37,16 +37,18 @@ public class Game {
         }
         else if (requestedAction.canUse()){
             // Check for on action use triggers
-            
-            for (ArrayList<Piece>[] arr : board.getBoardstate()){
+            boolean success = requestedAction.onUse();
+            if (success){
+              for (ArrayList<Piece>[] arr : board.getBoardstate()){
                 for (ArrayList<Piece> arrl : arr){
-                    for (Piece piece : arrl){
-                        piece.onActionUse(requestedAction);
-                        ui.updateBoard();
-                    }
+                  for (Piece piece : arrl){
+                    piece.onActionUse(requestedAction);
+                    ui.updateBoard();
+                  }
                 }
+              }
             }
-            requestedAction.onUse();
+            
         }
         else{
             ui.log("Sorry, " + activePlayer + ", this move is illegal. Please select a different move.")
