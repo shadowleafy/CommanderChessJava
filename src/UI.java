@@ -4,6 +4,16 @@ class UI{
 
     // These are the general idea of methods we'll need
 
+    Board board;
+
+    public UI(Board b){
+        board = b;
+    }
+
+    public void updateUI(){
+        
+    }
+
     public void clearUI(){} // Completely clear the UI
 
     public void generateGameUI(){} // Generate the basic UI for playing the game.
@@ -12,7 +22,9 @@ class UI{
 
     public void generateMainMenu(){} // Generate the basic UI for the main menu.
 
-    public void updateBoard(Board board){} // Visually update the board to match the current boardstate.
+    public void updateBoard(Board board){
+        this.board = board;
+    } // Visually update the board to match the current boardstate.
 
     public void log(String s){} // Visually show a message to players.
 
