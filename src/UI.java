@@ -13,26 +13,27 @@ class UI{
         board = b;
     }
 
-    public void updateUI(){}
     public static void updateUI(){
         
     }
 
-    public static void clearUI(){} // Completely clear the UI
+    public static void clearUI(){} // Completely clear the UI (for changing between screens)
 
     public static void generateGameUI(){} // Generate the basic UI for playing the game.
 
-    public void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
+    public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
     //call before generating game
     
-    public void generateMainMenu(){
+    public static void generateMainMenu(){
 
     } // Generate the basic UI for the main menu (play, menu, etc).
 
     public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
 
-    public void updateBoard(Board board){
+    public static void updateBoard(Board board){
         this.board = board;
+    }
+
     public static void generateMainMenu(){} // Generate the basic UI for the main menu.
 
     public static String awaitMenuSelection(){
