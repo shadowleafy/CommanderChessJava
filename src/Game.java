@@ -109,6 +109,7 @@ public class Game {
   }
   public static void main(String[] args) {
     Game game = new Game();
+    UI.start();
     while(!game.getNextMenu().equals("quit")){
       if (game.getNextMenu().equals("main")){
         UI.clearUI();
