@@ -94,7 +94,7 @@ class Utility {
 
   public static boolean compareVectors(int[] a, int[] b){
     if (a.length == b.length){
-      for (int = 0; i < a.length; i++){
+      for (int i = 0; i < a.length; i++){
         if (a[i] != b[i]){
           return false;
         }
@@ -107,15 +107,17 @@ class Utility {
   public static int[] formVector(String input){
     int[] output = new int[countInString(input, ",")];
     for (int i = 0; i < output.length; i++){
-      output[i] = input.substring(0, input.indexOf(","));
+      output[i] = Integer.parseInt(input.substring(0, input.indexOf(",")));
       input = input.substring(input.indexOf(",")+1);
     }
+    return output;
   }
   
-  public static int[] collisionPoint(Piece[][] gameboard, int[] start, int[] rayValue){
+  public static int[] collisionPoint(Board board, int[] start, int[] rayValue){
     int[] newStart = copyArray(start);
     sumVectors(newStart, rayValue);
-    while (gameboard[newStart[1]][newStart[0]] == null){
+    ArrayList[][] gameboard = board.getBoardstate();
+    while (gameboard[newStart[1]][newStart[0]].size() == 0){
       sumVectors(newStart, rayValue);
       if (newStart[0] > 7 || newStart[0] < 0 || newStart[1] > 7 || newStart[1] < 0){
         return null;
@@ -128,7 +130,7 @@ class Utility {
     return Constants.LETTERS[loc[0]] + (loc[1] + 1);
   }
 
-  public static countInString(String input, String target){
+  public static int countInString(String input, String target){
     int count = 0;
     while (input.indexOf(target) != -1){
       count++;

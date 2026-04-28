@@ -31,6 +31,18 @@ class Action {
     return ownerPiece;
   }
 
+  public void setType(String t){
+    type = t;
+  }
+
+  public void setActionId(String a){
+    actionId = a;
+  }
+
+  public void setDisplayName(String n){
+    displayName = n;
+  }
+
   public void setOwnerPiece(Piece piece){
     ownerPiece = piece;
   }
@@ -47,7 +59,9 @@ class Action {
     return true;
   }
   
-  public boolean onUse(){} // return true if the move resolved, otherwise return false.
+  public boolean onUse(){
+    return true;
+  } // return true if the move resolved, otherwise return false.
   
 }
 
@@ -56,9 +70,9 @@ class Done extends Action {
     
     public Done(Piece owner){
       super(owner);
-      type = "menu";
-      actionId = "end_turn";
-      displayName = null;
+      this.setType("menu");
+      this.setActionId("end_turn");
+      this.setDisplayName("End Turn");
     }
 }
 
@@ -67,13 +81,13 @@ class Done extends Action {
 class PawnMove extends Action {
   public PawnMove(Piece owner){
     super(owner);
-    type = "move";
-    actionId = "pawn_move";
-    displayName = "Pawn Move";
+    this.setType("move");
+    this.setActionId("pawn_move");
+    this.setDisplayName("Pawn Move");
   }
 
   public boolean canUse(){
-    if (ownerPiece.getControllerObj().getActions() > 0){
+    if (this.getOwnerPiece().getControllerObj().getActions() > 0){
       return true;
     }
     else{
@@ -82,17 +96,17 @@ class PawnMove extends Action {
   }
 
   public boolean onUse(){
-    int[] loc = UI.requestLocation();
-    Board gameboard = ownerPiece.getBoard();
-    int[] myLoc = ownerPiece.getLocation();
-    if (Utility.collisionPoint(gameboard, myLoc, Utility.diffVector(loc, myLoc)) == null){
-      if (compareVectors(Utility.diffVector(loc, myLoc), Utility.formVector("1,0"))){
-        gameboard.movePiece(myLoc, loc, ownerPiece.getIndex())
+    int[] loc = UI.requestLocation(this.getOwnerPiece().getBoard(), this.getOwnerPiece().getControllerObj());
+    Board gameboard = this.getOwnerPiece().getBoard();
+    int[] myLoc = this.getOwnerPiece().getLocation();
+    if (Utility.collisionPoint(gameboard, myLoc, Utility.diffVectors(loc, myLoc)) == null){
+      if (Utility.compareVectors(Utility.diffVectors(loc, myLoc), Utility.formVector("1,0"))){
+        gameboard.movePiece(myLoc, loc, this.getOwnerPiece().getIndex());
         return true;
       }
-      if (compareVectors(Utility.diffVector(loc, myLoc), Utility.formVector("2,0"))){
-        if ((myLoc[1] <= 1 && ownerPiece.getController() == 0) || (myLoc[1] >= 6 && ownerPiece.getController() == 0)){
-          gameboard.movePiece(myLoc, loc, ownerPiece.getIndex())
+      if (Utility.compareVectors(Utility.diffVectors(loc, myLoc), Utility.formVector("2,0"))){
+        if ((myLoc[1] <= 1 && this.getOwnerPiece().getController() == 0) || (myLoc[1] >= 6 && this.getOwnerPiece().getController() == 0)){
+          gameboard.movePiece(myLoc, loc, this.getOwnerPiece().getIndex());
           return true;
         }
       }

@@ -24,7 +24,11 @@ class UI{
 
     public static void log(String s){} // Visually show a message to players.
 
-    public static int[] requestLocation(Board board, Player requestedPlayer){} // Request a square from a player. Note that this isn't called natively when requesting an action.
+    public static int[] requestLocation(Board board, Player requestedPlayer){
+        return null;
+    } // Request a square from a player. Note that this isn't called natively when requesting an action.
 
-    public static Action requestAction(Board board, Player requestedPlayer){} // Request an action from a player (usually the active player)
+    public static Action requestAction(Board board, Player requestedPlayer){
+        return null;
+    } // Request an action from a player (usually the active player)
 }

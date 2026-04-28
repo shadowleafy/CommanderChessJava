@@ -31,6 +31,10 @@ class Piece {
   public int getController(){
     return controller;
   }
+
+  public Player getControllerObj(){
+    return controllerObj;
+  }
   
   public String getPieceId(){
     return pieceId;

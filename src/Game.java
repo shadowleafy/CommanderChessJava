@@ -5,25 +5,22 @@ import java.util.Map;
 public class Game {
   
   public void gameLoop(Board board){
-    
-    Scanner scan = new Scanner(System.in);
-    
     // Determine active and passive players
     Player activePlayer = board.getActivePlayer();
     Player passivePlayer = board.getPassivePlayer();
     
     // Display status of current board
-    UI.log("Turn start!")
+    UI.log("Turn start!");
     UI.log("It is currently turn " + board.getTurnNumber() + ", and the active player is player " + activePlayer.getDisplayName() + ".");
     board.printBoardState();
-    UI.updateBoard();
+    UI.updateBoard(board);
     
     // Check for on turn start triggers
     for (ArrayList<Piece>[] arr : board.getBoardstate()){
       for (ArrayList<Piece> arrl : arr){
         for (Piece piece : arrl){
           piece.onTurnStart();
-          UI.updateBoard();
+          UI.updateBoard(board);
         }
       }
     }
@@ -32,8 +29,8 @@ public class Game {
     boolean done = false;
     while (!done){
       	Action requestedAction = UI.requestAction(board, activePlayer);
-        if (requestedAction.getActionId.equals("end_turn")){
-            done == true;
+        if (requestedAction.getActionId().equals("end_turn")){
+            done = true;
         }
         else if (requestedAction.canUse()){
             // Check for on action use triggers
@@ -43,7 +40,7 @@ public class Game {
                 for (ArrayList<Piece> arrl : arr){
                   for (Piece piece : arrl){
                     piece.onActionUse(requestedAction);
-                    UI.updateBoard();
+                    UI.updateBoard(board);
                   }
                 }
               }
@@ -51,7 +48,7 @@ public class Game {
             
         }
         else{
-            UI.log("Sorry, " + activePlayer + ", this move is illegal. Please select a different move.")
+            UI.log("Sorry, " + activePlayer + ", this move is illegal. Please select a different move.");
         }
     }
 
@@ -60,7 +57,7 @@ public class Game {
       for (ArrayList<Piece> arrl : arr){
         for (Piece piece : arrl){
           piece.onTurnEnd();
-          UI.updateBoard();
+          UI.updateBoard(board);
         }
       }
     }
