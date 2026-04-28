@@ -89,7 +89,8 @@ public class Game {
   
   public void characterSelection(){
     UI.generateCharacterSelectUI();
-    
+    UI.awaitPieceSelection("WHITE COMMANDER", 0, Constants.COMMANDER_IDS);
+    UI.awaitPieceSelection("BLACK COMMANDER", 0, Constants.COMMANDER_IDS);
   }
   
   public void beginGame(){

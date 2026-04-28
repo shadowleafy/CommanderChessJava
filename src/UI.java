@@ -22,7 +22,7 @@ class UI{
         return null;
     } // Await a selection in the main menu. Check Game.java for the desired outputs.
 
-    public static Piece awaitCommanderSelection(){
+    public static Piece awaitPieceSelection(String title, int color, String[] pieceChoices){
         return null;
     } // Await a selection of commander from a player. Use the constant Constant.COMMANDER_IDS (and Utility.idToPiece) to get the list.
 
