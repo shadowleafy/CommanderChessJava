@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 
 class UI{
@@ -13,11 +14,17 @@ class UI{
         board = b;
     }
 
+    public static void start(){
+
+    } // generate 
+
     public static void updateUI(){
         
     }
 
-    public static void clearUI(){} // Completely clear the UI (for changing between screens)
+    public static void clearUI(){
+
+    } // Completely clear the UI (for changing between screens)
 
     public static void generateGameUI(){} // Generate the basic UI for playing the game.
 
@@ -25,8 +32,8 @@ class UI{
     //call before generating game
     
     public static void generateMainMenu(){
-
-    } // Generate the basic UI for the main menu (play, menu, etc).
+        
+    } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends)
 
     public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
 
