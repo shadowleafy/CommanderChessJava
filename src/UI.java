@@ -9,13 +9,11 @@ class UI{
     // These are the general idea of methods we'll need
 
     private static Board board;
-
-    public UI(Board b){
-        board = b;
-    }
+    private static JFrame frame;
 
     public static void start(){
-
+        frame = new JFrame();
+        frame.setTitle("Commander Chess");
     } // generate 
 
     public static void updateUI(){
@@ -33,7 +31,7 @@ class UI{
     
     public static void generateMainMenu(){
         
-    } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends)
+    } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
     public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
 
