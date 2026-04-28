@@ -14,6 +14,7 @@ class Piece {
   private ArrayList<String> tags;
   private Map<String, Integer> counters;
   private int[] location;
+  private int index;
   
   private Board gameboard;
  
@@ -67,6 +68,14 @@ class Piece {
   public int[] getLocation(){
     return location;
   }
+
+  public Board getBoard(){
+    return gameboard;
+  }
+
+  public int getIndex(){
+    return index;
+  }
   
   public void setController(int ctrl){
     controller = ctrl;
@@ -93,6 +102,10 @@ class Piece {
   
   public void setLocation(int[] loc){
     location = loc;
+  }
+
+  public void setIndex(int input){
+    index = input;
   }
   
   public void addHealth(int h){

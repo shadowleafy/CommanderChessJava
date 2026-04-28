@@ -91,6 +91,26 @@ class Utility {
       return null;
     }
   }
+
+  public static boolean compareVectors(int[] a, int[] b){
+    if (a.length == b.length){
+      for (int = 0; i < a.length; i++){
+        if (a[i] != b[i]){
+          return false;
+        }
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static int[] formVector(String input){
+    int[] output = new int[countInString(input, ",")];
+    for (int i = 0; i < output.length; i++){
+      output[i] = input.substring(0, input.indexOf(","));
+      input = input.substring(input.indexOf(",")+1);
+    }
+  }
   
   public static int[] collisionPoint(Piece[][] gameboard, int[] start, int[] rayValue){
     int[] newStart = copyArray(start);
@@ -106,5 +126,14 @@ class Utility {
   
   public static String convertChessNotation(int[] loc){
     return Constants.LETTERS[loc[0]] + (loc[1] + 1);
+  }
+
+  public static countInString(String input, String target){
+    int count = 0;
+    while (input.indexOf(target) != -1){
+      count++;
+      input = input.substring(input.indexOf(target) + 1);
+    }
+    return count;
   }
 }

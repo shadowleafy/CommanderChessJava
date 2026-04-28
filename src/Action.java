@@ -73,7 +73,7 @@ class PawnMove extends Action {
   }
 
   public boolean canUse(){
-    if (ownerPiece.getController().getActions() > 0){
+    if (ownerPiece.getControllerObj().getActions() > 0){
       return true;
     }
     else{
@@ -83,6 +83,22 @@ class PawnMove extends Action {
 
   public boolean onUse(){
     int[] loc = UI.requestLocation();
+    Board gameboard = ownerPiece.getBoard();
+    int[] myLoc = ownerPiece.getLocation();
+    if (Utility.collisionPoint(gameboard, myLoc, Utility.diffVector(loc, myLoc)) == null){
+      if (compareVectors(Utility.diffVector(loc, myLoc), Utility.formVector("1,0"))){
+        gameboard.movePiece(myLoc, loc, ownerPiece.getIndex())
+        return true;
+      }
+      if (compareVectors(Utility.diffVector(loc, myLoc), Utility.formVector("2,0"))){
+        if ((myLoc[1] <= 1 && ownerPiece.getController() == 0) || (myLoc[1] >= 6 && ownerPiece.getController() == 0)){
+          gameboard.movePiece(myLoc, loc, ownerPiece.getIndex())
+          return true;
+        }
+      }
+      return false;
+    }
+    return false;
   }
 }
 

@@ -113,6 +113,7 @@ class Board {
     Piece startPiece = boardstate[start[1]][start[0]].get(index);
     boardstate[end[1]][end[0]].add(startPiece);
     startPiece.setLocation(end);
+    startPiece.setIndex(boardstate[end[1]][end[0]].size()-1);
     boardstate[start[1]][start[0]].remove(index);
     startPiece.onMoveFrom(start);
     startPiece.onMoveTo(end);
