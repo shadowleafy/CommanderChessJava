@@ -10,8 +10,9 @@ class Board {
   private Player white;
   private Player black;
   private Map<String, Integer> globalVariables;
+  private Game game;
   
-  public Board(int x, int y, Player whitePlayer, Player blackPlayer){
+  public Board(int x, int y, Player whitePlayer, Player blackPlayer, Game game){
     boardstate = new ArrayList[y][x];
     globalVariables = new HashMap<String, Integer>();
     for (int i=0; i < y; i++){
@@ -30,7 +31,7 @@ class Board {
         boardstate[7-y][x].add(black.getPieces()[black.getStartingSetup()[y][x]]);
       }
     }
-
+    this.game = game;
   }
   
   public int getTurnNumber(){
@@ -55,7 +56,18 @@ class Board {
   public ArrayList<Piece>[][] getBoardstate(){
     return boardstate;
   }
-  
+
+  public Game getGame(){
+    return game;
+  }
+
+  public int getGlobalVariable(String key){
+    if (globalVariables.containsKey(key)){
+      return globalVariables.get(key);
+    }
+    return 0;
+  }
+
   public ArrayList<Piece> getSquareState(int x, int y){
     return boardstate[y][x];
   }
@@ -99,7 +111,7 @@ class Board {
           if (Utility.inArrayList(targetPiece.getTags(), "dead") && !Utility.inArrayList(targetPiece.getTags(), "indestructible")){
             boardstate[i][j].remove(k);
             if (Utility.inArrayList(targetPiece.getTags(), "isCommander")){
-              declareWinner(1-targetPiece.getController());
+              game.declareWinner(1-targetPiece.getController());
             }
             targetPiece.onDeath();
           }
@@ -126,10 +138,10 @@ class Board {
     defendingPiece.processCapturedBy(attackingPiece);
     attackingPiece.onCapturePiece(defendingPiece);
     defendingPiece.onCapturedBy(attackingPiece);
-  } 
-  
-  public void declareWinner(int winner){
-    // Implement later
+  }
+
+  public void setGlobalVariable(String key, int val){
+    globalVariables.put(key, val);
   }
   
 }

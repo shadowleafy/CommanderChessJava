@@ -8,4 +8,8 @@ class Constants {
                                             {5, 5, 5, 5, 5, 5, 5, 5}};
   public static final String SYSTEM_NAME = "SYSTEM";
   public static final String[] LETTERS = {"a", "b", "c", "d", "e", "f", "g", "h"};
+  public static final String[] COMMANDER_IDS = {};
+  public static final Map<String, String[]> COMMANDER_PIECES = Map.of(
+  
+  );
 }

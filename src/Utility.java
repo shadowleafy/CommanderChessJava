@@ -138,4 +138,14 @@ class Utility {
     }
     return count;
   }
+
+  public static Piece idToPiece(String id){
+    // TODO: Figure out how to do this without having to do a billion if loops.
+    return null;
+  }
+
+  public static Action idToAction(String id){
+    // TODO: Figure out how to do this without having to do a billion if loops.
+    return null;
+  }
 }

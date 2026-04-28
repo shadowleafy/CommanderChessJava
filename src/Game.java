@@ -3,8 +3,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Game {
+
+  private Board board;
+  private String nextMenu;
+
+  public void setBoard(Board board){
+    this.board = board;
+    this.nextMenu = "main";
+  }
+
+  public Board getBoard(Board board){
+    return board;
+  }
+
+  public String getNextMenu(){
+    return nextMenu;
+  }
+
+  public void setNextMenu(String value){
+    nextMenu = value;
+  }
   
-  public void gameLoop(Board board){
+  public void gameLoop(){
     // Determine active and passive players
     Player activePlayer = board.getActivePlayer();
     Player passivePlayer = board.getPassivePlayer();
@@ -68,14 +88,37 @@ public class Game {
   }
   
   public void characterSelection(){
+    UI.generateCharacterSelectUI();
     
   }
   
-  public void beginGame(Board board){
+  public void beginGame(){
     
   }
+
+  public void declareWinner(int winner){
+    // somehow stop all thre threads, implement later.
+    String winnerName;
+    winnerName = board.getPlayerObject(winner).getDisplayName();
+    UI.popupMessage("The game has ended. " + winnerName + " has won! Congratulations!");
+    nextMenu = "main";
+  }
   public static void main(String[] args) {
-    System.out.println("Hello Codiva");
-    
+    Game game = new Game();
+    while(!game.getNextMenu().equals("quit")){
+      if (game.getNextMenu().equals("main")){
+        UI.clearUI();
+        UI.generateMainMenu();
+      }
+      else if (game.getNextMenu().equals("characterSelection")){
+        game.characterSelection();
+      }
+      else if (game.getNextMenu().equals("tutorial")){
+        game.tutorial();
+      }
+      game.setNextMenu(UI.awaitMenuSelection());
+    }
+    System.exit(0);
+
   }
 }

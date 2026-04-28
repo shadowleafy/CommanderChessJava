@@ -18,11 +18,21 @@ class UI{
 
     public static void generateMainMenu(){} // Generate the basic UI for the main menu.
 
+    public static String awaitMenuSelection(){
+        return null;
+    } // Await a selection in the main menu. Check Game.java for the desired outputs.
+
+    public static Piece awaitCommanderSelection(){
+        return null;
+    } // Await a selection of commander from a player. Use the constant Constant.COMMANDER_IDS (and Utility.idToPiece) to get the list.
+
     public static void updateBoard(Board b){
         board = b;
     } // Visually update the board to match the current boardstate.
 
-    public static void log(String s){} // Visually show a message to players.
+    public static void log(String s){} // Visually show a message to players in a scrolling chat menu.
+
+    public static void popupMessage(String s){} // Visually show a message that must be manually closed.
 
     public static int[] requestLocation(Board board, Player requestedPlayer){
         return null;

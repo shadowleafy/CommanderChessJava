@@ -116,17 +116,17 @@ class Piece {
     health += h;
     if (Utility.inArrayList(tags, "isCommander")){
       if (h > 0){
-      	Interact.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health has increased by " + h + " to " + health + " !");
+      	UI.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health has increased by " + h + " to " + health + " !");
       }
       else if (h < 0){
-        Interact.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health has decreased by " + (-h) + " to " + health + " !");
+        UI.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health has decreased by " + (-h) + " to " + health + " !");
       }
       else{
-        Interact.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health remained unchanged!");
+        UI.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health remained unchanged!");
       }
     }
     if (health <= 0){
-      Interact.log(displayName + " has died!");
+      UI.log(displayName + " has died!");
       Utility.noRepeatAdd(tags, "dead");
     }
   }
@@ -159,7 +159,7 @@ class Piece {
   public void onCapturedBy(Piece p){}
   
   public void processCapturePiece(Piece p){
-    Interact.log(displayName + " has captured " + p.getDisplayName() + " on square " + Utility.convertChessNotation(location) + "!");
+    UI.log(displayName + " has captured " + p.getDisplayName() + " on square " + Utility.convertChessNotation(location) + "!");
     Utility.noRepeatAdd(tags, "hasCapturedThisTurn");
   }
   
