@@ -1,3 +1,6 @@
+import javax.swing.*;
+
+
 class UI{
 
     // UI code here please :3
@@ -6,6 +9,11 @@ class UI{
 
     private static Board board;
 
+    public UI(Board b){
+        board = b;
+    }
+
+    public void updateUI(){}
     public static void updateUI(){
         
     }
@@ -14,8 +22,17 @@ class UI{
 
     public static void generateGameUI(){} // Generate the basic UI for playing the game.
 
+    public void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
+    //call before generating game
+    
+    public void generateMainMenu(){
+
+    } // Generate the basic UI for the main menu (play, menu, etc).
+
     public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
 
+    public void updateBoard(Board board){
+        this.board = board;
     public static void generateMainMenu(){} // Generate the basic UI for the main menu.
 
     public static String awaitMenuSelection(){
