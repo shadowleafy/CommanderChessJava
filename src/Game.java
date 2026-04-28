@@ -112,7 +112,6 @@ public class Game {
     UI.start();
     while(!game.getNextMenu().equals("quit")){
       if (game.getNextMenu().equals("main")){
-        UI.clearUI();
         UI.generateMainMenu();
       }
       else if (game.getNextMenu().equals("characterSelection")){
