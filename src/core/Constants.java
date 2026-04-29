@@ -11,6 +11,6 @@ public class Constants {
   public static final String[] LETTERS = {"a", "b", "c", "d", "e", "f", "g", "h"};
   public static final String[] COMMANDER_IDS = {};
   public static final Map<String, String[]> COMMANDER_PIECES = Map.of(
-  
+    
   );
 }

@@ -7,6 +7,8 @@ public class Game {
 
   private Board board;
   private String nextMenu;
+  
+  public static Map<String, String> languageMap;
 
   public void setBoard(Board board){
     this.board = board;
@@ -31,7 +33,8 @@ public class Game {
     Player passivePlayer = board.getPassivePlayer();
     
     // Display status of current board
-    UI.log("Turn start!");
+    UI.log(languageMap.get("turn_start"));
+    // for dynamic messages like this, ill have to do something more clever
     UI.log("It is currently turn " + board.getTurnNumber() + ", and the active player is player " + activePlayer.getDisplayName() + ".");
     board.printBoardState();
     UI.updateBoard(board);
@@ -90,7 +93,8 @@ public class Game {
   
   public void characterSelection(){
     UI.generateCharacterSelectUI();
-    
+    UI.awaitPieceSelection("WHITE COMMANDER", 0, Constants.COMMANDER_IDS);
+    UI.awaitPieceSelection("BLACK COMMANDER", 0, Constants.COMMANDER_IDS);
   }
   
   public void beginGame(){
@@ -106,9 +110,9 @@ public class Game {
   }
   public static void main(String[] args) {
     Game game = new Game();
+    UI.start();
     while(!game.getNextMenu().equals("quit")){
       if (game.getNextMenu().equals("main")){
-        UI.clearUI();
         UI.generateMainMenu();
       }
       else if (game.getNextMenu().equals("characterSelection")){

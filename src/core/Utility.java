@@ -145,8 +145,9 @@ public class Utility {
     return null;
   }
 
-  public static Action idToAction(String id){
-    // TODO: Figure out how to do this without having to do a billion if loops.
+  public static Action idToActionObj(String id){
+    switch(id){
+    }
     return null;
   }
 }

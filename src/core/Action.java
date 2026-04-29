@@ -73,7 +73,7 @@ class Done extends Action {
       super(owner);
       this.setType("menu");
       this.setActionId("end_turn");
-      this.setDisplayName("End Turn");
+      this.setDisplayName(Game.languageMap.get("end_turn_button"));
     }
 }
 
@@ -84,7 +84,7 @@ class PawnMove extends Action {
     super(owner);
     this.setType("move");
     this.setActionId("pawn_move");
-    this.setDisplayName("Pawn Move");
+    this.setDisplayName(game.languageMap.get("pawn_move_display_name"));
   }
 
   public boolean canUse(){
