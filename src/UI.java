@@ -18,7 +18,7 @@ class UI{
         frame.setTitle("Commander Chess");
 
         JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(80,30,10,30));
+        panel.setBorder(BorderFactory.createEmptyBorder(80,30,10,30)); //probably edit so resizing works later
 
         playButton = new JButton();
         JLabel playLabel = new JLabel("Play");
