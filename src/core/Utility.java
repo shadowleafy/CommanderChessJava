@@ -8,6 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Utility {
+
+  public static int gcd(int a, int b){
+    int q = a / b;
+    int r = a % b;
+    int lastR = b;
+    while (r != 0){
+      lastR = r;
+      int temp = q / r;
+      r = q % r;
+      q = temp;
+    }
+    return lastR;
+  }
   
   public static boolean inArrayList(ArrayList<String> object, String target){
     for (String k : object){
@@ -75,6 +88,14 @@ public class Utility {
     int temp = arr[indexOne];
     arr[indexOne] = arr[indexTwo];
     arr[indexTwo] = temp;
+  }
+
+  public static int[] simplifyVector(int[] input){
+    int[] output = copyArray(input);
+    int gcd = gcd(output[0], output[1]);
+    output[0] /= gcd;
+    output[1] /= gcd;
+    return output;
   }
   
   public static int[] sumVectors(int[] a, int[] b){
@@ -217,22 +238,42 @@ public class Utility {
     }
     return output;
   }
-
-  public static boolean checkMoveValidity(Board board, int[] start, int[] end, int[] movement, boolean passthrough, boolean symmetric){
-    if (passthrough){
-      if (symmetric){
-        return (compareVectorsSymmetric(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+// make sure that movement is not simplifyable if you are doing ray
+  public static boolean checkMoveValidity(Board board, int[] start, int[] end, int[] movement, boolean passthrough, boolean symmetric, boolean continuous){
+    if (continuous){
+      if (passthrough){
+        if (symmetric){
+          return (compareVectorsSymmetric(movement, simplifyVector(diffVectors(end, start))) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+        }
+        else{
+          return (compareVectors(movement, simplifyVector(diffVectors(end, start))) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+        }
       }
       else{
-        return (compareVectors(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+        if (symmetric){
+          return (compareVectorsSymmetric(movement, simplifyVector(diffVectors(end, start))) && collisionPoint(board, start, diffVectors(end, start)) == null);
+        }
+        else{
+          return (compareVectors(movement, simplifyVector(diffVectors(end, start))) && collisionPoint(board, start, diffVectors(end, start)) == null);
+        }
       }
     }
     else{
-      if (symmetric){
-        return (compareVectorsSymmetric(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
+      if (passthrough){
+        if (symmetric){
+          return (compareVectorsSymmetric(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+        }
+        else{
+          return (compareVectors(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+        }
       }
       else{
-        return (compareVectors(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
+        if (symmetric){
+          return (compareVectorsSymmetric(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
+        }
+        else{
+          return (compareVectors(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
+        }
       }
     }
   }

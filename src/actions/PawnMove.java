@@ -20,12 +20,12 @@ public class PawnMove extends Action {
     int[] loc = UI.requestLocation(this.getOwnerPiece().getControllerObj());
     Board gameboard = this.getOwnerPiece().getBoard();
     int[] myLoc = this.getOwnerPiece().getLocation();
-    if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.colorshiftVector(Utility.formVector("0,1"), getOwnerPiece().getController()), false, false)){
+    if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.colorshiftVector(Utility.formVector("0,1"), getOwnerPiece().getController()), false, false, false)){
       getOwnerPiece().movePiece(loc);
       return true;
     }
     else if (Utility.colorshiftLocation(myLoc, getOwnerPiece().getController())[1] == 1){
-      if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.colorshiftVector(Utility.formVector("0,2"), getOwnerPiece().getController()), false, false)){
+      if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.colorshiftVector(Utility.formVector("0,2"), getOwnerPiece().getController()), false, false, false)){
         getOwnerPiece().movePiece(loc);
         return true;
       }

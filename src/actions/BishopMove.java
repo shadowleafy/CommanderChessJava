@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KnightMove extends Action{
-    
-    public KnightMove(Piece owner){
+public class BishopMove extends Action {
+
+    public BishopMove(Piece owner){
         super(owner);
         this.setType("move");
-        this.setActionId("knight_move");
+        this.setActionId("bishop_move");
         // set display name once translation is done better.
     }   
 
@@ -20,12 +20,11 @@ public class KnightMove extends Action{
         int[] loc = UI.requestLocation(this.getOwnerPiece().getControllerObj());
         Board gameboard = this.getOwnerPiece().getBoard();
         int[] myLoc = this.getOwnerPiece().getLocation();
-        if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.formVector("2,1"), true, true,  false)){
+        if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.formVector("1,1"), false, true,  true)){
             getOwnerPiece().movePiece(loc);
             return true;
         }
         return false;
     }
-
 
 }
