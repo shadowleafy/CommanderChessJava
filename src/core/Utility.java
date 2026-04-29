@@ -141,13 +141,17 @@ public class Utility {
   }
 
   public static Piece idToPiece(String id){
-    // TODO: Figure out how to do this without having to do a billion if loops.
-    return null;
+    Piece output = null;
+    return output;
   }
 
-  public static Action idToActionObj(String id){
+  public static Action idToActionObj(String id, Piece owner){
+    Action output = null;
     switch(id){
+      case "pawn_move":
+        output = new PawnMove(owner);
+      break;
     }
-    return null;
+    return output;
   }
 }

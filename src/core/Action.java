@@ -84,7 +84,7 @@ class PawnMove extends Action {
     super(owner);
     this.setType("move");
     this.setActionId("pawn_move");
-    this.setDisplayName(game.languageMap.get("pawn_move_display_name"));
+    this.setDisplayName(Game.languageMap.get("pawn_move_display_name"));
   }
 
   public boolean canUse(){
