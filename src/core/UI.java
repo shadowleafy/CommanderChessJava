@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-class UI{
+public class UI{
 
     // UI code here please :3
 
