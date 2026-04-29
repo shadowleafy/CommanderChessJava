@@ -9,28 +9,28 @@ import java.util.Map;
 
 class Translation{
 
-    public static final Map<String, String> ENGLISH = Map.ofEntries(
+    private static Map<String, String> selectedDictionary;
 
-        // System Messages
-        Map.entry("turn_start", "Turn Start!"),
+    public static void setDict(String language){
+        selectedDictionary = Constant.DICT_MAP.get(language);
+    }
 
-        // Menu Buttons
+    public static String getStatic(String id){
+        return selectedDictionary.get(id);
+    }
 
-        Map.entry("end_turn_button", "End Turn"),
+    // For dynamic messages, send in the format of <Object.property>.
+    public static String convertDynamic(String message, Game game, Board board, Piece piece, Action action, Player player){
+        return null; // im doing this later
+    }
 
-        // Action display names
-
-        Map.entry("pawn_move_display_name", "Pawn Move")
-
-        // Piece display names
-    );
-
-    public static final Map<String, String> CHINESE = Map.of(
-
-    );
-
-    public static final Map<String, String> JAPANESE = Map.of(
-
-    );
+    public static String getDynamic(String id, Game game, Board board, Piece piece, Action action, Player player){
+        String preMessage = selectedDictionary.get(id);
+        while (preMessage.indexOf("<") != -1){
+            String conversion = convertDynamic(preMessage.substring(preMessage.indexOf("<")+1, preMessage.indexOf(">")), game, board, piece, action, player);
+            preMessage = preMessage.substring(0, preMessage.indexOf("<")) + conversion + preMessage.substring(preMessage.indexOf(">")+1);
+        }
+        return preMessage;
+    }
 
 }

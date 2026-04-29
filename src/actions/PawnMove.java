@@ -13,7 +13,6 @@ public class PawnMove extends Action {
     super(owner);
     this.setType("move");
     this.setActionId("pawn_move");
-    this.setDisplayName(Game.languageMap.get("pawn_move_display_name"));
   }
 
   public boolean onUse(){

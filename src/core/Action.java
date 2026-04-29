@@ -12,6 +12,7 @@ public class Action {
   private String type;
   private String actionId;
   private String displayName;
+  private String description;
   private Piece ownerPiece;
   private ArrayList<String> tags;
   
@@ -32,6 +33,10 @@ public class Action {
     return displayName;
   }
 
+  public String getDescription(){
+    return description;
+  }
+
   public Piece getOwnerPiece(){
     return ownerPiece;
   }
@@ -50,6 +55,10 @@ public class Action {
 
   public void setOwnerPiece(Piece piece){
     ownerPiece = piece;
+  }
+
+  public void setDescription(String d){
+    description = d;
   }
 
   public void addTag(String tag){
@@ -77,7 +86,6 @@ class Done extends Action {
       super(owner);
       this.setType("menu");
       this.setActionId("end_turn");
-      this.setDisplayName(Game.languageMap.get("end_turn_button"));
     }
 }
 

@@ -14,7 +14,7 @@ public class Game {
   private boolean winnerDeclared;
   private int winner;
   
-  public static Map<String, String> languageMap;
+  public static String language;
 
   public Game(){
     winnerDeclared = false;
@@ -44,8 +44,7 @@ public class Game {
     Player passivePlayer = board.getPassivePlayer();
     
     // Display status of current board
-    UI.log(languageMap.get("turn_start"));
-    // for dynamic messages like this, ill have to do something more clever
+    // the something more clever is now happening
     UI.log("It is currently turn " + board.getTurnNumber() + ", and the active player is player " + activePlayer.getDisplayName() + ".");
     board.printBoardState();
     UI.updateBoard(board);

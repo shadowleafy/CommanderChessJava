@@ -20,4 +20,19 @@ public class Constant {
   public static final Map<String, int[][]> SETUPS = Map.ofEntries(
 
   );
+
+  // Translation stuffs :3
+
+  public static final Map<String, String> ENGLISH_DICT = Map.ofEntries();
+  public static final Map<String, String> CHINESE_DICT = Map.ofEntries();
+  public static final Map<String, String> JAPANESE_DICT = Map.ofEntries();
+
+  public static final Map<String, Map<String, String>> DICT_MAP = Map.ofEntries(
+
+    Map.entry("english", ENGLISH_DICT),
+    Map.entry("chinese", CHINESE_DICT),
+    Map.entry("japanese", JAPANESE_DICT)
+
+  );
+
 }
