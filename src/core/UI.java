@@ -69,9 +69,9 @@ public class UI{
         return null;
     } // Await a selection in the main menu. Check Game.java for the desired outputs.
 
-    public static Piece awaitPieceSelection(String title, int color, String[] pieceChoices){
+    public static String awaitPieceSelection(String title, int color, String[] pieceChoices){
         return null;
-    } // Await a selection of commander from a player. Use the constant Constant.COMMANDER_IDS (and Utility.idToPiece) to get the list.
+    } // Await a selection of commander from a player. Just return the ID, I can do the rest.
 
     public static void updateBoard(Board b){
         board = b;
@@ -79,13 +79,21 @@ public class UI{
 
     public static void log(String s){} // Visually show a message to players in a scrolling chat menu.
 
+    public static boolean awaitConfirmation(String message){
+        return false;
+    }
+
     public static void popupMessage(String s){} // Visually show a message that must be manually closed.
 
-    public static int[] requestLocation(Board board, Player requestedPlayer){
+    public static String awaitName(int color){
+        return null;
+    } // Ask for the name of the player of that color. Use in a popup in the character selection menu.
+
+    public static int[] requestLocation(Player requestedPlayer){
         return null;
     } // Request a square from a player. Note that this isn't called natively when requesting an action.
 
-    public static Action requestAction(Board board, Player requestedPlayer){
+    public static Action requestAction(Player requestedPlayer){
         return null;
     } // Request an action from a player (usually the active player)
 }

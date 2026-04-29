@@ -25,7 +25,7 @@ public class PawnMove extends Action {
   }
 
   public boolean onUse(){
-    int[] loc = UI.requestLocation(this.getOwnerPiece().getBoard(), this.getOwnerPiece().getControllerObj());
+    int[] loc = UI.requestLocation(this.getOwnerPiece().getControllerObj());
     Board gameboard = this.getOwnerPiece().getBoard();
     int[] myLoc = this.getOwnerPiece().getLocation();
     if (Utility.collisionPoint(gameboard, myLoc, Utility.diffVectors(loc, myLoc)) == null){

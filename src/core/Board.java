@@ -80,8 +80,8 @@ public class Board {
   public void printBoardState(){
     String[][] output = new String[boardstate.length+4][boardstate[0].length+4];
     for (int i = 0; i < output[output.length-1].length; i++){
-      output[0][i] = Constants.LETTERS[i];
-      output[output.length-1][i] = Constants.LETTERS[i];
+      output[0][i] = Constant.LETTERS[i];
+      output[output.length-1][i] = Constant.LETTERS[i];
       output[1][i] = "-";
       output[output.length-2][i] = "-";
     }

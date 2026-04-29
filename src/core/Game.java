@@ -56,7 +56,7 @@ public class Game {
     activePlayer.setActions(1);
     boolean done = false;
     while (!done){
-      	Action requestedAction = UI.requestAction(board, activePlayer);
+      	Action requestedAction = UI.requestAction(activePlayer);
         if (requestedAction.getActionId().equals("end_turn")){
             done = true;
         }
@@ -97,8 +97,55 @@ public class Game {
   
   public void characterSelection(){
     UI.generateCharacterSelectUI();
-    UI.awaitPieceSelection("WHITE COMMANDER", 0, Constants.COMMANDER_IDS);
-    UI.awaitPieceSelection("BLACK COMMANDER", 0, Constants.COMMANDER_IDS);
+    String whiteName = "";
+    String blackName = "";
+    String whiteCommanderId = "";
+    String blackCommanderId = "";
+    Piece[] whitePieces = null;
+    Piece[] blackPieces = null;
+    boolean done = false;
+    while(!done){
+      whiteCommanderId = UI.awaitPieceSelection("WHITE COMMANDER", 0, Constant.COMMANDER_IDS);
+      whitePieces = new Piece[6];
+      whitePieces[0] = Utility.idToPiece(whiteCommanderId);
+      for (int i = 1; i < 6; i++){
+        String[] possiblePieces = Constant.COMMANDER_PIECES.get(whiteCommanderId);
+        if (possiblePieces.length == 1){
+          whitePieces[i] = Utility.idToPiece(possiblePieces[0]);
+        }
+        else{
+          // Specify the piece with Translation.java later.
+          whitePieces[i] = Utility.idToPiece(UI.awaitPieceSelection("SELECT PIECE (WHITE)", 0, possiblePieces));
+        }
+      }  
+      blackCommanderId = UI.awaitPieceSelection("BLACK COMMANDER", 0, Constant.COMMANDER_IDS);
+      blackPieces = new Piece[6];
+      blackPieces[0] = Utility.idToPiece(blackCommanderId);
+      for (int i = 1; i < 6; i++){
+        String[] possiblePieces = Constant.COMMANDER_PIECES.get(blackCommanderId);
+        if (possiblePieces.length == 1){
+          blackPieces[i] = Utility.idToPiece(possiblePieces[0]);
+        }
+        else{
+          // Specify the piece with Translation.java later.
+          blackPieces[i] = Utility.idToPiece(UI.awaitPieceSelection("SELECT PIECE (WHITE)", 0, possiblePieces));
+        }
+      }  
+
+      whiteName = UI.awaitName(0);
+      blackName = UI.awaitName(1);
+
+      done = UI.awaitConfirmation("Ready to begin?");
+    }
+    // Okay, we have the players!
+
+    Player whitePlayer = new Player(0, whiteName, whitePieces, Constant.SETUPS.get(whiteCommanderId), Utility.idToPiece(whiteCommanderId));
+    Player blackPlayer = new Player(0, blackName, blackPieces, Constant.SETUPS.get(blackCommanderId), Utility.idToPiece(blackCommanderId));
+
+    // Let's make the board!
+
+    this.board = new Board(8, 8, whitePlayer, blackPlayer, this);
+    beginGame();
   }
   
   public void beginGame(){

@@ -12,27 +12,25 @@ public class Player {
   private int color;
   private int actions;
   private String displayName;
-  private CommanderPiece commander;
+  private Piece commander;
   private Piece[] pieceArray;
   private int[][] startingSetup;
   
   // Precondition: pieces.length == 6 (can >6 but additional indicies will be ignored)
-  public Player(int c, String n, Piece[] pieces, CommanderPiece cmdr){
-    color = c;
-    actions = 0;
-    displayName = n;
-    pieceArray = pieces; // [Commander, Champion, Captain, Calvary, Support, Soldier] order.
-    commander = cmdr;
-    startingSetup = Constants.DEFAULT_BOARDSTATE;
-  }
   
-  public Player(int c, String n, Piece[] pieces, int[][] customStartingSetup){
+  public Player(int c, String n, Piece[] pieces, int[][] customStartingSetup, Piece cmdr){
     color = c;
     actions = 0;
     displayName = n;
     pieceArray = pieces;
     // For custom starting setups, start from the bottom row and go up. Never go past four rows because otherwise my program won't like you.
-    startingSetup = customStartingSetup;
+    if (!(customStartingSetup == null)){
+      startingSetup = customStartingSetup;
+    }
+    else{
+      startingSetup = Constant.DEFAULT_BOARDSTATE;
+    }
+    commander = cmdr;
   }
   
   public int getColor(){
@@ -53,6 +51,10 @@ public class Player {
   
   public int[][] getStartingSetup(){
     return startingSetup;
+  }
+
+  public Piece getCommander(){
+    return commander;
   }
   
   public void addActions(int num){

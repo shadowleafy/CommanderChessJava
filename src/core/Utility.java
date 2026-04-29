@@ -132,7 +132,7 @@ public class Utility {
   }
   
   public static String convertChessNotation(int[] loc){
-    return Constants.LETTERS[loc[0]] + (loc[1] + 1);
+    return Constant.LETTERS[loc[0]] + (loc[1] + 1);
   }
 
   public static int countInString(String input, String target){
