@@ -1,5 +1,12 @@
 package core;
 
+import actions.*;
+import pieces.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -82,6 +89,14 @@ public class UI{
     public static boolean awaitConfirmation(String message){
         return false;
     }
+
+    public static ArrayList<Integer[]> awaitSquares(int expectedSquares){
+        return null;
+    }
+
+    public static ArrayList<Integer[]> awaitSquares(){
+        return null;
+    } // Just awaitSquares(int expectedSquares) but there isn't a specific number of expected squares, so the user must terminate on their end.
 
     public static void popupMessage(String s){} // Visually show a message that must be manually closed.
 
