@@ -47,7 +47,6 @@ class UI{
         
     } // Generate the basic UI for playing the game.
 
-    public static void generateGameUI(){} // Generate the basic UI for playing the game.
 
     public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
     //call before generating game
