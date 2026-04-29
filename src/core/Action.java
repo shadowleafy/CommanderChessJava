@@ -61,7 +61,7 @@ public class Action {
   }
   
   public boolean canUse(){
-    return true;
+    return (this.getOwnerPiece().getControllerObj().getActions() > 0);
   }
   
   public boolean onUse(){

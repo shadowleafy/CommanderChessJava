@@ -70,6 +70,12 @@ public class Utility {
     }
     return output;
   }
+
+  public static void swapValues(int[] arr, int indexOne, int indexTwo){
+    int temp = arr[indexOne];
+    arr[indexOne] = arr[indexTwo];
+    arr[indexTwo] = temp;
+  }
   
   public static int[] sumVectors(int[] a, int[] b){
     if (a.length == b.length){
@@ -97,10 +103,63 @@ public class Utility {
     }
   }
 
+  public static int[] colorshiftVector(int[] a, int color){
+    int[] output = copyArray(a);
+    if (color == 0){
+      return output;
+    }
+    else{
+      output[1] *= -1;
+      return output;
+    }
+  }
+
+  public static int[] colorshiftLocation(int[] a, int color){
+    int[] output = copyArray(a);
+    if (color == 0){
+      return output;
+    }
+    else{
+      output[1] = 7 - output[1];
+      return output;
+    }
+  }
+
   public static boolean compareVectors(int[] a, int[] b){
     if (a.length == b.length){
       for (int i = 0; i < a.length; i++){
         if (a[i] != b[i]){
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  public static int[] sortedAbs(int[] input){
+    int[] output = copyArray(input);
+    for (int i = 0; i < input.length; i++){
+      int minimum = Math.abs(output[i]);
+      int mindex = 0;
+      for (int j = i+1; j < input.length; j++){
+        if (Math.abs(output[j]) < minimum){
+          minimum = Math.abs(output[j]);
+          mindex = j;
+        }
+        swapValues(output, i, mindex);
+      }
+    }
+    return output;
+  }
+
+  public static boolean compareVectorsSymmetric(int[] a, int[] b){
+
+    if (a.length == b.length){
+      int[] aSorted = sortedAbs(a);
+      int[] bSorted = sortedAbs(b);
+      for (int i = 0; i < a.length; i++){
+        if (!(aSorted[i] == bSorted[i])){
           return false;
         }
       }
@@ -158,4 +217,24 @@ public class Utility {
     }
     return output;
   }
+
+  public static boolean checkMoveValidity(Board board, int[] start, int[] end, int[] movement, boolean passthrough, boolean symmetric){
+    if (passthrough){
+      if (symmetric){
+        return (compareVectorsSymmetric(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+      }
+      else{
+        return (compareVectors(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
+      }
+    }
+    else{
+      if (symmetric){
+        return (compareVectorsSymmetric(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
+      }
+      else{
+        return (compareVectors(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
+      }
+    }
+  }
+
 }

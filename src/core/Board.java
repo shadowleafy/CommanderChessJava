@@ -121,29 +121,21 @@ public class Board {
       }
     }
   }
-  
-  // Precondition: index >= 0, index < size of arraylist on that square, there is a piece on start.
-  public void movePiece(int[] start, int[] end, int index){
-    Piece startPiece = boardstate[start[1]][start[0]].get(index);
-    boardstate[end[1]][end[0]].add(startPiece);
-    startPiece.setLocation(end);
-    startPiece.setIndex(boardstate[end[1]][end[0]].size()-1);
-    boardstate[start[1]][start[0]].remove(index);
-    startPiece.onMoveFrom(start);
-    startPiece.onMoveTo(end);
-  }
-  
-  public void capturePieceOn(int[] start, int[] end, int indexAttacker, int indexDefender){
-    Piece attackingPiece = boardstate[start[1]][start[0]].get(indexAttacker);
-    Piece defendingPiece = boardstate[end[1]][end[0]].get(indexDefender);
-    attackingPiece.processCapturePiece(defendingPiece);
-    defendingPiece.processCapturedBy(attackingPiece);
-    attackingPiece.onCapturePiece(defendingPiece);
-    defendingPiece.onCapturedBy(attackingPiece);
-  }
 
   public void setGlobalVariable(String key, int val){
     globalVariables.put(key, val);
+  }
+
+  public void updateDataOnSquare(int[] loc){
+    for (int i = 0; i < boardstate[loc[1]][loc[0]].size(); i++){
+      Piece targetPiece = boardstate[loc[1]][loc[0]].get(i);
+      targetPiece.setIndex(i);
+      targetPiece.setLocation(loc);
+    }
+  }
+
+  public void updateAllData(){
+
   }
   
 }

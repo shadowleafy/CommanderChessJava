@@ -141,6 +141,29 @@ public class Piece {
     addTag("beenCapturedThisTurn");
     addTag("dead");
   }
+
+  public void movePiece(int[] end){
+    ArrayList<Piece>[][] boardstate = getBoard().getBoardstate();
+    int[] start = getLocation();
+    boardstate[end[1]][end[0]].add(this);
+    boardstate[start[1]][start[0]].remove(index);
+    getBoard().updateDataOnSquare(start);
+    getBoard().updateDataOnSquare(end);
+    onMoveFrom(start);
+    onMoveTo(end);
+  }
+
+  public void capturePieceOn(int[] end, int indexDefender){
+    ArrayList<Piece>[][] boardstate = getBoard().getBoardstate();
+    int[] start = getLocation();
+    Piece defendingPiece = boardstate[end[1]][end[0]].get(indexDefender);
+    processCapturePiece(defendingPiece);
+    defendingPiece.processCapturedBy(this);
+    onCapturePiece(defendingPiece);
+    defendingPiece.onCapturedBy(this);
+  }
+
+
 }
 
 
