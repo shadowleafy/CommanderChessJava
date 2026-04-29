@@ -1,8 +1,9 @@
+package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class Board {
+public class Board {
   
   private ArrayList<Piece>[][] boardstate;
   private int activePlayer;
@@ -110,9 +111,6 @@ class Board {
           // Am I dead?
           if (Utility.inArrayList(targetPiece.getTags(), "dead") && !Utility.inArrayList(targetPiece.getTags(), "indestructible")){
             boardstate[i][j].remove(k);
-            if (Utility.inArrayList(targetPiece.getTags(), "isCommander")){
-              game.declareWinner(1-targetPiece.getController());
-            }
             targetPiece.onDeath();
           }
         }

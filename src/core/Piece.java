@@ -1,12 +1,12 @@
+package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class Piece {
-  
+public class Piece {
+
   private int controller; // 0 means white, 1 means black
   private Player controllerObj;
-  private int health;
   private String pieceId;
   private String displayName;
   private String abbreviation;
@@ -52,10 +52,6 @@ class Piece {
     return actions;
   }
   
-  public int getHealth(){
-    return health;
-  }
-  
   public int getCounters(String id){
     for (String k : counters.keySet()){
       if (k.equals(id)){
@@ -97,38 +93,12 @@ class Piece {
     actions = a;
   }
   
-  public void setHealth(int h){
-    health = h;
-    if (health <= 0){
-      onDeath();
-    }
-  }
-  
   public void setLocation(int[] loc){
     location = loc;
   }
 
   public void setIndex(int input){
     index = input;
-  }
-  
-  public void addHealth(int h){
-    health += h;
-    if (Utility.inArrayList(tags, "isCommander")){
-      if (h > 0){
-      	UI.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health has increased by " + h + " to " + health + " !");
-      }
-      else if (h < 0){
-        UI.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health has decreased by " + (-h) + " to " + health + " !");
-      }
-      else{
-        UI.log(displayName + " (on " + Utility.convertChessNotation(location) + ")'s health remained unchanged!");
-      }
-    }
-    if (health <= 0){
-      UI.log(displayName + " has died!");
-      Utility.noRepeatAdd(tags, "dead");
-    }
   }
   
   public void addTag(String tag){
@@ -160,14 +130,12 @@ class Piece {
   
   public void processCapturePiece(Piece p){
     UI.log(displayName + " has captured " + p.getDisplayName() + " on square " + Utility.convertChessNotation(location) + "!");
-    Utility.noRepeatAdd(tags, "hasCapturedThisTurn");
+    addTag("hasCapturedThisTurn");
   }
   
   public void processCapturedBy(Piece p){
-    if (!Utility.inArrayList(tags, "shield")){
-      addHealth(-1);
-    }
-    Utility.noRepeatAdd(tags, "beenCapturedThisTurn");
+    addTag("beenCapturedThisTurn");
+    addTag("dead");
   }
 }
 

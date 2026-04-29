@@ -1,21 +1,24 @@
+package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class Player {
+public class Player {
   
   private int color;
   private int actions;
   private String displayName;
+  private CommanderPiece commander;
   private Piece[] pieceArray;
   private int[][] startingSetup;
   
   // Precondition: pieces.length == 6 (can >6 but additional indicies will be ignored)
-  public Player(int c, String n, Piece[] pieces){
+  public Player(int c, String n, Piece[] pieces, CommanderPiece cmdr){
     color = c;
     actions = 0;
     displayName = n;
     pieceArray = pieces; // [Commander, Champion, Captain, Calvary, Support, Soldier] order.
+    commander = cmdr;
     startingSetup = Constants.DEFAULT_BOARDSTATE;
   }
   

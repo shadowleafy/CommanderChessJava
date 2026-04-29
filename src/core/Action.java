@@ -1,8 +1,9 @@
+package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class Action {
+public class Action {
   
   private String type;
   private String actionId;

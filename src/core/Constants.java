@@ -1,8 +1,9 @@
+package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class Constants {
+public class Constants {
   
   public static final int[][] DEFAULT_BOARDSTATE = {{4, 3, 2, 1, 0, 2, 3, 4},
                                             {5, 5, 5, 5, 5, 5, 5, 5}};

@@ -1,8 +1,9 @@
+package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class Utility {
+public class Utility {
   
   public static boolean inArrayList(ArrayList<String> object, String target){
     for (String k : object){
