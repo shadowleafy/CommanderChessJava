@@ -11,8 +11,15 @@ public class Game {
 
   private Board board;
   private String nextMenu;
+  private boolean winnerDeclared;
+  private int winner;
   
   public static Map<String, String> languageMap;
+
+  public Game(){
+    winnerDeclared = false;
+    winner = 0;
+  }
 
   public void setBoard(Board board){
     this.board = board;
@@ -149,11 +156,16 @@ public class Game {
   }
   
   public void beginGame(){
-    
+    UI.updateBoard(board);
+    UI.generateGameUI();
+    while (!winnerDeclared){
+      gameLoop();
+    }
   }
 
   public void declareWinner(int winner){
-    // somehow stop all thre threads, implement later.
+    winnerDeclared = true;
+    this.winner = winner;
     String winnerName;
     winnerName = board.getPlayerObject(winner).getDisplayName();
     UI.popupMessage("The game has ended. " + winnerName + " has won! Congratulations!");

@@ -103,8 +103,8 @@ public class Utility {
         if (a[i] != b[i]){
           return false;
         }
-        return true;
       }
+      return true;
     }
     return false;
   }
