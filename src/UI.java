@@ -10,12 +10,16 @@ class UI{
 
     private static Board board;
     private static JFrame frame;
+    private static JButton startButton;
 
     public static void start(){
         frame = new JFrame();
         frame.setTitle("Commander Chess");
+
+        startButton = new JButton();
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
+        frame.setSize(720, 720);
         frame.setVisible(true);
     } // generate screen when first opened
 
@@ -25,7 +29,11 @@ class UI{
 
     public static void clearUI(){
 
-    } // Completely clear the UI (for changing between screens)
+    }// Completely clear the UI (for changing between screens)
+
+    public static void generateGameUI(){
+        
+    } // Generate the basic UI for playing the game.
 
     public static void generateGameUI(){} // Generate the basic UI for playing the game.
 
