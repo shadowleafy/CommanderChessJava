@@ -10,13 +10,25 @@ class UI{
 
     private static Board board;
     private static JFrame frame;
-    private static JButton startButton;
+    private static JButton playButton;
+    private static JButton instructionsButton;
 
     public static void start(){
         frame = new JFrame();
         frame.setTitle("Commander Chess");
 
-        startButton = new JButton();
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(80,30,10,30));
+
+        playButton = new JButton();
+        JLabel playLabel = new JLabel("Play");
+        //instructionsButton = new JButton();
+        //JLabel instructionsLabel = new JLabel("Instructions");
+
+        playButton.add(playLabel);
+        panel.add(playButton);
+        frame.add(panel, BorderLayout.CENTER);
+        instructionsButton.add(instructionsLabel);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(720, 720);
