@@ -26,21 +26,28 @@ public class UI{
         frame = new JFrame();
         frame.setTitle("Commander Chess");
 
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(80,30,10,30)); //probably edit so resizing works later
+        Label title = new JLabel("Commander Chess");
+        title.setBounds(300, 50, 350, 100);
+        title.setFont(new Font("Calibri", Font.BOLD, 20));
 
-        playButton = new JButton();
-        JLabel playLabel = new JLabel("Play");
-        //instructionsButton = new JButton();
-        //JLabel instructionsLabel = new JLabel("Instructions");
-
-        playButton.add(playLabel);
-        panel.add(playButton);
-        frame.add(panel, BorderLayout.CENTER);
-        instructionsButton.add(instructionsLabel);
+        //move to generate menu?
+        playButton = new JButton("Play");
+        playButton.setBounds(270,200, 250, 80);
+        instructionsButton = new JButton("Instructions");
+        instructionsButton.setBounds(270, 300, 250, 80);
+        languagesButton = new JButton("Language");
+        languagesButton.setBounds(270,400, 250, 80);
+        settingsButton = new JButton("Settings");
+        settingsButton.setBounds(270,500, 250, 80);
+        frame.setLayout(null);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(720, 720);
+        frame.setSize(800, 720);
+        frame.add(title);
+        frame.add(playButton);
+        frame.add(instructionsButton);
+        frame.add(languagesButton);
+        frame.add(settingsButton);
         frame.setVisible(true);
     } // generate screen when first opened
 
