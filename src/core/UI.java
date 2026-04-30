@@ -25,30 +25,8 @@ public class UI{
     public static void start(){
         frame = new JFrame();
         frame.setTitle("Commander Chess");
-
-        Label title = new JLabel("Commander Chess");
-        title.setBounds(300, 50, 350, 100);
-        title.setFont(new Font("Calibri", Font.BOLD, 20));
-
-        //move to generate menu?
-        playButton = new JButton("Play");
-        playButton.setBounds(270,200, 250, 80);
-        instructionsButton = new JButton("Instructions");
-        instructionsButton.setBounds(270, 300, 250, 80);
-        languagesButton = new JButton("Language");
-        languagesButton.setBounds(270,400, 250, 80);
-        settingsButton = new JButton("Settings");
-        settingsButton.setBounds(270,500, 250, 80);
-        frame.setLayout(null);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 720);
-        frame.add(title);
-        frame.add(playButton);
-        frame.add(instructionsButton);
-        frame.add(languagesButton);
-        frame.add(settingsButton);
-        frame.setVisible(true);
     } // generate screen when first opened
 
     public static void updateUI(){
@@ -68,16 +46,35 @@ public class UI{
     //call before generating game
     
     public static void generateMainMenu(){
-        
+        Label title = new JLabel("Commander Chess");
+        title.setBounds(300, 50, 350, 100);
+        title.setFont(new Font("Calibri", Font.BOLD, 20));
+
+        playButton = new JButton("Play");
+        playButton.setBounds(270,200, 250, 80);
+        instructionsButton = new JButton("Instructions");
+        instructionsButton.setBounds(270, 300, 250, 80);
+        languagesButton = new JButton("Language");
+        languagesButton.setBounds(270,400, 250, 80);
+        settingsButton = new JButton("Settings");
+        settingsButton.setBounds(270,500, 250, 80);
+        frame.setLayout(null);
+
+        frame.add(title);
+        frame.add(playButton);
+        frame.add(instructionsButton);
+        frame.add(languagesButton);
+        frame.add(settingsButton);
+        frame.setVisible(true); //maybe move
     } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
-    public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen.
+    public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen. remove duplicate?
 
     public static void updateBoard(Board board){
         this.board = board;
     }
 
-    public static void generateMainMenu(){} // Generate the basic UI for the main menu.
+    public static void generateMainMenu(){} // Generate the basic UI for the main menu. remove duplicate?
 
     public static String awaitMenuSelection(){
         return null;
@@ -89,7 +86,7 @@ public class UI{
 
     public static void updateBoard(Board b){
         board = b;
-    } // Visually update the board to match the current boardstate.
+    } // Visually update the board to match the current boardstate. remove duplicate?
 
     public static void log(String s){} // Visually show a message to players in a scrolling chat menu.
 
