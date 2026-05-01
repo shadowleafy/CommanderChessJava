@@ -155,7 +155,6 @@ public class Piece {
 
   public void capturePieceOn(int[] end, int indexDefender){
     ArrayList<Piece>[][] boardstate = getBoard().getBoardstate();
-    int[] start = getLocation();
     Piece defendingPiece = boardstate[end[1]][end[0]].get(indexDefender);
     processCapturePiece(defendingPiece);
     defendingPiece.processCapturedBy(this);
