@@ -21,7 +21,15 @@ class Translation{
 
     // For dynamic messages, send in the format of <Object.property>.
     public static String convertDynamic(String message, Game game, Board board, Piece piece, Action action, Player player){
-        return null; // im doing this later
+        String object = message.substring(0, message.indexOf("."));
+        String property = message.substring(message.indexOf(".")+1);
+
+        if (object.equals("Player")){
+            switch(property){};
+        }
+
+        return "";
+
     }
 
     public static String getDynamic(String id, Game game, Board board, Piece piece, Action action, Player player){
