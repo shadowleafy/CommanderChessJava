@@ -19,7 +19,7 @@ public class UI{
 
     private static Board board;
     private JFrame frame;
-    private CardLayout layout;
+    private CardLayout layout; // Is it not possible to just make all of these static? ~ Stelle
     private JPanel container;
     private JButton playButton;
     private JButton instructionsButton;

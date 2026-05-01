@@ -61,6 +61,14 @@ public class Utility {
     }
     return output;
   }
+
+  public static ArrayList<Action> arrayActionToArrayList(Action[] arr){
+    ArrayList<Action> output = new ArrayList<Action>();
+    for (Action obj : arr){
+      output.add(obj);
+    }
+    return output;
+  }
   
   public static void noRepeatAdd(ArrayList<String> object, String target){
     if (!inArrayList(object, target)){
