@@ -105,13 +105,10 @@ public class UI{
         layout.show(container, "Menu");
     } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
-    public static void generateCharacterSelectUI(){} // Generate the basic UI for the character selection screen. remove duplicate?
 
     public static void updateBoard(Board board){
         this.board = board;
     }
-
-    public static void generateMainMenu(){} // Generate the basic UI for the main menu. remove duplicate?
 
     public static String awaitMenuSelection(){
         return null;
@@ -120,10 +117,6 @@ public class UI{
     public static String awaitPieceSelection(String title, int color, String[] pieceChoices){
         return null;
     } // Await a selection of commander from a player. Just return the ID, I can do the rest.
-
-    public static void updateBoard(Board b){
-        board = b;
-    } // Visually update the board to match the current boardstate. remove duplicate?
 
     public static void log(String s){} // Visually show a message to players in a scrolling chat menu.
 
