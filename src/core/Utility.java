@@ -84,6 +84,18 @@ public class Utility {
     return output;
   }
 
+  public static ArrayList<Piece>[][] copyBoardstate(ArrayList<Piece>[][] boardstate){
+    ArrayList<Piece>[][] output = new ArrayList[8][8];
+    for (int i = 0; i < boardstate.length; i++){
+      for (int j = 0; j < boardstate[i].length; j++){
+        for (int k = 0; k < boardstate[i][j].size(); k++){
+          output[i][j].add(boardstate[i][j].get(k));
+        }
+      }
+    }
+    return output;
+  }
+
   public static void swapValues(int[] arr, int indexOne, int indexTwo){
     int temp = arr[indexOne];
     arr[indexOne] = arr[indexTwo];
@@ -92,6 +104,12 @@ public class Utility {
 
   public static int[] simplifyVector(int[] input){
     int[] output = copyArray(input);
+    if (output[0] == 0){
+      return formVector("0,1");
+    }
+    else if (output[1] == 0){
+      return formVector("1,0");
+    }
     int gcd = gcd(output[0], output[1]);
     output[0] /= gcd;
     output[1] /= gcd;
@@ -275,6 +293,18 @@ public class Utility {
           return (compareVectors(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
         }
       }
+    }
+  }
+
+  public static boolean checkCaptureValidity(Board board, int[] start, int[] end, int startIndex, int endIndex, int[] movement, boolean passthrough, boolean symmetric, boolean continuous){
+    if (board.getBoardstate()[end[1]][end[0]].get(endIndex).getController() == board.getBoardstate()[start[1]][start[0]].get(startIndex).getController()){
+      return false;
+    }
+    else{
+      ArrayList<Piece>[][] alterBoardstate = copyBoardstate(board.getBoardstate());
+      alterBoardstate[end[1]][end[0]] = new ArrayList<Piece>();
+      Board alterBoard = new Board(8, 8, board.getWhitePlayer(), board.getBlackPlayer(), board.getGame(), alterBoardstate);
+      return checkMoveValidity(alterBoard, start, end, movement, passthrough, symmetric, continuous);
     }
   }
 

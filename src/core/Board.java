@@ -38,6 +38,25 @@ public class Board {
     }
     this.game = game;
   }
+
+  // This one is for temporary Board objects!
+
+  public Board(int x, int y, Player whitePlayer, Player blackPlayer, Game game, ArrayList<Piece>[][] boardstate){
+    boardstate = new ArrayList[y][x];
+    globalVariables = new HashMap<String, Integer>();
+    for (int i=0; i < y; i++){
+      for (int j=0; j < x; j++){
+        boardstate[y][x] = new ArrayList<Piece>();
+      }
+    }
+    activePlayer = 0; // White goes first
+    white = whitePlayer;
+    black = blackPlayer;
+    turnNumber = 0;
+    // Put the pieces onto the board.
+    this.boardstate = boardstate;
+    this.game = game;
+  }
   
   public int getTurnNumber(){
     return turnNumber;
@@ -56,6 +75,14 @@ public class Board {
   
   public Player getPassivePlayer(){
     return getPlayerObject(1-activePlayer);
+  }
+
+  public Player getWhitePlayer(){
+    return white;
+  }
+
+  public Player getBlackPlayer(){
+    return black;
   }
   
   public ArrayList<Piece>[][] getBoardstate(){

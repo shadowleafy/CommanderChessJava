@@ -124,11 +124,11 @@ public class UI{
         return false;
     }
 
-    public static ArrayList<Integer[]> awaitSquares(int expectedSquares){
+    public static ArrayList<Integer[]> awaitSquares(int expectedSquares, Player requestedPlayer){
         return null;
     }
 
-    public static ArrayList<Integer[]> awaitSquares(){
+    public static ArrayList<Integer[]> awaitSquares(Player requestedPlayer){
         return null;
     } // Just awaitSquares(int expectedSquares) but there isn't a specific number of expected squares, so the user must terminate on their end.
 
@@ -145,4 +145,8 @@ public class UI{
     public static Action requestAction(Player requestedPlayer){
         return null;
     } // Request an action from a player (usually the active player)
+
+    public static int requestNumber(Player requestedPlayer, int min, int max){
+        return 0;
+    }
 }
