@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 
 public class UI{
@@ -18,78 +19,131 @@ public class UI{
     // These are the general idea of methods we'll need
 
     private static Board board;
-    private JFrame frame;
-    private CardLayout layout; // Is it not possible to just make all of these static? ~ Stelle
-    private JPanel container;
-    private JButton playButton;
-    private JButton instructionsButton;
-    private JButton languagesButton;
-    private JButton settingsButton;
-    private JPanel main;
-    private JPanel game;
-    private JPanel charSelect;
+    private static JFrame frame;
+    private static CardLayout layout;
+    private static JPanel container;
+    
+    private static JButton playButton;
+    private static JButton instructionsButton;
+    private static JButton languagesButton;
+    private static JButton settingsButton;
+    
+    private static JPanel main;
+    private static JPanel game;
+    private static JPanel charSelect;
+    private static JPanel instructions;
 
     public static void start(){
-        this.frame = new JFrame();
-        this.frame.setTitle("Commander Chess");
+        frame = new JFrame();
+        frame.setTitle("Commander Chess");
 
-        this.layout = new CardLayout();
-        this.container = new JPanel(layout);
+        layout = new CardLayout();
+        container = new JPanel(layout);
 
-        this.main = new JPanel();
-        this.game = new JPanel();
-        this.charSelect = new JPanel();
+        main = new JPanel();
+        game = new JPanel();
+        charSelect = new JPanel();
+        instructions = new JPanel();
         //prev existence of create menu started here
-        createMenu();  //add this. if nonstatic
+        createMenuPanel();
+        createInstructionsPanel();
 
         //Adds cards to slideshow kinda and frame
-        this.container.add(main, "Menu");
-        this.container.add(game, "Game");
-        this.container.add(charSelect, "Character Selection");
-        this.frame.add(container);
+        container.add(main, "Menu");
+        container.add(game, "Game");
+        container.add(charSelect, "Character Selection");
+        container.add(instructions, "Instructions");
+        frame.add(container);
         
-        this.layout.show(container, "Menu"); //probably move
+        layout.show(container, "Menu"); //probably move
         
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(800, 720);
-        this.frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 720);
+        frame.setVisible(true);
     } // generate screen when first opened
 
-    public static void createMenu(){
-        this.main.setLayout(null); //change later so resizeable
+    public static void createMenuPanel(){
+        main.setLayout(null); //change later so resizeable
         
-        Label title = new JLabel("Commander Chess");
+        JLabel title = new JLabel("Commander Chess");
         title.setBounds(300, 50, 350, 100);
         title.setFont(new Font("Calibri", Font.BOLD, 20));
-        
-        this.playButton = new JButton("Play");
-        this.playButton.setBounds(270,200, 250, 80);
-        this.instructionsButton = new JButton("Instructions");
-        this.instructionsButton.setBounds(270, 300, 250, 80);
-        this.languagesButton = new JButton("Language");
-        this.languagesButton.setBounds(270,400, 250, 80);
-        this.settingsButton = new JButton("Settings");
-        this.settingsButton.setBounds(270,500, 250, 80);
 
-        this.main.add(title);
-        this.main.add(playButton);
-        this.main.add(instructionsButton);
-        this.main.add(languagesButton);
-        this.main.add(settingsButton);
+        main.setLayout(new GridBagLayout()); //change later so resizeable
+        GridBagConstraints c = new GridBagConstraints();
+        
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 20;
+        c.insets = new Insets(20, 20, 20, 20);
+        main.add(title, c);
+        
+        playButton = new JButton("Play");
+        //playButton.setBounds(270,200, 250, 80);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 30;
+        c.insets = new Insets(10, 10, 10, 10);
+        main.add(playButton, c);
+        
+        instructionsButton = new JButton("Instructions");
+        //instructionsButton.setBounds(270, 300, 250, 80);
+        c.gridx = 0;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 30;
+        c.insets = new Insets(10, 10, 10, 10);
+        main.add(instructionsButton,c );
+
+
+        languagesButton = new JButton("Language");
+        //languagesButton.setBounds(270,400, 250, 80);
+        c.gridx = 0;
+        c.gridy = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 30;
+        c.insets = new Insets(10, 10, 10, 10);
+        main.add(languagesButton, c);
+        
+        settingsButton = new JButton("Settings");
+        //settingsButton.setBounds(270,500, 250, 80);
+        c.gridx = 0;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 30;
+        c.insets = new Insets(10, 10, 10, 10);
+        main.add(settingsButton, c);
     } //intializes components for main menu
 
-    public static void createGame(){
+    public static void createGamePanel(){
 
     } //initializes components for game page
+
+    public static void createInstructionsPanel(){
+        instructions.setLayout(new BorderLayout());
+        JTextArea textarea = new JTextArea();
+        textarea.setText(""); //ADD INSTRUCTIONS HERE
+        textarea.setEditable(false);
+        textarea.setLineWrap(true);
+        textarea.setWrapStyleWord(true);
+        JScrollPane scrollpane = new JScrollPane(textarea);
+        
+        instructions.add(scrollpane);
+    } //initialize components for instructions page
+
+    public static void createCharSelectPanel(){
+
+    } //initialize components for character selection page
     
     public static void updateUI(){
         
     }
 
     public static void clearUI(){
-        frame.setVisible(false);
         
-    }// Completely clear the UI (for changing between screens)
+    }// Completely clear the UI (for changing between screens) maybe delete bc i dont think i need it
 
     public static void generateGameUI(){
         layout.show(container, "Game");
