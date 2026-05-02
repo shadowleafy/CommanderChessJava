@@ -24,7 +24,7 @@ class Translation{
         String object = message.substring(0, message.indexOf("."));
         String property = message.substring(message.indexOf(".")+1);
 
-        if (object.equals("Player")){
+        if (object.equals("ActivePlayer")){
             switch(property){};
         }
 
