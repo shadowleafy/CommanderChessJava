@@ -11,6 +11,7 @@ public class Piece {
 
   private int controller; // 0 means white, 1 means black
   private Player controllerObj;
+  private String type;
   private String pieceId;
   private String displayName;
   private String abbreviation;
@@ -80,6 +81,10 @@ public class Piece {
   public int getIndex(){
     return index;
   }
+
+  public String getType(){
+    return type;
+  }
   
   public void setController(int ctrl){
     controller = ctrl;
@@ -103,6 +108,18 @@ public class Piece {
 
   public void setIndex(int input){
     index = input;
+  }
+
+  public void setType(String s){
+    type = s;
+  }
+
+  public void addCounters(String type, int count){
+    counters.put(type, counters.get(type)+count);
+  }
+
+  public void setCounters(String type, int count){
+    counters.put(type, count);
   }
   
   public void addTag(String tag){
@@ -131,7 +148,7 @@ public class Piece {
   public void onCapturePiece(Piece p){}
   
   public void onCapturedBy(Piece p){}
-  
+
   public void processCapturePiece(Piece p){
     UI.log(displayName + " has captured " + p.getDisplayName() + " on square " + Utility.convertChessNotation(location) + "!");
     addTag("hasCapturedThisTurn");
@@ -139,7 +156,7 @@ public class Piece {
   
   public void processCapturedBy(Piece p){
     addTag("beenCapturedThisTurn");
-    addTag("dead");
+    die();
   }
 
   public void movePiece(int[] end){
@@ -160,6 +177,10 @@ public class Piece {
     defendingPiece.processCapturedBy(this);
     onCapturePiece(defendingPiece);
     defendingPiece.onCapturedBy(this);
+  }
+
+  public void die(){
+    addTag("dead");
   }
 
 

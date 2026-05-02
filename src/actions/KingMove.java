@@ -16,7 +16,7 @@ public class KingMove extends Action{
     }   
 
     public boolean onUse(){
-        int[] loc = UI.requestLocation(this.getOwnerPiece().getControllerObj());
+        int[] loc = UI.requestLocation("Select a place to move to.", this.getOwnerPiece().getControllerObj());
         Board gameboard = this.getOwnerPiece().getBoard();
         int[] myLoc = this.getOwnerPiece().getLocation();
         if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.formVector("1,1"), true, true,  false)){

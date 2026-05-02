@@ -16,7 +16,7 @@ public class PawnMove extends Action {
   }
 
   public boolean onUse(){
-    int[] loc = UI.requestLocation(this.getOwnerPiece().getControllerObj());
+    int[] loc = UI.requestLocation("Select a place to move to.", this.getOwnerPiece().getControllerObj());
     Board gameboard = this.getOwnerPiece().getBoard();
     int[] myLoc = this.getOwnerPiece().getLocation();
     if (Utility.checkMoveValidity(gameboard, myLoc, loc, Utility.colorshiftVector(Utility.formVector("0,1"), getOwnerPiece().getController()), false, false, false)){

@@ -124,11 +124,11 @@ public class UI{
         return false;
     }
 
-    public static ArrayList<Integer[]> awaitSquares(int expectedSquares, Player requestedPlayer){
+    public static ArrayList<Integer[]> awaitSquares(String message, int expectedSquares, Player requestedPlayer){
         return null;
     }
 
-    public static ArrayList<Integer[]> awaitSquares(Player requestedPlayer){
+    public static ArrayList<Integer[]> awaitSquares(String message, Player requestedPlayer){
         return null;
     } // Just awaitSquares(int expectedSquares) but there isn't a specific number of expected squares, so the user must terminate on their end.
 
@@ -138,15 +138,15 @@ public class UI{
         return null;
     } // Ask for the name of the player of that color. Use in a popup in the character selection menu.
 
-    public static int[] requestLocation(Player requestedPlayer){
+    public static int[] requestLocation(String message, Player requestedPlayer){
         return null;
     } // Request a square from a player. Note that this isn't called natively when requesting an action.
 
-    public static Action requestAction(Player requestedPlayer){
+    public static Action requestAction(String message, Player requestedPlayer){
         return null;
     } // Request an action from a player (usually the active player)
 
-    public static int requestNumber(Player requestedPlayer, int min, int max){
+    public static int requestNumber(String message, Player requestedPlayer, int min, int max){
         return 0;
     }
 }

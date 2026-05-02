@@ -1,0 +1,1 @@
+"stun" : A piece with a stun counter on it can't move. Remove one stun counter per turn.

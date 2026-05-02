@@ -70,13 +70,19 @@ public class Action {
   }
   
   public boolean canUse(){
-    return (this.getOwnerPiece().getControllerObj().getActions() > 0);
+    return (getOwnerPiece().getControllerObj().getActions() > 0 && getOwnerPiece().getCounters("stun") == 0);
   }
   
   public boolean onUse(){
     return true;
   } // return true if the move resolved, otherwise return false.
   
+  public void costUse(){
+
+    getOwnerPiece().getControllerObj().addActions(-1);
+
+  } // Cost to use. Is run after usage.
+
 }
 
 // This specific action ends your turn. Please make it available when no piece is selected.

@@ -23,12 +23,31 @@ class Translation{
     public static String convertDynamic(String message, Game game, Board board, Piece piece, Action action, Player player){
         String object = message.substring(0, message.indexOf("."));
         String property = message.substring(message.indexOf(".")+1);
+        String output = "";
+        switch(object){
+            case "ActivePlayer" : 
+                Player ap = board.getActivePlayer();
+                switch(property){};
+            break;
 
-        if (object.equals("ActivePlayer")){
-            switch(property){};
+            case "PassivePlayer" :
+                Player pp = board.getPassivePlayer();
+                switch(property){};
+            break;
+
+            case "Piece" : 
+                switch(property){};
+            break;
+
+            case "Action" : 
+                switch(property){};
+            break;
+
+            case "Board" : 
+                switch(property){};
+            break;
         }
-
-        return "";
+        return output;
 
     }
 

@@ -62,7 +62,7 @@ public class Game {
     activePlayer.setActions(1);
     boolean done = false;
     while (!done){
-      	Action requestedAction = UI.requestAction(activePlayer);
+      	Action requestedAction = UI.requestAction("Please select an action", activePlayer);
         if (requestedAction.getActionId().equals("end_turn")){
             done = true;
         }
@@ -70,6 +70,7 @@ public class Game {
             // Check for on action use triggers
             boolean success = requestedAction.onUse();
             if (success){
+              requestedAction.costUse();
               for (ArrayList<Piece>[] arr : board.getBoardstate()){
                 for (ArrayList<Piece> arrl : arr){
                   for (Piece piece : arrl){
