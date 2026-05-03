@@ -162,13 +162,22 @@ public class UI implements ActionListener{
     public static void createInstructionsPanel(){
         instructions.setLayout(new BorderLayout());
         JTextArea textarea = new JTextArea();
-        textarea.setText(""); //ADD INSTRUCTIONS HERE
+        textarea.setText("hi i need to make this text really long so ignore me while i ramble there is gonna be a fake skating" +
+                         " movie and im really excited but im afraid theyre not gonna cast it well and its gonna end up bad because"
+                         + " that happens so often. they need to cast the right people for dani and alec who capture their essence well" 
+                         + "and have that dynamic from the book so hopefully they can find the right people and the movie will be good."); //ADD INSTRUCTIONS HERE
         textarea.setEditable(false);
         textarea.setLineWrap(true);
         textarea.setWrapStyleWord(true);
         JScrollPane scrollpane = new JScrollPane(textarea);
+
+        JButton closeInstructions = new JButton("Close");
+        closeInstructions.addActionListener(e -> {
+            layout.show(container, "Menu");
+        });
         
-        instructions.add(scrollpane);
+        instructions.add(scrollpane, BorderLayout.CENTER);
+        instructions.add(closeInstructions, BorderLayout.SOUTH);
     } //initialize components for instructions page
 
     public static void createCharSelectPanel(){
