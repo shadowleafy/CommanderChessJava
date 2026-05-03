@@ -48,6 +48,7 @@ public class UI implements ActionListener{
         //prev existence of create menu started here
         createMenuPanel();
         createInstructionsPanel();
+        createGamePanel();
 
         //Adds cards to slideshow kinda and frame
         container.add(main, "Menu");
@@ -89,6 +90,9 @@ public class UI implements ActionListener{
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
         c.insets = new Insets(10, 10, 10, 10);
+        playButton.addActionListener(e ->{
+            layout.show(container, "Game");
+        });
         main.add(playButton, c);
         
         instructionsButton = new JButton("Instructions");
@@ -121,7 +125,38 @@ public class UI implements ActionListener{
     } //intializes components for main menu
 
     public static void createGamePanel(){
+        //background colors: #854D24 (dark), #EBD2B2 (light)
+        game.setLayout(new BorderLayout());
+    
+        chessBoard = new JButton[8][8];
+        JPanel boardArea = new JPanel(new GridLayout(8, 8));
+        boardArea.setPreferredSize(new Dimension(600, 600));
 
+        for (int row = 0; row < 8; row++){
+            for (int col = 0; col < 8; col++){
+                chessBoard[row][col] = new JButton();
+                if (row % 2 == 0){
+                    if (col % 2 == 0){
+                        chessBoard[row][col].setBackground(new Color(0xEBD2B2));
+                    }
+                    else {
+                        chessBoard[row][col].setBackground(new Color(0x854D24));
+                    }
+                }
+                else{
+                    if (col % 2 == 0){
+                        chessBoard[row][col].setBackground(new Color(0x854D24));
+                    }
+                    else {
+                        chessBoard[row][col].setBackground(new Color(0xEBD2B2));
+                    }
+                }
+                chessBoard[row][col].setOpaque(true);
+                chessBoard[row][col].setBorderPainted(false);
+                boardArea.add(chessBoard[row][col]);
+            }
+        }
+        game.add(boardArea);
     } //initializes components for game page
 
     public static void createInstructionsPanel(){
