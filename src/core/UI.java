@@ -9,10 +9,11 @@ import java.util.Map;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Scanner;
 
 
-public class UI{
+public class UI implements ActionListener{
 
     // UI code here please :3
 
@@ -47,6 +48,7 @@ public class UI{
         //prev existence of create menu started here
         createMenuPanel();
         createInstructionsPanel();
+        createGamePanel();
 
         //Adds cards to slideshow kinda and frame
         container.add(main, "Menu");
@@ -63,13 +65,16 @@ public class UI{
     } // generate screen when first opened
 
     public static void createMenuPanel(){
-        main.setLayout(null); //change later so resizeable
+        //title.setBounds(300, 50, 350, 100);
+        //playButton.setBounds(270,200, 250, 80);
+        //instructionsButton.setBounds(270, 300, 250, 80);
+        //languagesButton.setBounds(270,400, 250, 80);
+        //settingsButton.setBounds(270,500, 250, 80);
         
         JLabel title = new JLabel("Commander Chess");
-        title.setBounds(300, 50, 350, 100);
-        title.setFont(new Font("Calibri", Font.BOLD, 20));
+        title.setFont(new Font("Calibri", Font.BOLD, 30));
 
-        main.setLayout(new GridBagLayout()); //change later so resizeable
+        main.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         
         c.gridx = 0;
@@ -80,26 +85,29 @@ public class UI{
         main.add(title, c);
         
         playButton = new JButton("Play");
-        //playButton.setBounds(270,200, 250, 80);
         c.gridx = 0;
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
         c.insets = new Insets(10, 10, 10, 10);
+        playButton.addActionListener(e ->{
+            layout.show(container, "Game");
+        });
         main.add(playButton, c);
         
         instructionsButton = new JButton("Instructions");
-        //instructionsButton.setBounds(270, 300, 250, 80);
         c.gridx = 0;
         c.gridy = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
         c.insets = new Insets(10, 10, 10, 10);
+        instructionsButton.addActionListener(e -> {
+            layout.show(container, "Instructions");
+        });
         main.add(instructionsButton,c );
 
 
         languagesButton = new JButton("Language");
-        //languagesButton.setBounds(270,400, 250, 80);
         c.gridx = 0;
         c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -108,7 +116,6 @@ public class UI{
         main.add(languagesButton, c);
         
         settingsButton = new JButton("Settings");
-        //settingsButton.setBounds(270,500, 250, 80);
         c.gridx = 0;
         c.gridy = 4;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -118,7 +125,38 @@ public class UI{
     } //intializes components for main menu
 
     public static void createGamePanel(){
+        //background colors: #854D24 (dark), #EBD2B2 (light)
+        game.setLayout(new BorderLayout());
+    
+        chessBoard = new JButton[8][8];
+        JPanel boardArea = new JPanel(new GridLayout(8, 8));
+        boardArea.setPreferredSize(new Dimension(600, 600));
 
+        for (int row = 0; row < 8; row++){
+            for (int col = 0; col < 8; col++){
+                chessBoard[row][col] = new JButton();
+                if (row % 2 == 0){
+                    if (col % 2 == 0){
+                        chessBoard[row][col].setBackground(new Color(0xEBD2B2));
+                    }
+                    else {
+                        chessBoard[row][col].setBackground(new Color(0x854D24));
+                    }
+                }
+                else{
+                    if (col % 2 == 0){
+                        chessBoard[row][col].setBackground(new Color(0x854D24));
+                    }
+                    else {
+                        chessBoard[row][col].setBackground(new Color(0xEBD2B2));
+                    }
+                }
+                chessBoard[row][col].setOpaque(true);
+                chessBoard[row][col].setBorderPainted(false);
+                boardArea.add(chessBoard[row][col]);
+            }
+        }
+        game.add(boardArea);
     } //initializes components for game page
 
     public static void createInstructionsPanel(){
@@ -136,6 +174,10 @@ public class UI{
     public static void createCharSelectPanel(){
 
     } //initialize components for character selection page
+
+    public void actionPerformed(ActionEvent e){
+    
+    } //need for override
     
     public static void updateUI(){
         
