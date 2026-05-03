@@ -160,8 +160,8 @@ public class UI{
     } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
 
-    public static void updateBoard(Board board){
-        this.board = board;
+    public static void updateBoard(Board b){
+        board = b;
     }
 
     public static String awaitMenuSelection(){
