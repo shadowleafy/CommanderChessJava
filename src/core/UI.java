@@ -34,6 +34,8 @@ public class UI implements ActionListener{
     private static JPanel charSelect;
     private static JPanel instructions;
 
+    private static JButton[][] chessBoard;
+
     public static void start(){
         frame = new JFrame();
         frame.setTitle("Commander Chess");
@@ -156,12 +158,17 @@ public class UI implements ActionListener{
                 boardArea.add(chessBoard[row][col]);
             }
         }
-        game.add(boardArea);
+        game.add(new JPanel(), BorderLayout.WEST);
+        game.add(new JPanel(), BorderLayout.EAST);
+        game.add(new JPanel(), BorderLayout.NORTH);
+        game.add(new JPanel(), BorderLayout.SOUTH);
+        game.add(boardArea, BorderLayout.CENTER);
     } //initializes components for game page
 
     public static void createInstructionsPanel(){
         instructions.setLayout(new BorderLayout());
         JTextArea textarea = new JTextArea();
+        textarea.setFont(new Font("Arial", Font.PLAIN, 20)); //change text size once have instructions
         textarea.setText("hi i need to make this text really long so ignore me while i ramble there is gonna be a fake skating" +
                          " movie and im really excited but im afraid theyre not gonna cast it well and its gonna end up bad because"
                          + " that happens so often. they need to cast the right people for dani and alec who capture their essence well" 
