@@ -20,6 +20,11 @@ public class UI implements ActionListener{
     // These are the general idea of methods we'll need
 
     private static Board board;
+    public static ArrayList<int[]> selectedSquares;
+    private static ArrayList<Piece> selectedPieces;
+    private static Action selectedAction;
+    public static int stepsDone = 0;
+
     private static JFrame frame;
     private static CardLayout layout;
     private static JPanel container;
@@ -194,14 +199,6 @@ public class UI implements ActionListener{
     public void actionPerformed(ActionEvent e){
     
     } //need for override
-    
-    public static void updateUI(){
-        
-    }
-
-    public static void clearUI(){
-        
-    }// Completely clear the UI (for changing between screens) maybe delete bc i dont think i need it
 
     public static void generateGameUI(){
         layout.show(container, "Game");
@@ -222,43 +219,9 @@ public class UI implements ActionListener{
         board = b;
     }
 
-    public static String awaitMenuSelection(){
-        return null;
-    } // Await a selection in the main menu. Check Game.java for the desired outputs.
-
-    public static String awaitPieceSelection(String title, int color, String[] pieceChoices){
-        return null;
-    } // Await a selection of commander from a player. Just return the ID, I can do the rest.
-
     public static void log(String s){} // Visually show a message to players in a scrolling chat menu.
 
-    public static boolean awaitConfirmation(String message){
-        return false;
-    }
+    public static void await(String message){
 
-    public static ArrayList<Integer[]> awaitSquares(String message, int expectedSquares, Player requestedPlayer){
-        return null;
-    }
-
-    public static ArrayList<Integer[]> awaitSquares(String message, Player requestedPlayer){
-        return null;
-    } // Just awaitSquares(int expectedSquares) but there isn't a specific number of expected squares, so the user must terminate on their end.
-
-    public static void popupMessage(String s){} // Visually show a message that must be manually closed.
-
-    public static String awaitName(int color){
-        return null;
-    } // Ask for the name of the player of that color. Use in a popup in the character selection menu.
-
-    public static int[] requestLocation(String message, Player requestedPlayer){
-        return null;
-    } // Request a square from a player. Note that this isn't called natively when requesting an action.
-
-    public static Action requestAction(String message, Player requestedPlayer){
-        return null;
-    } // Request an action from a player (usually the active player)
-
-    public static int requestNumber(String message, Player requestedPlayer, int min, int max){
-        return 0;
     }
 }
