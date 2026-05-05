@@ -250,7 +250,7 @@ public class Utility {
     return count;
   }
 
-  public static Piece idToPiece(String id){
+  public static Piece idToPiece(String id, int ctrl, int[] loc, Board board){
     Piece output = null;
     return output;
   }
@@ -258,9 +258,7 @@ public class Utility {
   public static Action idToActionObj(String id, Piece owner){
     Action output = null;
     switch(id){
-      case "pawn_move":
-        output = new PawnMove(owner);
-      break;
+      
     }
     return output;
   }
@@ -313,7 +311,7 @@ public class Utility {
       int[] start = startPiece.getLocation();
       int[] end = endPiece.getLocation();
       alterBoardstate[end[1]][end[0]] = new ArrayList<Piece>();
-      Board alterBoard = new Board(8, 8, board.getWhitePlayer(), board.getBlackPlayer(), board.getGame(), alterBoardstate);
+      Board alterBoard = new Board(8, 8, board.getWhitePlayer(), board.getBlackPlayer(), alterBoardstate);
       return checkMoveValidity(alterBoard, start, end, movement, passthrough, symmetric, continuous);
     }
   }

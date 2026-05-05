@@ -53,10 +53,8 @@ public class Game {
     }
   }
 
-  public static void confirm(){}
-
   public static void declareWinner(int winner){
-
+    UI.generateMainMenu();
   }
 
   public static void finishAction(Action a){

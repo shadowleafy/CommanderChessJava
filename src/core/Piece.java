@@ -20,6 +20,9 @@ public class Piece {
   private Map<String, Integer> counters;
   private int[] location;
   private int index;
+
+  // for commanders only but java gets mad at me if i dont do it like this
+  private String[] pieceIds;
   
   private Board gameboard;
  
@@ -181,6 +184,9 @@ public class Piece {
     addTag("dead");
   }
 
+  public String[] getPieceIds(){
+    return pieceIds;
+  }
 
 }
 

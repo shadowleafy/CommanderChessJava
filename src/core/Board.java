@@ -15,13 +15,12 @@ public class Board {
   private Player white;
   private Player black;
   private Map<String, Integer> globalVariables;
-  private Game game;
   
-  public Board(int x, int y, Player whitePlayer, Player blackPlayer, Game game){
-    boardstate = new ArrayList[y][x];
+  public Board(Player whitePlayer, Player blackPlayer){
+    boardstate = new ArrayList[8][8];
     globalVariables = new HashMap<String, Integer>();
-    for (int i=0; i < y; i++){
-      for (int j=0; j < x; j++){
+    for (int y=0; y < 8; y++){
+      for (int x=0; x < 8; x++){
         boardstate[y][x] = new ArrayList<Piece>();
       }
     }
@@ -29,19 +28,27 @@ public class Board {
     white = whitePlayer;
     black = blackPlayer;
     turnNumber = 1;
-    // Put the pieces onto the board.
-    for (int i = 0; i < y; i++){
-      for (int j = 0; j < x; j++){
-        boardstate[y][x].add(white.getPieces()[white.getStartingSetup()[y][x]]);
-        boardstate[7-y][x].add(black.getPieces()[black.getStartingSetup()[y][x]]);
+    // Put the pieces onto the board. Note that because the pieces are currently unassigned, so we have to assign them rq.
+    for (int y = 0; y < 4; y++){
+      for (int x = 0; x < 8; x++){
+        if (white.getStartingSetup()[y][x] != -1){
+          int[] vector = {x, y};
+          Piece whitePiece = Utility.idToPiece(white.getPieceIds()[white.getStartingSetup()[y][x]], 0, vector, this);
+          boardstate[y][x].add(whitePiece);
+        }
+        if (black.getStartingSetup()[y][x] != -1){
+          int[] vector = {x, 7-y};
+          Piece blackPiece = Utility.idToPiece(black.getPieceIds()[black.getStartingSetup()[y][x]], 1, vector, this);
+          boardstate[7-y][x].add(blackPiece);
+      
+        }
       }
     }
-    this.game = game;
   }
 
   // This one is for temporary Board objects!
 
-  public Board(int x, int y, Player whitePlayer, Player blackPlayer, Game game, ArrayList<Piece>[][] boardstate){
+  public Board(int x, int y, Player whitePlayer, Player blackPlayer,ArrayList<Piece>[][] boardstate){
     boardstate = new ArrayList[y][x];
     globalVariables = new HashMap<String, Integer>();
     for (int i=0; i < y; i++){
@@ -53,9 +60,7 @@ public class Board {
     white = whitePlayer;
     black = blackPlayer;
     turnNumber = 0;
-    // Put the pieces onto the board.
     this.boardstate = boardstate;
-    this.game = game;
   }
   
   public int getTurnNumber(){
@@ -89,10 +94,6 @@ public class Board {
     return boardstate;
   }
 
-  public Game getGame(){
-    return game;
-  }
-
   public int getGlobalVariable(String key){
     if (globalVariables.containsKey(key)){
       return globalVariables.get(key);
@@ -104,7 +105,7 @@ public class Board {
     return boardstate[y][x];
   }
   
-  public void printBoardState(){
+  /* public void printBoardState(){
     String[][] output = new String[boardstate.length+4][boardstate[0].length+4];
     for (int i = 0; i < output[output.length-1].length; i++){
       output[0][i] = Constant.LETTERS[i];
@@ -132,9 +133,9 @@ public class Board {
       }
     }
     System.out.println(Utility.toString2DArray(output));
-  }
+  } */
   
-  public void checkStates(){
+  private void checkStates(){
     for (int i = 0; i < boardstate.length; i++){
       for (int j = 0; j < boardstate[i].length; j++){
         for (int k = 0; k < boardstate[i][j].size(); k++){
@@ -162,7 +163,17 @@ public class Board {
   }
 
   public void updateAllData(){
-
+    checkStates();
+    for (int i = 0; i < boardstate.length; i++){
+      for (int j = 0; j < boardstate[i].length; j++){
+        for (int k = 0; k < boardstate[i][j].size(); k++){
+          Piece p = boardstate[i][j].get(k);
+          int[] loc = {j, i};
+          p.setLocation(loc);
+          p.setIndex(k);
+        }
+      }
+    }
   }
 
   public void switchActivePlayer(){

@@ -13,26 +13,24 @@ public class Player {
   private int actions;
   private String displayName;
   private Piece commander;
-  private Piece[] pieceArray;
+  private String[] pieceIdArray;
   private int[][] startingSetup;
   
   // Precondition: pieces.length == 6 (can >6 but additional indicies will be ignored)
   
-  public Player(int c, String n, Piece[] pieces, int[][] customStartingSetup, Piece cmdr){
+  public Player(int c, String n, String commanderId){
     color = c;
-    actions = 0;
     displayName = n;
-    pieceArray = pieces;
-    // For custom starting setups, start from the bottom row and go up. Never go past four rows because otherwise my program won't like you.
-    if (!(customStartingSetup == null)){
-      startingSetup = customStartingSetup;
+    int[] vector = new int[2];
+    if (c == 0){
+      vector = Utility.formVector("0,4");
     }
     else{
-      startingSetup = Constant.DEFAULT_BOARDSTATE;
-    }
-    commander = cmdr;
+      vector = Utility.formVector("7,4");
+    } // note, because im hardcoding this we wont be able to move where the commander is :(
+    commander = Utility.idToPiece(commanderId, c, vector, null);
+    pieceIdArray = commander.getPieceIds();
   }
-  
   public int getColor(){
     return color;
   }
@@ -45,8 +43,8 @@ public class Player {
     return displayName;
   }
   
-  public Piece[] getPieces(){
-    return pieceArray;
+  public String[] getPieceIds(){
+    return pieceIdArray;
   }
   
   public int[][] getStartingSetup(){

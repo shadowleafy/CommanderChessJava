@@ -51,4 +51,6 @@ public class CommanderPiece extends Piece {
     addHealth(-1);
     Utility.noRepeatAdd(getTags(), "beenCapturedThisTurn");
   }
+
+  
 }
