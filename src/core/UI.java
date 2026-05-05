@@ -34,7 +34,7 @@ public class UI implements ActionListener{
     private static JButton playButton;
     private static JButton instructionsButton;
     private static JButton languagesButton;
-    private static JButton settingsButton;
+    private static JButton settingsButton; //potentially remove
     
     private static JPanel main;
     private static JPanel game;
@@ -58,6 +58,7 @@ public class UI implements ActionListener{
         createMenuPanel();
         createInstructionsPanel();
         createGamePanel();
+        createCharSelectPanel();
 
         //Adds cards to slideshow kinda and frame
         container.add(main, "Menu");
@@ -124,7 +125,7 @@ public class UI implements ActionListener{
         c.insets = new Insets(10, 10, 10, 10);
         main.add(languagesButton, c);
         
-        settingsButton = new JButton("Settings");
+        settingsButton = new JButton("Settings"); //potentially remove
         c.gridx = 0;
         c.gridy = 4;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -170,6 +171,8 @@ public class UI implements ActionListener{
         game.add(new JPanel(), BorderLayout.NORTH);
         game.add(new JPanel(), BorderLayout.SOUTH);
         game.add(boardArea, BorderLayout.CENTER);
+        //somewhere in here call createLog() and figure out layout
+
     } //initializes components for game page
 
     public static void createInstructionsPanel(){
@@ -195,8 +198,9 @@ public class UI implements ActionListener{
     } //initialize components for instructions page
 
     public static void createCharSelectPanel(){
+        charSelect.setLayout(new GridLayout());
 
-    } //initialize components for character selection page
+    } //initialize components for character selection page, show commanders, when clicked have drop down w descriptions
 
     public void actionPerformed(ActionEvent e){
     
@@ -216,16 +220,32 @@ public class UI implements ActionListener{
         layout.show(container, "Menu");
     } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
+    public static void createLog(){
+        JTextArea mLog = new JTextArea();
+        mLog.setFont(new Font("Arial", Font.PLAIN, 20)); //change text size once have instructions
+        mLog.setText("Messages to you will appear here"); // add initial message
+
+        mLog.setEditable(false);
+        mLog.setLineWrap(true);
+        mLog.setWrapStyleWord(true);
+        JScrollPane mLogPane = new JScrollPane(mLog);
+
+        game.add(mLogPane); //figure out layout (should be at bottom right under selected piece info)
+
+    } //creates initial log area
 
     public static void updateBoard(Board b){
         board = b;
     }
 
-    public static void log(String s){} // Visually show a message to players in a scrolling chat menu.
+    public static void log(String s){
+
+    } // Visually show a message to players in a scrolling chat menu.
 
     public static void await(String message){
 
     }
+
     public static void cancel(String message){
         stepsDone = 0;
         selectedSquares.clear();
