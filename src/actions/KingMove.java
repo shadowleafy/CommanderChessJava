@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class basicMoveTemplate extends Action {
+public class KingMove extends Action {
     
-    public basicMoveTemplate(Piece owner){
+    public KingMove(Piece owner){
         super(owner);
         this.setType("move");
-        this.setActionId("XXX_move");
+        this.setActionId("queen_move");
         // set display name once translation is done better.
     }   
 
@@ -43,7 +43,8 @@ public class basicMoveTemplate extends Action {
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
                     int color = getOwnerPiece().getController();
-                    if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,1"), false, true,  true)){
+                    if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,0"), false, true,  false) ||
+                        Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,1"), false, true,  false)){
                         getOwnerPiece().movePiece(loc);
                         Game.finishAction(this);
                     }

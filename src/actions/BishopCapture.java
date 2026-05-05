@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class basicMoveTemplate extends Action {
+public class BishopCapture extends Action {
     
-    public basicMoveTemplate(Piece owner){
+    public BishopCapture(Piece owner){
         super(owner);
-        this.setType("move");
-        this.setActionId("XXX_move");
+        this.setType("capture");
+        this.setActionId("bishop_capture");
         // set display name once translation is done better.
     }   
 
@@ -22,33 +22,34 @@ public class basicMoveTemplate extends Action {
         switch(UI.stepsDone){
             case 1:
                 if (owner.getControllerObj().getActions() >= 1){
-                    UI.await("Select a square in range to move to.");
+                    UI.await("Select a piece in range to capture.");
                 }
                 else{
                     UI.cancel("You don't have enough actions to use this!");
                 }
             break;
             case 2:
-                if (UI.selectedSquares.size() >= 2) {
-                    UI.cancel("You can only move to one square!");
+                if (UI.selectedSquares.size() != 0) {
+                    UI.cancel("Do not select squares when capturing a piece, select a piece.");
                 }
-                else if (UI.selectedPieces.size() != 0){
-                    UI.cancel("You must move to squares, not pieces. If you want to capture, use your capture action!");
+                else if (UI.selectedPieces.size() == 0){
+                    UI.cancel("You must select a piece to capture!");
                 }
-                else if (UI.selectedSquares.size() == 0){
-                    UI.cancel("You must select a square to move to!");
+                else if (UI.selectedPieces.size() >= 2){
+                    UI.cancel("You can only select one piece to capture!");
                 }
                 else{
-                    int[] loc = UI.selectedSquares.get(0);
+                    int[] loc = UI.selectedPieces.get(0).getLocation();
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
                     int color = getOwnerPiece().getController();
-                    if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,1"), false, true,  true)){
+                    if (Utility.checkCaptureValidity(gameboard, getOwnerPiece(), UI.selectedPieces.get(0), Utility.formVector("1,1"), false, true,  true)){
+                        getOwnerPiece().capturePiece(UI.selectedPieces.get(0));
                         getOwnerPiece().movePiece(loc);
                         Game.finishAction(this);
                     }
                     else{
-                        UI.cancel("That square isn't within movement range!");
+                        UI.cancel("That piece isn't within capture range!");
                     }
                 }
             break;

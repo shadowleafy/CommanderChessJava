@@ -13,7 +13,7 @@ public class Bishop extends Piece{
         super(ctrl, loc, board);
         setPieceId("Bishop");
         Action bishopCapture = new BishopCapture(this);
-        Action bishopMove = new BishopMove(this);
+        Action bishopMove = new BishopCapture(this);
         Action[] arr = {bishopCapture, bishopMove};
         setActions(Utility.arrayActionToArrayList(arr));
     }  

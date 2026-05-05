@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class basicMoveTemplate extends Action {
+public class BishopMove extends Action {
     
-    public basicMoveTemplate(Piece owner){
+    public BishopMove(Piece owner){
         super(owner);
         this.setType("move");
-        this.setActionId("XXX_move");
+        this.setActionId("bishop_move");
         // set display name once translation is done better.
     }   
 

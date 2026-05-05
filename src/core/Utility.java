@@ -263,7 +263,8 @@ public class Utility {
     return output;
   }
 // make sure that movement is not simplifyable if you are doing ray
-  public static boolean checkMoveValidity(Board board, int[] start, int[] end, int[] movement, boolean passthrough, boolean symmetric, boolean continuous){
+  public static boolean checkMoveValidity(Board board, int color, int[] start, int[] end, int[] m, boolean passthrough, boolean symmetric, boolean continuous){
+    int[] movement = colorshiftVector(m, color);
     if (continuous){
       if (passthrough){
         if (symmetric){
@@ -312,7 +313,7 @@ public class Utility {
       int[] end = endPiece.getLocation();
       alterBoardstate[end[1]][end[0]] = new ArrayList<Piece>();
       Board alterBoard = new Board(8, 8, board.getWhitePlayer(), board.getBlackPlayer(), alterBoardstate);
-      return checkMoveValidity(alterBoard, start, end, movement, passthrough, symmetric, continuous);
+      return checkMoveValidity(alterBoard, startPiece.getController(), start, end, movement, passthrough, symmetric, continuous);
     }
   }
 
