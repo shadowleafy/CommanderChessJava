@@ -304,12 +304,14 @@ public class Utility {
     }
   }
 
-  public static boolean checkCaptureValidity(Board board, int[] start, int[] end, int startIndex, int endIndex, int[] movement, boolean passthrough, boolean symmetric, boolean continuous){
-    if (board.getBoardstate()[end[1]][end[0]].get(endIndex).getController() == board.getBoardstate()[start[1]][start[0]].get(startIndex).getController()){
+  public static boolean checkCaptureValidity(Board board, Piece startPiece, Piece endPiece, int[] movement, boolean passthrough, boolean symmetric, boolean continuous){
+    if (endPiece.getController() == startPiece.getController()){
       return false;
     }
     else{
       ArrayList<Piece>[][] alterBoardstate = copyBoardstate(board.getBoardstate());
+      int[] start = startPiece.getLocation();
+      int[] end = endPiece.getLocation();
       alterBoardstate[end[1]][end[0]] = new ArrayList<Piece>();
       Board alterBoard = new Board(8, 8, board.getWhitePlayer(), board.getBlackPlayer(), board.getGame(), alterBoardstate);
       return checkMoveValidity(alterBoard, start, end, movement, passthrough, symmetric, continuous);

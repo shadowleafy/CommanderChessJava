@@ -33,27 +33,49 @@ public class Game {
   }
   
   public static void passTurn(){
-    
+    for (ArrayList<Piece>[] arr : board.getBoardstate()){
+      for (ArrayList<Piece> arrp : arr){
+        for (Piece p : arrp){
+          p.onTurnEnd();
+          UI.updateBoard(board);
+        }
+      }
+    }
+    board.switchActivePlayer();
+    UI.updateBoard(board);
+    for (ArrayList<Piece>[] arr : board.getBoardstate()){
+      for (ArrayList<Piece> arrp : arr){
+        for (Piece p : arrp){
+          p.onTurnStart();
+          UI.updateBoard(board);
+        }
+      }
+    }
   }
 
   public static void confirm(){}
 
-  public static void main(String[] args) {
-    Game game = new Game();
-    UI.start();
-    while(!game.getNextMenu().equals("quit")){
-      if (game.getNextMenu().equals("main")){
-        UI.generateMainMenu();
-      }
-      else if (game.getNextMenu().equals("characterSelection")){
-        game.characterSelection();
-      }
-      else if (game.getNextMenu().equals("tutorial")){
-        game.tutorial();
-      }
-      game.setNextMenu(UI.awaitMenuSelection());
-    }
-    System.exit(0);
+  public static void declareWinner(int winner){
 
+  }
+
+  public static void finishAction(Action a){
+        a.costUse();
+        UI.stepsDone = 0;
+        UI.selectedSquares.clear();
+        UI.selectedPieces.clear();
+        UI.selectedAction = null;
+        for (ArrayList<Piece>[] arr : board.getBoardstate()){
+          for (ArrayList<Piece> arrp : arr){
+            for (Piece p : arrp){
+              p.onActionUse(a);
+              UI.updateBoard(board);
+            }
+          }
+        }
+    }
+
+  public static void main(String[] args) {
+    UI.start();
   }
 }

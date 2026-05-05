@@ -28,7 +28,7 @@ public class Board {
     activePlayer = 0; // White goes first
     white = whitePlayer;
     black = blackPlayer;
-    turnNumber = 0;
+    turnNumber = 1;
     // Put the pieces onto the board.
     for (int i = 0; i < y; i++){
       for (int j = 0; j < x; j++){
@@ -163,6 +163,13 @@ public class Board {
 
   public void updateAllData(){
 
+  }
+
+  public void switchActivePlayer(){
+    activePlayer = 1 - activePlayer;
+    if (activePlayer == 0) {
+      turnNumber++;
+    }
   }
   
 }

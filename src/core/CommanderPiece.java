@@ -44,7 +44,7 @@ public class CommanderPiece extends Piece {
   }
 
   public void onDeath(){
-    getBoard().getGame().declareWinner(1-getController());
+    Game.declareWinner(1-getController());
   }
 
   public void processCapturedBy(Piece p){

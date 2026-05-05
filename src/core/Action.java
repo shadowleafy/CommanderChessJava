@@ -73,9 +73,8 @@ public class Action {
     return (getOwnerPiece().getControllerObj().getActions() > 0 && getOwnerPiece().getCounters("stun") == 0);
   }
   
-  public boolean onUse(){
-    return true;
-  } // return true if the move resolved, otherwise return false.
+  public void onUse(){
+  } // call me!
   
   public void costUse(){
 

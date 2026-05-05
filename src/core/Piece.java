@@ -170,9 +170,7 @@ public class Piece {
     onMoveTo(end);
   }
 
-  public void capturePieceOn(int[] end, int indexDefender){
-    ArrayList<Piece>[][] boardstate = getBoard().getBoardstate();
-    Piece defendingPiece = boardstate[end[1]][end[0]].get(indexDefender);
+  public void capturePiece(Piece defendingPiece){
     processCapturePiece(defendingPiece);
     defendingPiece.processCapturedBy(this);
     onCapturePiece(defendingPiece);

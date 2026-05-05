@@ -20,9 +20,11 @@ public class UI implements ActionListener{
     // These are the general idea of methods we'll need
 
     private static Board board;
+
+    // THESE STATIC VARIABLES ACT LIKE GLOBAL VARIABLES!!! THEY ARE INTENTIONALLY PUBLIC!
     public static ArrayList<int[]> selectedSquares;
-    private static ArrayList<Piece> selectedPieces;
-    private static Action selectedAction;
+    public static ArrayList<Piece> selectedPieces;
+    public static Action selectedAction;
     public static int stepsDone = 0;
 
     private static JFrame frame;
@@ -224,4 +226,12 @@ public class UI implements ActionListener{
     public static void await(String message){
 
     }
+    public static void cancel(String message){
+        stepsDone = 0;
+        selectedSquares.clear();
+        selectedPieces.clear();
+        selectedAction = null;
+        log(message);
+    }
+    
 }
