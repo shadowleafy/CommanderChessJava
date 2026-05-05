@@ -22,7 +22,7 @@ public class RookCapture extends Action {
         switch(UI.stepsDone){
             case 1:
                 if (owner.getControllerObj().getActions() >= 1){
-                    UI.await("Select a piece in range to capture.");
+                    UI.log("Select a piece in range to capture.");
                 }
                 else{
                     UI.cancel("You don't have enough actions to use this!");

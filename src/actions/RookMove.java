@@ -22,7 +22,7 @@ public class RookMove extends Action {
         switch(UI.stepsDone){
             case 1:
                 if (owner.getControllerObj().getActions() >= 1){
-                    UI.await("Select a square in range to move to.");
+                    UI.log("Select a square in range to move to.");
                 }
                 else{
                     UI.cancel("You don't have enough actions to use this!");
