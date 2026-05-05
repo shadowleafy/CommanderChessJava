@@ -45,7 +45,9 @@ public class PawnCapture extends Action {
                     if (Utility.checkCaptureValidity(gameboard, getOwnerPiece(), UI.selectedPieces.get(0), Utility.formVector("1,1"), false, false,  false) ||
                         Utility.checkCaptureValidity(gameboard, getOwnerPiece(), UI.selectedPieces.get(0), Utility.formVector("-1,1"), false, false,  false)){
                         getOwnerPiece().capturePiece(UI.selectedPieces.get(0));
-                        getOwnerPiece().movePiece(loc);
+                        if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
+                            getOwnerPiece().movePiece(loc);
+                        }
                         Game.finishAction(this);
                     }
                     else{

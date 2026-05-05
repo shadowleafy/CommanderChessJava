@@ -45,7 +45,9 @@ public class KingMove extends Action {
                     int color = getOwnerPiece().getController();
                     if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,0"), false, true,  false) ||
                         Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,1"), false, true,  false)){
-                        getOwnerPiece().movePiece(loc);
+                        if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
+                            getOwnerPiece().movePiece(loc);
+                        }
                         Game.finishAction(this);
                     }
                     else{

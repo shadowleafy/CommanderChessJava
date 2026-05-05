@@ -46,7 +46,9 @@ public class PawnMove extends Action {
                     if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("0,1"), false, false,  false) || 
                     (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("0,2"), false, false,  false)) &&
                     Utility.colorshiftLocation(myLoc, color)[1] == 1){
+                    if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
                         getOwnerPiece().movePiece(loc);
+                    }
                         Game.finishAction(this);
                     }
                     else{
