@@ -200,8 +200,10 @@ public class UI implements ActionListener{
     public static void createCharSelectPanel(){
         charSelect.setLayout(new GridLayout());
 
+        JLabel[] commanders = new JLabel[Constant.COMMANDER_IDS.length];
         JLabel charSelectTitle = new JLabel("Character Selection");
         for (int i = 0; i < Constant.COMMANDER_IDS.length; i++){
+            commanders[i] = new JLabel();
             
         }
     } //initialize components for character selection page, show commanders, when clicked have drop down w descriptions
