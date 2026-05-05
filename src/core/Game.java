@@ -32,6 +32,10 @@ public class Game {
     nextMenu = value;
   }
   
+  public static void beginGame(String[] whitePieces, String[] blackPieces, String whiteName, String blackName){
+
+  }
+
   public static void passTurn(){
     for (ArrayList<Piece>[] arr : board.getBoardstate()){
       for (ArrayList<Piece> arrp : arr){
