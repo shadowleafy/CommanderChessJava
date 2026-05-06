@@ -260,10 +260,18 @@ public class UI implements ActionListener{
     } //creates initial log area
 
     public static void onSquareClicked(int row, int col){ 
-        Piece currPiece = Board.getBoardstate()[row][col]; //check to see syntax that works
+        ArrayList<Piece> currPieceArray = Board.getBoardstate()[row][col]; //col goes bottom to top
         // Note: Board.getBoardstate()[row][col] will return an ArrayList<Piece>, not a Piece. You'll have to do
         // if (currPiece.size() != 0). then have the user pick a piece iff currPiece.size() != 1.
-        if (currPiece != null){
+        if (currPieceArray.size() == 0){ // no piece selection
+            
+        }
+
+        if (currPieceArray.size() >= 1){
+            // show the drop down menu. dont show info for piece until they pick the piece (show pieces on square)
+        }
+        
+        /* if (currPiece != null){
             JLabel name = currPiece.getDisplayName(); //for info panel
             //get the rest of the info needed for info panel
             JButton[] cpActions = new JButton[currPiece.getActions().size()];
@@ -278,7 +286,7 @@ public class UI implements ActionListener{
                 });
                 // ADD BUTTON TO LIST
             }
-        }
+        } */
     } //when square on board is clicked
 
     public static void updateBoard(Board b){
