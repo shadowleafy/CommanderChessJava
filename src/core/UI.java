@@ -155,7 +155,13 @@ public class UI implements ActionListener{
         
         for (int row = 0; row < 8; row++){
             for (int col = 0; col < 8; col++){
-                chessBoard[row][col] = new JButton();
+                JButton currButton = new JButton();
+                chessBoard[row][col] = currButton;
+                int r = row;
+                int c = col;
+                currButton.addActionListener(e -> {
+                    onSquareClicked(r, c);
+                });
                 if (row % 2 == 0){
                     if (col % 2 == 0){
                         chessBoard[row][col].setBackground(new Color(0xEBD2B2));
@@ -252,6 +258,26 @@ public class UI implements ActionListener{
         logArea.add(mLogPane, BorderLayout.CENTER); //figure out layout (should be at bottom right under selected piece info)
 
     } //creates initial log area
+
+    public static void onSquareClicked(int row, int col){ 
+        Piece currPiece = Board.getBoardstate()[row][col]; //check to see syntax that works
+        if (currPiece != null){
+            JLabel name = currPiece.getDisplayName(); //for info panel
+            //get the rest of the info needed for info panel
+            JButton[] cpActions = new JButton[currPiece.getActions().size()];
+            for (int i = 0; i < cpActions.length; i++){ //creates list of action buttons
+                Action currAction = currPiece.getActions().get(i);
+                JButton a = new JButton(currAction); //DEFINTELY EDIT CHANGE ACTION TO STRING SOMEHOW or maybe remove 'are you sure' button and just increment when clicked so action is button
+                a.addActionListener(e -> {
+                    selectedAction = currAction;
+                    stepsDone++;
+                    selectedAction.onUse(); //check for method name
+                    //open piece & square selection panel, select + done buttons (probably write in a different function)
+                });
+                // ADD BUTTON TO LIST
+            }
+        }
+    } //when square on board is clicked
 
     public static void updateBoard(Board b){
         board = b;
