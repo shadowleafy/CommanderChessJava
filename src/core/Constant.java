@@ -29,12 +29,30 @@ public class Constant {
   public static final Map<String, String> ENGLISH_DICT = Map.ofEntries(
     // Display Names of Pieces
     Map.entry("ackle_display", "Ackle, Crafted in Code"),
-    Map.entry("arch_display", "Arch, Programmed Guardian")
-
+    Map.entry("arch_display", "Arch, Programmed Guardian"),
+    Map.entry("bit_display", "Bit"),
+    Map.entry("source_code_display", "Source Code"),
+    Map.entry("parallel_thread_display", "Parallel Thread"),
+    Map.entry("turing_machine_display", "Turing Machine")
     
   );
-  public static final Map<String, String> CHINESE_DICT = Map.ofEntries();
-  public static final Map<String, String> JAPANESE_DICT = Map.ofEntries();
+  public static final Map<String, String> CHINESE_DICT = Map.ofEntries(
+    // Display Names of Pieces
+    Map.entry("ackle_display", "阿克爾，程式碼人"),
+    Map.entry("arch_display", "阿奇，程式監護人"),
+    Map.entry("bit_display", "位元"),
+    Map.entry("source_code_display", "原始程式碼"),
+    Map.entry("parallel_thread_display", "平行過程"),
+    Map.entry("turing_machine_display", "圖靈機器")
+  );
+  public static final Map<String, String> JAPANESE_DICT = Map.ofEntries(
+    Map.entry("ackle_display", "アコル、コードで作り上げる"),
+    Map.entry("arch_display", "アーチ、プログラムな保護者"),
+    Map.entry("bit_display", "ビット"),
+    Map.entry("source_code_display", "ソースコード"),
+    Map.entry("parallel_thread_display", "平行なプロセス"),
+    Map.entry("turing_machine_display", "チューリングな機械")
+  );
 
   public static final Map<String, Map<String, String>> DICT_MAP = Map.ofEntries(
 
