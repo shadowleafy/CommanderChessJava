@@ -30,6 +30,15 @@ public class Utility {
     }
     return false;
   }
+
+   public static boolean squareInArrayList(ArrayList<int[]> object, int[] target){
+    for (int[] k : object){
+      if (compareVectors(target, k)){
+        return true;
+      }
+    }
+    return false;
+  }
   
   public static int arrayListIndexOf(ArrayList<String> object, String target){
     for (int i = 0; i < object.size(); i++){
