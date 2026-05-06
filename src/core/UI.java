@@ -261,6 +261,8 @@ public class UI implements ActionListener{
 
     public static void onSquareClicked(int row, int col){ 
         Piece currPiece = Board.getBoardstate()[row][col]; //check to see syntax that works
+        // Note: Board.getBoardstate()[row][col] will return an ArrayList<Piece>, not a Piece. You'll have to do
+        // if (currPiece.size() != 0). then have the user pick a piece iff currPiece.size() != 1.
         if (currPiece != null){
             JLabel name = currPiece.getDisplayName(); //for info panel
             //get the rest of the info needed for info panel
