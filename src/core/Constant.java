@@ -26,7 +26,13 @@ public class Constant {
 
   // Translation stuffs :3
 
-  public static final Map<String, String> ENGLISH_DICT = Map.ofEntries();
+  public static final Map<String, String> ENGLISH_DICT = Map.ofEntries(
+    // Display Names of Pieces
+    Map.entry("ackle_display", "Ackle, Crafted in Code"),
+    Map.entry("arch_display", "Arch, Programmed Guardian")
+
+    
+  );
   public static final Map<String, String> CHINESE_DICT = Map.ofEntries();
   public static final Map<String, String> JAPANESE_DICT = Map.ofEntries();
 
