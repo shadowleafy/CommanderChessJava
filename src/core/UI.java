@@ -41,6 +41,10 @@ public class UI implements ActionListener{
     private static JPanel charSelect;
     private static JPanel instructions;
 
+    private static JPanel pieceArea;
+    private static JPanel logArea;
+    private static JTextArea mLog;
+
     private static JButton[][] chessBoard;
 
     public static void start(){
@@ -70,7 +74,8 @@ public class UI implements ActionListener{
         layout.show(container, "Menu"); //probably move
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 720);
+        frame.setSize(900, 700);
+        frame.setMinimumSize(new Dimension(900, 650));
         frame.setVisible(true);
     } // generate screen when first opened
 
@@ -136,12 +141,18 @@ public class UI implements ActionListener{
 
     public static void createGamePanel(){
         //background colors: #854D24 (dark), #EBD2B2 (light)
-        game.setLayout(new BorderLayout());
-    
         chessBoard = new JButton[8][8];
-        JPanel boardArea = new JPanel(new GridLayout(8, 8));
-        boardArea.setPreferredSize(new Dimension(600, 600));
 
+        pieceArea = new JPanel();
+        logArea = new JPanel(new BorderLayout());
+
+        JPanel boardArea = new JPanel(new GridLayout(8, 8));
+        boardArea.setPreferredSize(new Dimension(500, 500));
+        
+        createLog();
+        JLabel initPieceMessage = new JLabel("Piece Information + Action Decisions will be here"); //move
+        pieceArea.add(initPieceMessage);
+        
         for (int row = 0; row < 8; row++){
             for (int col = 0; col < 8; col++){
                 chessBoard[row][col] = new JButton();
@@ -166,12 +177,13 @@ public class UI implements ActionListener{
                 boardArea.add(chessBoard[row][col]);
             }
         }
-        game.add(new JPanel(), BorderLayout.WEST);
-        game.add(new JPanel(), BorderLayout.EAST);
-        game.add(new JPanel(), BorderLayout.NORTH);
-        game.add(new JPanel(), BorderLayout.SOUTH);
-        game.add(boardArea, BorderLayout.CENTER);
-        //somewhere in here call createLog() and figure out layout
+
+        JSplitPane vertSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pieceArea, logArea);
+        JSplitPane horizSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, boardArea, vertSplit);
+        vertSplit.setResizeWeight(0.66);
+        horizSplit.setResizeWeight(0.66);
+        
+        game.add(horizSplit);
 
     } //initializes components for game page
 
@@ -227,25 +239,27 @@ public class UI implements ActionListener{
     } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
     public static void createLog(){
-        JTextArea mLog = new JTextArea();
-        mLog.setFont(new Font("Arial", Font.PLAIN, 20)); //change text size once have instructions
+        mLog = new JTextArea();
+        mLog.setFont(new Font("Arial", Font.PLAIN, 14)); //change text size once have instructions
         mLog.setText("Messages to you will appear here"); // add initial message
+        mLog.append("\n-------------");
 
         mLog.setEditable(false);
         mLog.setLineWrap(true);
         mLog.setWrapStyleWord(true);
         JScrollPane mLogPane = new JScrollPane(mLog);
 
-        game.add(mLogPane); //figure out layout (should be at bottom right under selected piece info)
+        logArea.add(mLogPane, BorderLayout.CENTER); //figure out layout (should be at bottom right under selected piece info)
 
     } //creates initial log area
 
     public static void updateBoard(Board b){
         board = b;
-    }
+    } //update where pieces appear too
 
     public static void log(String s){
-
+        mLog.append("\n" + s);
+        mLog.append("\n-------------");
     } // Visually show a message to players in a scrolling chat menu.
 
     public static void await(String message){
