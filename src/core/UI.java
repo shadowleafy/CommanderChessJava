@@ -47,6 +47,12 @@ public class UI implements ActionListener{
     private static JPanel pieceArea;
     private static JPanel logArea;
     private static JTextArea mLog;
+    private static CardLayout pieceAreaLayout;
+
+    private static JPanel pBlank;
+    private static JPanel pPickChar;
+    private static JPanel pCharInfo;
+    private static JPanel pAction;
 
     private static JButton[][] chessBoard;
 
@@ -146,15 +152,15 @@ public class UI implements ActionListener{
         //background colors: #854D24 (dark), #EBD2B2 (light)
         chessBoard = new JButton[8][8];
 
-        pieceArea = new JPanel();
+        pieceAreaLayout = new CardLayout();
+        pieceArea = new JPanel(pieceAreaLayout);
         logArea = new JPanel(new BorderLayout());
 
         JPanel boardArea = new JPanel(new GridLayout(8, 8));
         boardArea.setPreferredSize(new Dimension(500, 500));
         
+        createPieceArea();
         createLog();
-        JLabel initPieceMessage = new JLabel("Piece Information + Action Decisions will be here"); //move
-        pieceArea.add(initPieceMessage);
 
         select = new JButton("Select");
         hideSelectButton();
@@ -281,6 +287,28 @@ public class UI implements ActionListener{
 
     } //creates initial log area
 
+    public static void createPieceArea(){
+        pBlank = new JPanel();
+        pPickChar = new JPanel();
+        pCharInfo = new JPanel();
+        pAction = new JPanel();
+
+        JLabel initPieceMessage = new JLabel("Piece Information + Action Decisions will be here");
+        pBlank.add(initPieceMessage);
+
+        pPickChar.setLayout(new GridLayout(0, 1, 5, 5));
+
+        pCharInfo.setLayout(new GridLayout(0, 1, 5, 5));
+
+        pAction.setLayout(new GridLayout(0, 1, 5, 5));
+
+        pieceArea.add(pBlank, "Blank");
+        pieceArea.add(pPickChar, "Pick Character");
+        pieceArea.add(pCharInfo, "Character Info");
+        pieceArea.add(pAction, "Action");
+        pieceAreaLayout.show(pieceArea, "Blank");
+    }
+
     public static void onSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
         ArrayList<Piece> currPieceArray = Board.getBoardstate()[row][col]; //row goes bottom to top
         
@@ -288,17 +316,19 @@ public class UI implements ActionListener{
 
         if (currPieceArray.size() >= 1){
             //get the rest of the info needed for info panel
-            JButton[] pieces = new JButton[currPieceArray.size()];
             for (int j = 0; j < currPieceArray.size(); j++){
-                pieces[j] = new JButton(currPieceArray.get(i).getDisplayName());
+                JButton piece = new JButton(currPieceArray.get(i).getDisplayName());
                 //add image icon for button in side panel
-                pieces[j].addActionListener(e-> {
+                piece.addActionListener(e-> {
                     onPieceSelected(currPieceArray.get(i));
                 }); 
-                //add piece to panel and set size
+                pPickChar.add(piece);
             }
             // show the drop down menu. dont show info for piece until they pick the piece (show pieces on square)
+            //change card to pick character
+            pieceAreaLayout.show(pieceArea, "Pick Character");
         }
+
     } //when square on board is clicked
 
     public static void onPieceSelected(Piece p){
@@ -316,8 +346,8 @@ public class UI implements ActionListener{
             });
             cpActions.add(a);
         }
-        //show cpActions buttons (card?)
-    }
+        //show cpActions buttons (card - character info)
+    } //probably change so don't need arraylist
 
     public static void showSelectButton(){
         if (!selectShown){
