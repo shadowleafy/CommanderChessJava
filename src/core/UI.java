@@ -374,12 +374,12 @@ public class UI implements ActionListener{
     } //probably change so don't need arraylist
 
     public static void selectActionStuff(){ //fix layout
-        JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
-        JButton done = new JButton("Done");
+        // JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
+       // JButton done = new JButton("Done");
         showSelectButton();
 
-        pAction.add(actionDesc);
-        pAction.add(done);
+        //pAction.add(actionDesc);
+        //pAction.add(done);
 
         pieceAreaLayout.show(pieceArea, "Action");
     }
@@ -393,7 +393,7 @@ public class UI implements ActionListener{
                 selectedSquares.add(currSelectedSquare);
             }
         }
-        else if (toSelect.equals("piece")){
+        else if (selectedType.equals("piece")){
             if (Utility.pieceInArrayList(selectedPieces, currSelectedPiece)){
                 selectedPieces.remove(currSelectedPiece);
             }
