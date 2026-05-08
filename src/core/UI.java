@@ -329,16 +329,16 @@ public class UI implements ActionListener{
         selectedType = "square";
         //highlight square
 
-        if (currPieceArray.size() >= 1){
+        if (!currPieceArray.isEmpty()){
             //get the rest of the info needed for info panel
-            for (int j = 0; j < currPieceArray.size(); j++){
-                JButton piece = new JButton(currPieceArray.get(j).getDisplayName());
-                Piece p = currPieceArray.get(j);
+            for (Piece value : currPieceArray) {
+                JButton piece = new JButton(value.getDisplayName());
+                Piece p = value;
                 //add image icon for button in side panel
-                piece.addActionListener(e-> {
+                piece.addActionListener(e -> {
                     currSelectedPiece = p;
                     onInitPieceSelected(p);
-                }); 
+                });
                 pPickChar.add(piece);
             }
             // show the drop down menu. dont show info for piece until they pick the piece (show pieces on square)
