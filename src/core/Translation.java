@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class Translation{
+public class Translation{
 
     private static Map<String, String> selectedDictionary;
 

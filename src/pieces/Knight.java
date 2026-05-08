@@ -12,8 +12,9 @@ public class Knight extends Piece{
     public Knight(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
         setPieceId("knight");
+        setDisplayName(Translation.getStatic("knight_display"));
         Action knightCapture = new KnightCapture(this);
-        Action knightMove = new KnightCapture(this);
+        Action knightMove = new KnightMove(this);
         Action[] arr = {knightCapture, knightMove};
         setActions(Utility.arrayActionToArrayList(arr));
     }  

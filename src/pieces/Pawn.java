@@ -12,6 +12,7 @@ public class Pawn extends Piece{
     public Pawn(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
         setPieceId("pawn");
+        setDisplayName(Translation.getStatic("pawn_display"));
         Action pawnCapture = new PawnCapture(this);
         Action pawnMove = new PawnMove(this);
         Action[] arr = {pawnCapture, pawnMove};

@@ -12,8 +12,9 @@ public class Bishop extends Piece{
     public Bishop(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
         setPieceId("Bishop");
+        setDisplayName(Translation.getStatic("bishop_display"));
         Action bishopCapture = new BishopCapture(this);
-        Action bishopMove = new BishopCapture(this);
+        Action bishopMove = new BishopMove(this);
         Action[] arr = {bishopCapture, bishopMove};
         setActions(Utility.arrayActionToArrayList(arr));
     }  
