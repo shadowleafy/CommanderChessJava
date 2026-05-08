@@ -35,7 +35,7 @@ public class Piece {
     gameboard = board;
     onEntry();
   }
-  
+  // test
   public int getController(){
     return controller;
   }
