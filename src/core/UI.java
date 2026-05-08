@@ -322,6 +322,9 @@ public class UI implements ActionListener{
     }
 
     public static void onInitSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
+        pieceAreaLayout.show(pieceArea, "Blank");
+        pPickChar.removeAll();
+        cancel();
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
         selectedType = "square";
         //highlight square
