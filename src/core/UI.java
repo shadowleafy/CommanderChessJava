@@ -174,9 +174,9 @@ public class UI implements ActionListener{
                 chessBoard[row][col] = currButton;
                 int r = row;
                 int c = col;
+                int[] loc = {col, row};
                 currButton.addActionListener(e -> {
                     if (stepsDone != 0){
-                        int[] loc = {col, row};
                         showSelectButton();
                         if (Utility.squareInArrayList(selectedSquares, loc)){
                             select.setText("Unselect");
@@ -310,17 +310,18 @@ public class UI implements ActionListener{
     }
 
     public static void onSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
-        ArrayList<Piece> currPieceArray = Board.getBoardstate()[row][col]; //row goes bottom to top
+        ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
         
         //highlight square
 
         if (currPieceArray.size() >= 1){
             //get the rest of the info needed for info panel
             for (int j = 0; j < currPieceArray.size(); j++){
-                JButton piece = new JButton(currPieceArray.get(i).getDisplayName());
+                JButton piece = new JButton(currPieceArray.get(j).getDisplayName());
+                Piece p = currPieceArray.get(j);
                 //add image icon for button in side panel
                 piece.addActionListener(e-> {
-                    onPieceSelected(currPieceArray.get(i));
+                    onPieceSelected(p);
                 }); 
                 pPickChar.add(piece);
             }
@@ -336,7 +337,7 @@ public class UI implements ActionListener{
         ArrayList<JButton> cpActions = new ArrayList<JButton>();
         for (int i = 0; i < cpActions.size(); i++){ //creates list of action buttons
             Action currAction = p.getActions().get(i);
-            JButton a = new JButton(currAction); //DEFINTELY EDIT CHANGE ACTION TO STRING SOMEHOW or maybe remove 'are you sure' button and just increment when clicked so action is button
+            JButton a = new JButton(currAction.getDisplayName()); //DEFINTELY EDIT CHANGE ACTION TO STRING SOMEHOW or maybe remove 'are you sure' button and just increment when clicked so action is button
             a.addActionListener(e -> {
                 selectedAction = currAction;
                 stepsDone++;
@@ -362,7 +363,7 @@ public class UI implements ActionListener{
     }
 
     public static void selectActionStuff(){
-        JTextArea actionDesc = new JTextArea(Action.getDescription());
+        JTextArea actionDesc = new JTextArea(selectedAction.getDescription());
     }
 
     public static void updateBoard(Board b){
