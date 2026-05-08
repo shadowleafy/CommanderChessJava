@@ -26,6 +26,8 @@ public class Constant {
 
   // Translation stuffs :3
 
+  public static final String[] LANGUAGES = {"English", "Chinese", "Japanese"};
+
   public static final Map<String, String> ENGLISH_DICT = Map.ofEntries(
     // Display Names of Pieces
     Map.entry("ackle_display", "Ackle, Crafted in Code"),
@@ -56,9 +58,9 @@ public class Constant {
 
   public static final Map<String, Map<String, String>> DICT_MAP = Map.ofEntries(
 
-    Map.entry("english", ENGLISH_DICT),
-    Map.entry("chinese", CHINESE_DICT),
-    Map.entry("japanese", JAPANESE_DICT)
+    Map.entry("English", ENGLISH_DICT),
+    Map.entry("Chinese", CHINESE_DICT),
+    Map.entry("Japanese", JAPANESE_DICT)
 
   );
 

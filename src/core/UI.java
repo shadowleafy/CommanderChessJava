@@ -86,6 +86,7 @@ public class UI implements ActionListener{
         frame.setSize(900, 700);
         frame.setMinimumSize(new Dimension(900, 650));
         frame.setVisible(true);
+
     } // generate screen when first opened
 
     public static void createMenuPanel(){
@@ -242,6 +243,7 @@ public class UI implements ActionListener{
         instructions.add(scrollpane, BorderLayout.CENTER);
         instructions.add(closeInstructions, BorderLayout.SOUTH);
     } //initialize components for instructions page
+
 
     public static void createCharSelectPanel(){
         charSelect.setLayout(new GridLayout());
