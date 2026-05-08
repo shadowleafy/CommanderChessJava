@@ -377,17 +377,6 @@ public class UI implements ActionListener{
         JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
         JButton done = new JButton("Done");
         showSelectButton();
-//        if (//need to select squares)
-//        {
-//            toSelect = "square";
-//        }
-//        else if (//need to select pieces)
-//        {
-//            toSelect = "piece";
-//        }
-//        else {
-//            toSelect = "none";
-//        }
 
         pAction.add(actionDesc);
         pAction.add(done);
@@ -417,13 +406,13 @@ public class UI implements ActionListener{
 
     public static void showSelectButton(){
         if (!selectShown){
-            //show select
+            pAction.add(select);
         }
     }
 
     public static void hideSelectButton(){
         if (selectShown){
-            //hide select
+            pAction.remove(select);
         }
     }
 
