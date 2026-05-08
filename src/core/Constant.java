@@ -30,6 +30,9 @@ public class Constant {
 
   public static final Map<String, String> ENGLISH_DICT = Map.ofEntries(
     // Display Names of Pieces
+    Map.entry("king_display", "King"),
+    Map.entry("queen_display", "Queen"),
+
     Map.entry("ackle_display", "Ackle, Crafted in Code"),
     Map.entry("arch_display", "Arch, Programmed Guardian"),
     Map.entry("bit_display", "Bit"),
