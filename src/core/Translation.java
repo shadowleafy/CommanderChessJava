@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Translation{
 
-    private static Map<String, String> selectedDictionary;
+    private static Map<String, String> selectedDictionary = Constant.ENGLISH_DICT;
 
     public static void setDict(String language){
         selectedDictionary = Constant.DICT_MAP.get(language);

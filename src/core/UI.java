@@ -22,8 +22,8 @@ public class UI implements ActionListener{
     private static Board board;
 
     // THESE STATIC VARIABLES ACT LIKE GLOBAL VARIABLES!!! THEY ARE INTENTIONALLY PUBLIC!
-    public static ArrayList<int[]> selectedSquares;
-    public static ArrayList<Piece> selectedPieces;
+    public static ArrayList<int[]> selectedSquares = new ArrayList<int[]>();
+    public static ArrayList<Piece> selectedPieces = new ArrayList<Piece>();
     public static Action selectedAction;
     public static int stepsDone = 0;
 
@@ -435,6 +435,12 @@ public class UI implements ActionListener{
         selectedPieces.clear();
         selectedAction = null;
         log(message);
+    }
+    public static void cancel(){
+        stepsDone = 0;
+        selectedSquares.clear();
+        selectedPieces.clear();
+        selectedAction = null;
     }
     
 }
