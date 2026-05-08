@@ -12,6 +12,7 @@ public class King extends CommanderPiece {
     public King(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
         setPieceId("king");
+        setDisplayName(Translation.getDynamic("king_display"));
         Action kingCapture = new KingCapture(this);
         Action kingMove = new KingMove(this);
         Action[] arr = {kingCapture, kingMove};
