@@ -13,6 +13,7 @@ public class CommanderPiece extends Piece {
 
   public CommanderPiece(int ctrl, int[] loc, Board board){
     super(ctrl, loc, board);
+    addTag("isCommander");
   }
 
   public int getHealth(){ 

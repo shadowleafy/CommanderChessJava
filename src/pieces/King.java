@@ -16,7 +16,8 @@ public class King extends CommanderPiece {
         Action kingMove = new KingMove(this);
         Action[] arr = {kingCapture, kingMove};
         setActions(Utility.arrayActionToArrayList(arr));
-        addTag("isCommander");
+
+
     }  
 
 }
