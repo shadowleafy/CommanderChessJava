@@ -43,6 +43,8 @@ public class UI implements ActionListener{
 
     private static JButton select;
     private static boolean selectShown = false;
+    private static String toSelect;
+    private static int[] currSelectedSquare; //check type
 
     private static JPanel pieceArea;
     private static JPanel logArea;
@@ -166,28 +168,29 @@ public class UI implements ActionListener{
         select = new JButton("Select");
         hideSelectButton();
         select.addActionListener(e -> {
-            //make new function
+            selectButtonFunction();
         });
         
         for (int row = 0; row < 8; row++){
             for (int col = 0; col < 8; col++){
-                JButton currButton = new JButton();
-                chessBoard[row][col] = currButton;
+                chessBoard[row][col] = new JButton();
                 int r = row;
                 int c = col;
                 int[] loc = {col, row};
-                currButton.addActionListener(e -> {
+                chessBoard[row][col].addActionListener(e -> {
                     if (stepsDone != 0){
                         showSelectButton();
+                        currSelectedSquare = loc;
                         if (Utility.squareInArrayList(selectedSquares, loc)){
                             select.setText("Unselect");
                         }
                         else{
                             select.setText("Select");
+
                         }
                     }
                     else {
-                        onSquareClicked(7-r, c); //change name
+                        onInitSquareClicked(7-r, c);
                     }
                     
                 });
@@ -311,7 +314,7 @@ public class UI implements ActionListener{
         pieceAreaLayout.show(pieceArea, "Blank");
     }
 
-    public static void onSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
+    public static void onInitSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
         
         //highlight square
@@ -323,7 +326,7 @@ public class UI implements ActionListener{
                 Piece p = currPieceArray.get(j);
                 //add image icon for button in side panel
                 piece.addActionListener(e-> {
-                    onPieceSelected(p);
+                    onInitPieceSelected(p);
                 }); 
                 pPickChar.add(piece);
             }
@@ -334,12 +337,14 @@ public class UI implements ActionListener{
 
     } //when square on board is clicked
 
-    public static void onPieceSelected(Piece p){
-        // hide char select buttons from piece panel
-        ArrayList<JButton> cpActions = new ArrayList<JButton>();
-        for (int i = 0; i < cpActions.size(); i++){ //creates list of action buttons
+    public static void onInitPieceSelected(Piece p){
+        JLabel pName = new JLabel(p.getDisplayName());
+        //get remaining piece info
+        pCharInfo.add(pName);
+
+        for (int i = 0; i < p.getActions().size(); i++){ //creates list of action buttons
             Action currAction = p.getActions().get(i);
-            JButton a = new JButton(currAction.getDisplayName()); //DEFINTELY EDIT CHANGE ACTION TO STRING SOMEHOW or maybe remove 'are you sure' button and just increment when clicked so action is button
+            JButton a = new JButton(currAction.getDisplayName());
             a.addActionListener(e -> {
                 selectedAction = currAction;
                 stepsDone++;
@@ -347,10 +352,47 @@ public class UI implements ActionListener{
                 selectActionStuff();
                 //open piece & square selection panel, select + done buttons (probably write in a different function)
             });
-            cpActions.add(a);
+            pCharInfo.add(a);
         }
-        //show cpActions buttons (card - character info)
+        pieceAreaLayout.show(pieceArea, "Character Info");
     } //probably change so don't need arraylist
+
+    public static void selectActionStuff(){ //fix layout
+        JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
+        JButton done = new JButton("Done");
+        showSelectButton();
+        if (//need to select squares)
+        {
+            toSelect = "square";
+        }
+        else if (//need to select pieces)
+        {
+            toSelect = "piece";
+        }
+        else {
+            toSelect = "none";
+        }
+
+        pAction.add(actionDesc);
+        pAction.add(done);
+
+        pieceAreaLayout.show(pieceArea, "Action");
+    }
+
+    public static void selectButtonFunction(){
+        if (toSelect.equals("square")){
+            if (// square is in array){
+                //remove square from array
+            }
+            else{
+                selectedSquares.add(loc);
+            }
+        }
+        else if (toSelect.equals("piece"){
+
+        }
+
+    }
 
     public static void showSelectButton(){
         if (!selectShown){
@@ -362,10 +404,6 @@ public class UI implements ActionListener{
         if (selectShown){
             //hide select
         }
-    }
-
-    public static void selectActionStuff(){
-        JTextArea actionDesc = new JTextArea(selectedAction.getDescription());
     }
 
     public static void updateBoard(Board b){
