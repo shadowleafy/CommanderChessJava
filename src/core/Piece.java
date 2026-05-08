@@ -28,14 +28,16 @@ public class Piece {
  
   public Piece(int ctrl, int[] loc, Board board){
     controller = ctrl;
-    controllerObj = board.getPlayerObject(controller);
+    if (board != null) {
+      controllerObj = board.getPlayerObject(controller);
+    }
     location = Utility.copyArray(loc);
     tags = new ArrayList<String>();
     counters = new HashMap<String, Integer>();
     gameboard = board;
     onEntry();
   }
-  // tes
+  // i have changed the code. will this update?
   public int getController(){
     return controller;
   }
@@ -123,6 +125,12 @@ public class Piece {
 
   public void setCounters(String type, int count){
     counters.put(type, count);
+  }
+
+  public void updateControllerObj(){
+    if (gameboard != null){
+      controllerObj = gameboard.getPlayerObject(controller);
+    }
   }
   
   public void addTag(String tag){

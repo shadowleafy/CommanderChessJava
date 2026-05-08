@@ -34,11 +34,13 @@ public class Board {
         if (white.getStartingSetup()[y][x] != -1){
           int[] vector = {x, y};
           Piece whitePiece = Utility.idToPiece(white.getPieceIds()[white.getStartingSetup()[y][x]], 0, vector, this);
+          whitePiece.updateControllerObj();
           boardstate[y][x].add(whitePiece);
         }
         if (black.getStartingSetup()[y][x] != -1){
           int[] vector = {x, 7-y};
           Piece blackPiece = Utility.idToPiece(black.getPieceIds()[black.getStartingSetup()[y][x]], 1, vector, this);
+          blackPiece.updateControllerObj();
           boardstate[7-y][x].add(blackPiece);
       
         }

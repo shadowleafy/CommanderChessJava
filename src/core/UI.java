@@ -30,6 +30,7 @@ public class UI implements ActionListener{
     private static JFrame frame;
     private static CardLayout layout;
     private static JPanel container;
+    private static String selectedType;
     
     private static JButton playButton;
     private static JButton instructionsButton;
@@ -45,6 +46,7 @@ public class UI implements ActionListener{
     private static boolean selectShown = false;
     private static String toSelect;
     private static int[] currSelectedSquare; //check type
+    private static Piece currSelectedPiece;
 
     private static JPanel pieceArea;
     private static JPanel logArea;
@@ -321,7 +323,7 @@ public class UI implements ActionListener{
 
     public static void onInitSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
-        
+        selectedType = "square";
         //highlight square
 
         if (currPieceArray.size() >= 1){
@@ -331,6 +333,7 @@ public class UI implements ActionListener{
                 Piece p = currPieceArray.get(j);
                 //add image icon for button in side panel
                 piece.addActionListener(e-> {
+                    currSelectedPiece = p;
                     onInitPieceSelected(p);
                 }); 
                 pPickChar.add(piece);
@@ -343,6 +346,7 @@ public class UI implements ActionListener{
     } //when square on board is clicked
 
     public static void onInitPieceSelected(Piece p){
+        selectedType = "piece";
         JLabel pName = new JLabel(p.getDisplayName());
         //get remaining piece info
         pCharInfo.add(pName);
@@ -366,17 +370,17 @@ public class UI implements ActionListener{
         JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
         JButton done = new JButton("Done");
         showSelectButton();
-        if (//need to select squares)
-        {
-            toSelect = "square";
-        }
-        else if (//need to select pieces)
-        {
-            toSelect = "piece";
-        }
-        else {
-            toSelect = "none";
-        }
+//        if (//need to select squares)
+//        {
+//            toSelect = "square";
+//        }
+//        else if (//need to select pieces)
+//        {
+//            toSelect = "piece";
+//        }
+//        else {
+//            toSelect = "none";
+//        }
 
         pAction.add(actionDesc);
         pAction.add(done);
@@ -385,16 +389,21 @@ public class UI implements ActionListener{
     }
 
     public static void selectButtonFunction(){
-        if (toSelect.equals("square")){
-            if (// square is in array){
-                //remove square from array
+        if (selectedType.equals("square")){
+            if (Utility.squareInArrayList(selectedSquares, currSelectedSquare)){
+                selectedSquares.remove(Utility.findSquareInArrayList(selectedSquares, currSelectedSquare));
             }
             else{
-                selectedSquares.add(loc);
+                selectedSquares.add(currSelectedSquare);
             }
         }
-        else if (toSelect.equals("piece"){
-
+        else if (toSelect.equals("piece")){
+            if (Utility.pieceInArrayList(selectedPieces, currSelectedPiece)){
+                selectedPieces.remove(currSelectedPiece);
+            }
+            else{
+                selectedPieces.add(currSelectedPiece);
+            }
         }
 
     }

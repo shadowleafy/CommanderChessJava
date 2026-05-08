@@ -39,6 +39,24 @@ public class Utility {
     }
     return false;
   }
+
+  public static boolean pieceInArrayList(ArrayList<Piece> object, Piece target){
+    for (Piece k : object){
+      if (target == k) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static int findSquareInArrayList(ArrayList<int[]> object, int[] target){
+    for (int i = 0; i < object.size(); i++){
+      if (compareVectors(target, object.get(i))){
+        return i;
+      }
+    }
+    return -1;
+  }
   
   public static int arrayListIndexOf(ArrayList<String> object, String target){
     for (int i = 0; i < object.size(); i++){
@@ -261,6 +279,26 @@ public class Utility {
 
   public static Piece idToPiece(String id, int ctrl, int[] loc, Board board){
     Piece output = null;
+    switch(id) {
+      case "king":
+        output = new King(ctrl, loc, board);
+        break;
+      case "queen":
+        output = new Queen(ctrl, loc, board);
+        break;
+      case "bishop":
+        output = new Bishop(ctrl, loc, board);
+        break;
+      case "knight":
+        output = new Knight(ctrl, loc, board);
+        break;
+      case "rook":
+        output = new Rook(ctrl, loc, board);
+        break;
+      case "pawn" :
+        output = new Pawn(ctrl, loc, board);
+        break;
+    }
     return output;
   }
 

@@ -29,6 +29,7 @@ public class Player {
       vector = Utility.formVector("7,4");
     } // note, because im hardcoding this we wont be able to move where the commander is :(
     commander = Utility.idToPiece(pieceIds[0], c, vector, null);
+    startingSetup = Constant.SETUPS.get(commander.getPieceId());
     pieceIdArray = Utility.copyArray(pieceIds);
   }
   public int getColor(){

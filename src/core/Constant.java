@@ -21,7 +21,7 @@ public class Constant {
     
   );
   public static final Map<String, int[][]> SETUPS = Map.ofEntries(
-
+          Map.entry("king", DEFAULT_BOARDSTATE)
   );
 
   // Translation stuffs :3
