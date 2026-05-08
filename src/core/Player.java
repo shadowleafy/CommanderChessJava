@@ -18,7 +18,7 @@ public class Player {
   
   // Precondition: pieces.length == 6 (can >6 but additional indicies will be ignored)
   
-  public Player(int c, String n, String commanderId){
+  public Player(int c, String n, String[] pieceIds){
     color = c;
     displayName = n;
     int[] vector = new int[2];
@@ -28,8 +28,8 @@ public class Player {
     else{
       vector = Utility.formVector("7,4");
     } // note, because im hardcoding this we wont be able to move where the commander is :(
-    commander = Utility.idToPiece(commanderId, c, vector, null);
-    pieceIdArray = commander.getPieceIds();
+    commander = Utility.idToPiece(pieceIds[0], c, vector, null);
+    pieceIdArray = Utility.copyArray(pieceIds);
   }
   public int getColor(){
     return color;

@@ -117,6 +117,11 @@ public class UI implements ActionListener{
         c.insets = new Insets(10, 10, 10, 10);
         playButton.addActionListener(e ->{
             layout.show(container, "Game");
+
+            // For testing purposes only
+            String[] whiteArray = {"king", "queen", "bishop", "knight", "rook", "pawn"};
+            String[] blackArray = {"king", "queen", "bishop", "knight", "rook", "pawn"};
+            Game.beginGame(whiteArray, blackArray, "Hatsune Miku", "Kasane Teto");
         });
         main.add(playButton, c);
         

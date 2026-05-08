@@ -33,7 +33,9 @@ public class Game {
   }
   
   public static void beginGame(String[] whitePieces, String[] blackPieces, String whiteName, String blackName){
-
+    Player whitePlayer = new Player(0, whiteName, whitePieces[0]);
+    Player blackPlayer = new Player(1, blackName, blackPieces[0]);
+    board = new Board(whitePlayer, blackPlayer);
   }
 
   public static void passTurn(){
