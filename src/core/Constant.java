@@ -29,7 +29,7 @@ public class Constant {
     public static final String[] LANGUAGES = {"English", "Chinese", "Japanese"};
 
     public static final Map<String, String> ENGLISH_DICT = Map.ofEntries(
-            // Display Names
+            // Pieces
             Map.entry("king_display", "Basic King"),
             Map.entry("queen_display", "Basic Queen"),
             Map.entry("bishop_display", "Basic Bishop"),
@@ -46,19 +46,31 @@ public class Constant {
 
             // Movements
             Map.entry("king_move_display", "King Move"),
+            Map.entry("king_move_description", "Move one square in any direction, including diagonals."),
             Map.entry("queen_move_display", "Queen Move"),
+            Map.entry("queen_move_description", "Move any number of squares in any direction, including diagonals."),
             Map.entry("bishop_move_display", "Bishop Move"),
+            Map.entry("bishop_move_description", "Move any number of squares in any diagonal direction."),
             Map.entry("knight_move_display", "Knight Move"),
+            Map.entry("knight_move_description", "Move one square in any orthogonal direction, and then two squares in a perpendicular direction. Can jump over other pieces."),
             Map.entry("rook_move_display", "Rook Move"),
+            Map.entry("rook_move_description", "Move any number of squares in any orthogonal direction."),
             Map.entry("pawn_move_display", "Pawn Move"),
+            Map.entry("pawn_move_description", "Move one square forward, or optionally two if you're on the second rank."),
 
             // Captures
             Map.entry("king_capture_display", "King Capture"),
+            Map.entry("king_capture_description", "Capture one square in any direction, including diagonals."),
             Map.entry("queen_capture_display", "Queen Capture"),
+            Map.entry("queen_capture_description", "Capture any number of squares in any direction, including diagonals."),
             Map.entry("bishop_capture_display", "Bishop Capture"),
-            Map.entry("knight_capture_display", "King Capture"),
-            Map.entry("rook_capture_display", "King Capture"),
-            Map.entry("pawn_capture_display", "King Capture")
+            Map.entry("bishop_capture_description", "Capture any number of squares in any diagonal direction."),
+            Map.entry("knight_capture_display", "Knight Capture"),
+            Map.entry("knight_capture_description", "Move one square in any orthogonal direction, and then capture two squares in a perpendicular direction. Can jump over other pieces."),
+            Map.entry("rook_capture_display", "Rook Capture"),
+            Map.entry("rook_capture_description", "Capture any number of squares in any orthogonal direction."),
+            Map.entry("pawn_capture_display", "Pawn Capture"),
+            Map.entry("pawn_capture_description", "Capture diagonally forward one square.")
 
 
             );

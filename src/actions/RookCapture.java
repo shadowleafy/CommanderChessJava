@@ -14,6 +14,8 @@ public class RookCapture extends Action {
         super(owner);
         this.setType("capture");
         this.setActionId("rook_capture");
+        setDisplayName(Translation.getStatic("rook_capture_display"));
+        setDescription(Translation.getStatic("rook_capture_description"));
         // set display name once translation is done better.
     }   
 

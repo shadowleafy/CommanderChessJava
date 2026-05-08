@@ -14,6 +14,8 @@ public class QueenCapture extends Action {
         super(owner);
         this.setType("capture");
         this.setActionId("queen_capture");
+        setDisplayName(Translation.getStatic("queen_capture_display"));
+        setDescription(Translation.getStatic("queen_capture_description"));
         // set display name once translation is done better.
     }   
 

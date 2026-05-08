@@ -14,6 +14,8 @@ public class PawnMove extends Action {
         super(owner);
         this.setType("move");
         this.setActionId("pawn_move");
+        setDisplayName(Translation.getStatic("pawn_move_display"));
+        setDescription(Translation.getStatic("pawn_move_description"));
         // set display name once translation is done better.
     }   
 

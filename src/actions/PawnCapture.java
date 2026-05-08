@@ -14,6 +14,8 @@ public class PawnCapture extends Action {
         super(owner);
         this.setType("capture");
         this.setActionId("pawn_capture");
+        setDisplayName(Translation.getStatic("pawn_capture_display"));
+        setDescription(Translation.getStatic("pawn_capture_description"));
         // set display name once translation is done better.
     }   
 

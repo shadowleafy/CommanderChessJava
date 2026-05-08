@@ -84,14 +84,6 @@ public class Action {
 
 }
 
-// This specific action ends your turn. Please make it available when no piece is selected.
-class Done extends Action {
-    
-    public Done(Piece owner){
-      super(owner);
-      this.setType("menu");
-      this.setActionId("end_turn");
-    }
-}
+
 
 

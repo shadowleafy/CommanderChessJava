@@ -14,6 +14,8 @@ public class RookMove extends Action {
         super(owner);
         this.setType("move");
         this.setActionId("rook_move");
+        setDisplayName(Translation.getStatic("rook_move_display"));
+        setDescription(Translation.getStatic("rook_move_description"));
         // set display name once translation is done better.
     }   
 

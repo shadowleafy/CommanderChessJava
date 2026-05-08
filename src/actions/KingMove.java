@@ -13,7 +13,9 @@ public class KingMove extends Action {
     public KingMove(Piece owner){
         super(owner);
         this.setType("move");
-        this.setActionId("queen_move");
+        this.setActionId("king_move");
+        setDisplayName(Translation.getStatic("king_move_display"));
+        setDescription(Translation.getStatic("king_move_description"));
         // set display name once translation is done better.
     }   
 

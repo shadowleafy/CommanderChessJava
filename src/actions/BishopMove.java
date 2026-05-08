@@ -14,6 +14,8 @@ public class BishopMove extends Action {
         super(owner);
         this.setType("move");
         this.setActionId("bishop_move");
+        setDisplayName(Translation.getStatic("bishop_move_display"));
+        setDescription(Translation.getStatic("bishop_move_description"));
         // set display name once translation is done better.
     }   
 

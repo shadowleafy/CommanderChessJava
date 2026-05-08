@@ -14,6 +14,8 @@ public class KnightMove extends Action {
         super(owner);
         this.setType("move");
         this.setActionId("knight_move");
+        setDisplayName(Translation.getStatic("knight_move_display"));
+        setDescription(Translation.getStatic("knight_move_description"));
         // set display name once translation is done better.
     }
 
