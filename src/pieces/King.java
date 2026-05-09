@@ -18,6 +18,9 @@ public class King extends CommanderPiece {
         Action[] arr = {kingCapture, kingMove};
         setActions(Utility.arrayActionToArrayList(arr));
 
+        //for testing
+        String[] test = {"/pixelarts/kaimana-azuetidalforce.png", "/pixelarts/kaimana-azuetidalforce.png"};
+        setIcon(test);
 
     }  
 

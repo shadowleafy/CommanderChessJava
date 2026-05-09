@@ -424,15 +424,18 @@ public class UI implements ActionListener{
                 for (int k = 0; k < board.getBoardstate()[i][j].size(); k++){
                     ArrayList<Piece> currSquareArray = board.getBoardstate()[i][j];
                     if (currSquareArray.size() > 1){
-                        ImageIcon icon = new ImageIcon("/pixelarts/multiplepieces.png");
-                        chessBoard[i][j].setIcon(icon);
+                        //set to multiple pieces image
                     }
                     else if (currSquareArray.size() == 1){
-                        ImageIcon icon = new ImageIcon(currSquareArray.get(0).getIconReference()[currSquareArray.get(0).getController()]);
-                        chessBoard[i][j].setIcon(icon);
+                        if (currSquareArray.get(0).getIconReference() != null) {
+                            // set icon to image
+                        }
+                        else{
+                            // set to null
+                        }
                     }
                     else{
-                        chessBoard[i][j].setIcon(null);
+                        // set to null
                     }
                 }
             }
