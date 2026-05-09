@@ -44,7 +44,6 @@ public class UI implements ActionListener{
 
     private static JButton select;
     private static boolean selectShown = false;
-    private static String toSelect;
     private static int[] currSelectedSquare; //check type
     private static Piece currSelectedPiece;
 
@@ -147,6 +146,9 @@ public class UI implements ActionListener{
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
         c.insets = new Insets(10, 10, 10, 10);
+        languagesButton.addActionListener(e -> {
+            //add functionality
+        });
         main.add(languagesButton, c);
         
         settingsButton = new JButton("Settings"); //potentially remove
@@ -266,9 +268,9 @@ public class UI implements ActionListener{
         }
     } //initialize components for character selection page, show commanders, when clicked have drop down w descriptions
 
-    public void actionPerformed(ActionEvent e){
+    /*public void actionPerformed(ActionEvent e){
     
-    } //need for override
+    } //need for override*/
 
     public static void generateGameUI(){
         layout.show(container, "Game");
@@ -355,7 +357,7 @@ public class UI implements ActionListener{
         currSelectedPiece = null;
         selectedType = "piece";
         JLabel pName = new JLabel(p.getDisplayName());
-        //get remaining piece info
+        //get remaining piece info (movements, abilities, description)
         pCharInfo.add(pName);
 
         for (int i = 0; i < p.getActions().size(); i++){ //creates list of action buttons
@@ -366,7 +368,6 @@ public class UI implements ActionListener{
                 stepsDone++;
                 selectedAction.onUse(); //check for method name
                 selectActionStuff();
-                //open piece & square selection panel, select + done buttons (probably write in a different function)
             });
             pCharInfo.add(a);
         }
@@ -374,8 +375,11 @@ public class UI implements ActionListener{
     } //probably change so don't need arraylist
 
     public static void selectActionStuff(){ //fix layout
-        // JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
-       // JButton done = new JButton("Done");
+        /*JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
+        JButton done = new JButton("Done");
+        done.addActionListener(e -> {
+            selectedAction.onUse();
+        });*/
         showSelectButton();
 
         //pAction.add(actionDesc);
