@@ -20,7 +20,7 @@ public class Piece {
   private Map<String, Integer> counters;
   private int[] location;
   private int index;
-  private String iconReference;
+  private String[] iconReference; // [white, black]
 
   // for commanders only but java gets mad at me if i dont do it like this
   private String[] pieceIds;
@@ -92,7 +92,7 @@ public class Piece {
     return type;
   }
 
-  public String getIconReference(){
+  public String[] getIconReference(){
     return iconReference;
   }
   
@@ -132,7 +132,7 @@ public class Piece {
     counters.put(type, count);
   }
 
-  public void setIcon(String i){
+  public void setIcon(String[] i){
     iconReference = i;
   }
 

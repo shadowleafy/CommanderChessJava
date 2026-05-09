@@ -418,6 +418,25 @@ public class UI implements ActionListener{
 
     public static void updateBoard(Board b){
         board = b;
+        // Update visual board
+        for (int i = 0; i < board.getBoardstate().length; i++){
+            for (int j = 0; j < board.getBoardstate()[i].length; j++){
+                for (int k = 0; k < board.getBoardstate()[i][j].size(); k++){
+                    ArrayList<Piece> currSquareArray = board.getBoardstate()[i][j];
+                    if (currSquareArray.size() > 1){
+                        ImageIcon icon = new ImageIcon("/pixelarts/multiplepieces.png");
+                        chessBoard[i][j].setIcon(icon);
+                    }
+                    else if (currSquareArray.size() == 1){
+                        ImageIcon icon = new ImageIcon(currSquareArray.get(0).getIconReference()[currSquareArray.get(0).getController()]);
+                        chessBoard[i][j].setIcon(icon);
+                    }
+                    else{
+                        chessBoard[i][j].setIcon(null);
+                    }
+                }
+            }
+        }
     } //update where pieces appear too
 
     public static void log(String s){
