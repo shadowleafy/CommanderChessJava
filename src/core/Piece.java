@@ -20,6 +20,7 @@ public class Piece {
   private Map<String, Integer> counters;
   private int[] location;
   private int index;
+  private String iconReference;
 
   // for commanders only but java gets mad at me if i dont do it like this
   private String[] pieceIds;
@@ -90,6 +91,10 @@ public class Piece {
   public String getType(){
     return type;
   }
+
+  public String getIconReference(){
+    return iconReference;
+  }
   
   public void setController(int ctrl){
     controller = ctrl;
@@ -125,6 +130,10 @@ public class Piece {
 
   public void setCounters(String type, int count){
     counters.put(type, count);
+  }
+
+  public void setIcon(String i){
+    iconReference = i;
   }
 
   public void updateControllerObj(){
