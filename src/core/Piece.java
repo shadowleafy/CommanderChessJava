@@ -38,6 +38,11 @@ public class Piece {
     gameboard = board;
     onEntry();
   }
+
+  public String getIconLocation(){
+    return iconReference[controller];
+  }
+  
   // i have changed the code. will this update?
   public int getController(){
     return controller;
