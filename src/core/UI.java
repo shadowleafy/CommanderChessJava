@@ -344,7 +344,6 @@ public class UI implements ActionListener{
                 pPickChar.add(piece);
             }
             // show the drop down menu. dont show info for piece until they pick the piece (show pieces on square)
-            //change card to pick character
             pieceAreaLayout.show(pieceArea, "Pick Character");
         }
 
@@ -372,18 +371,18 @@ public class UI implements ActionListener{
             pCharInfo.add(a);
         }
         pieceAreaLayout.show(pieceArea, "Character Info");
-    } //probably change so don't need arraylist
+    }
 
     public static void selectActionStuff(){ //fix layout
-        /*JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
+        //JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
         JButton done = new JButton("Done");
         done.addActionListener(e -> {
             selectedAction.onUse();
-        });*/
+        });
         showSelectButton();
 
         //pAction.add(actionDesc);
-        //pAction.add(done);
+        pAction.add(done);
 
         pieceAreaLayout.show(pieceArea, "Action");
     }
