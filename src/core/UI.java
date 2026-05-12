@@ -34,6 +34,7 @@ public abstract class UI implements ActionListener{
     private static JButton instructionsButton;
     private static JButton languagesButton;
     private static JButton settingsButton; //potentially remove
+    private static JButton done;
     
     private static JPanel main;
     private static JPanel game;
@@ -216,6 +217,7 @@ public abstract class UI implements ActionListener{
                 int c = col;
                 int[] loc = {col, row};
                 chessBoard[row][col].addActionListener(e -> {
+                    selectedType = "square";
                     if (stepsDone != 0){
                         showSelectButton();
                         currSelectedSquare = loc;
@@ -408,7 +410,6 @@ public abstract class UI implements ActionListener{
         pPickChar.removeAll();
         currSelectedSquare = null;
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
-        selectedType = "square";
         //chessBoard[row][col].setBackground(Constant.SELECTCOLOR); //highlights square
 
         if (!currPieceArray.isEmpty()){
@@ -443,9 +444,13 @@ public abstract class UI implements ActionListener{
             Action currAction = p.getActions().get(i);
             JButton a = new JButton(currAction.getDisplayName());
             a.addActionListener(e -> {
-                selectedAction = currAction;
+                if (stepsDone == 0) {
+                    selectedAction = currAction;
+                }
                 stepsDone++;
                 selectedAction.onUse(); //check for method name
+                selectedSquares.clear();
+                selectedPieces.clear();
                 selectActionStuff();
             });
             pCharInfo.add(a);
@@ -455,9 +460,12 @@ public abstract class UI implements ActionListener{
 
     public static void selectActionStuff(){ //fix layout
         //JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
-        JButton done = new JButton("Done");
+        done = new JButton("Done");
         done.addActionListener(e -> {
+            stepsDone++;
             selectedAction.onUse();
+            selectedSquares.clear();
+            selectedPieces.clear();
         });
         showSelectButton();
 
@@ -568,6 +576,7 @@ public abstract class UI implements ActionListener{
         selectedPieces.clear();
         selectedAction = null;
         log(message);
+        pAction.remove(done);
     }
     public static void cancel(){
         stepsDone = 0;

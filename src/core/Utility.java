@@ -253,13 +253,26 @@ public class Utility {
   
   public static int[] collisionPoint(Board board, int[] start, int[] rayValue){
     int[] newStart = copyArray(start);
-    sumVectors(newStart, rayValue);
+    int[] end = sumVectors(newStart, rayValue);
+    int[] simplifiedRayValue = simplifyVector(rayValue);
+    newStart = sumVectors(newStart, simplifiedRayValue);
     ArrayList[][] gameboard = board.getBoardstate();
     while (gameboard[newStart[1]][newStart[0]].size() == 0){
-      sumVectors(newStart, rayValue);
-      if (newStart[0] > 7 || newStart[0] < 0 || newStart[1] > 7 || newStart[1] < 0){
+
+      if (rayValue[0] < 0 && newStart[0] <= end[0]){
         return null;
       }
+      if (rayValue[0] > 0 && newStart[0] >= end[0]){
+        return null;
+      }
+      if (rayValue[1] < 0 && newStart[1] < end[1]){
+        return null;
+      }
+      if (rayValue[1] > 0 && newStart[1] > end[1]){
+        return null;
+      }
+
+      sumVectors(newStart, rayValue);
     }
     return newStart;
   }
