@@ -356,6 +356,7 @@ public abstract class UI implements ActionListener{
         pieceArea.add(pCharInfo, "Character Info");
         pieceArea.add(pAction, "Action");
         pieceArea.add(pSelect, "Select");
+        
         pieceAreaLayout.show(pieceArea, "Blank");
     }
 
