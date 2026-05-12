@@ -39,6 +39,7 @@ public abstract class UI implements ActionListener{
     private static JPanel game;
     private static JPanel charSelect;
     private static JPanel instructions;
+    private static String currCard;
 
     private static JButton select;
     private static boolean selectShown = false;
@@ -70,29 +71,19 @@ public abstract class UI implements ActionListener{
             public void componentResized(ComponentEvent e){
                 currWidth = frame.getWidth();
                 currHeight = frame.getHeight();
-                GridBagConstraints g = new GridBagConstraints();
-                g.gridx = 0;
-                g.gridy = 1;
-                g.ipady = 30;
-                g.fill = GridBagConstraints.HORIZONTAL;
-
-                g.insets = new Insets(currHeight / 50, currWidth / 20, currHeight / 50, currWidth / 20);
-                GridBagLayout l = (GridBagLayout) main.getLayout();
                 
-                title.setFont(new Font("Calibri", Font.BOLD, currWidth / 30));
-                l.setConstraints(playButton, g);
-                playButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
-                g.gridy = 2;
-                l.setConstraints(instructionsButton, g);
-                instructionsButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
-                g.gridy = 3;
-                l.setConstraints(languagesButton, g);
-                languagesButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
-                g.gridy = 4;
-                l.setConstraints(settingsButton, g);
-                settingsButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
-                
-                main.revalidate();
+                if (currCard.equals("Menu")){
+                    resizeMain();
+                }
+                else if (currCard.equals("Game")){
+                    resizeGame();
+                }
+                else if (currCard.equals("Character Selection")){
+                    resizeCharSelect();
+                }
+                else {
+                    resizeInstructions();
+                }
             }
         });
 
@@ -116,6 +107,7 @@ public abstract class UI implements ActionListener{
         container.add(instructions, "Instructions");
         frame.add(container);
         
+        currCard = "Menu";
         layout.show(container, "Menu"); //probably move
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -151,6 +143,7 @@ public abstract class UI implements ActionListener{
         c.insets = new Insets(10, 50, 10, 50);
         playButton.addActionListener(e ->{
             layout.show(container, "Game");
+            currCard = "Game";
 
             // For testing purposes only
             String[] whiteArray = {"king", "queen", "bishop", "knight", "rook", "pawn"};
@@ -167,6 +160,7 @@ public abstract class UI implements ActionListener{
         c.insets = new Insets(10, 50, 10, 50);
         instructionsButton.addActionListener(e -> {
             layout.show(container, "Instructions");
+            currCard = "Instructions";
         });
         main.add(instructionsButton,c );
 
@@ -281,6 +275,7 @@ public abstract class UI implements ActionListener{
         JButton closeInstructions = new JButton("Close");
         closeInstructions.addActionListener(e -> {
             layout.show(container, "Menu");
+            currCard = "Menu";
         });
         
         instructions.add(scrollpane, BorderLayout.CENTER);
@@ -303,18 +298,59 @@ public abstract class UI implements ActionListener{
     
     } //need for override*/
 
+    public static void resizeMain(){
+        GridBagConstraints g = new GridBagConstraints();
+        g.gridx = 0;
+        g.gridy = 1;
+        g.ipady = 30;
+        g.fill = GridBagConstraints.HORIZONTAL;
+
+        g.insets = new Insets(currHeight / 50, currWidth / 20, currHeight / 50, currWidth / 20);
+        GridBagLayout l = (GridBagLayout) main.getLayout();
+                
+        title.setFont(new Font("Calibri", Font.BOLD, currWidth / 30));
+        l.setConstraints(playButton, g);
+        playButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+        g.gridy = 2;
+        l.setConstraints(instructionsButton, g);
+        instructionsButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+        g.gridy = 3;
+        l.setConstraints(languagesButton, g);
+        languagesButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+        g.gridy = 4;
+        l.setConstraints(settingsButton, g);
+        settingsButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+                
+        main.revalidate();
+    }
+
+    public static void resizeGame(){
+
+    }
+
+    public static void resizeCharSelect(){
+
+    }
+
+    public static void resizeInstructions(){
+
+    }
+
     public static void generateGameUI(){
         layout.show(container, "Game");
+        currCard = "Game";
     } // Generate the basic UI for playing the game.
 
 
     public static void generateCharacterSelectUI(){
         layout.show(container, "Character Selection");
+        currCard = "Character Selection";
     } // Generate the basic UI for the character selection screen.
     //call before generating game
     
     public static void generateMainMenu(){
         layout.show(container, "Menu");
+        currCard = "Menu";
     } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
     public static void createLog(){
