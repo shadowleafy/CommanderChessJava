@@ -1,19 +1,13 @@
 package core;
 
-import actions.*;
-import pieces.*;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Scanner;
 
 
 public abstract class UI implements ActionListener{
@@ -59,6 +53,7 @@ public abstract class UI implements ActionListener{
     private static JPanel pPickChar;
     private static JPanel pCharInfo;
     private static JPanel pAction;
+    private static JPanel pSelect;
 
     private static JButton[][] chessBoard;
 
@@ -310,6 +305,7 @@ public abstract class UI implements ActionListener{
         pPickChar = new JPanel();
         pCharInfo = new JPanel();
         pAction = new JPanel();
+        pSelect = new JPanel();
 
         JLabel initPieceMessage = new JLabel("Piece Information + Action Decisions will be here");
         pBlank.add(initPieceMessage);
@@ -319,11 +315,14 @@ public abstract class UI implements ActionListener{
         pCharInfo.setLayout(new GridLayout(0, 1, 5, 5));
 
         pAction.setLayout(new GridLayout(0, 1, 5, 5));
+        
+        pSelect.setLayout(new GridLayout(0, 1, 5, 5));
 
         pieceArea.add(pBlank, "Blank");
         pieceArea.add(pPickChar, "Pick Character");
         pieceArea.add(pCharInfo, "Character Info");
         pieceArea.add(pAction, "Action");
+        pieceArea.add(pSelect, "Select");
         pieceAreaLayout.show(pieceArea, "Blank");
     }
 
@@ -413,13 +412,13 @@ public abstract class UI implements ActionListener{
 
     public static void showSelectButton(){
         if (!selectShown){
-            pAction.add(select);
+            pSelect.add(select);
         }
     }
 
     public static void hideSelectButton(){
         if (selectShown){
-            pAction.remove(select);
+            pSelect.remove(select);
         }
     }
 
