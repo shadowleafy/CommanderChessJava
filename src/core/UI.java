@@ -3,17 +3,20 @@ package core;
 import actions.*;
 import pieces.*;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Scanner;
 
 
-public class UI implements ActionListener{
+public abstract class UI implements ActionListener{
 
     // UI code here please :3
 
@@ -288,6 +291,7 @@ public class UI implements ActionListener{
 
     public static void createLog(){
         mLog = new JTextArea();
+        mLog.setRows(12);
         mLog.setFont(new Font("Arial", Font.PLAIN, 14)); //change text size once have instructions
         mLog.setText("Messages to you will appear here"); // add initial message
         mLog.append("\n-------------");
@@ -428,27 +432,46 @@ public class UI implements ActionListener{
                     ArrayList<Piece> currSquareArray = board.getBoardstate()[i][j];
                     if (currSquareArray.size() > 1){
                         //set to multiple pieces image
-                        ImageIcon multImage = new ImageIcon("pixelarts/multiplepieces.png");
-                        
+                        try {
+                            BufferedImage img = ImageIO.read(UI.class.getResource("/pixelarts/multiplepieces.png"));
+                            chessBoard[i][j].setIcon(new ImageIcon(img));
+                        }
+                        catch (IOException e){
+                            log("Something has gone wrong.");
+                            log(e.getMessage());
+                            break;
+                        }
+
                     }
                     else if (currSquareArray.size() == 1){
                         if (currSquareArray.get(0).getIconLocation() != null) {
                             // set icon to image
-                            ImageIcon image = new ImageIcon(currSquareArray.get(0).getIconLocation());
-                            chessBoard[i][j].setImageIcon(image);
+                            try {
+                                BufferedImage img = ImageIO.read(UI.class.getResource(currSquareArray.get(0).getIconLocation()));
+                                chessBoard[i][j].setIcon(new ImageIcon(img));
+                            }
+                            catch (IOException e){
+                                log("Something has gone wrong.");
+                                log(e.getMessage());
+                                break;
+                            }
                         }
                         else{
                             // set to null
-                            chessBoard[i][j].setImageIcon(null);
+                            chessBoard[i][j].setIcon(null);
+
                         }
                     }
                     else{
                         // set to null
-                        chessBoard[i][j].setImageIcon(null);
+                        chessBoard[i][j].setIcon(null);
+
                     }
+                    chessBoard[i][j].revalidate();
                 }
             }
         }
+
     } //update where pieces appear too
 
     public static void log(String s){

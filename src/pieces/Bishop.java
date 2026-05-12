@@ -17,6 +17,10 @@ public class Bishop extends Piece{
         Action bishopMove = new BishopMove(this);
         Action[] arr = {bishopCapture, bishopMove};
         setActions(Utility.arrayActionToArrayList(arr));
+
+        // testing
+
+
     }  
 
 }

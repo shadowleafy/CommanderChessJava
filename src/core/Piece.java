@@ -40,7 +40,8 @@ public class Piece {
   }
 
   public String getIconLocation(){
-    return iconReference[controller];
+    // return iconReference[controller];
+    return "/pixelarts/kaimana-azuretidalforce.png";
   }
   
   // i have changed the code. will this update?
