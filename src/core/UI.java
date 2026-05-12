@@ -188,6 +188,7 @@ public abstract class UI implements ActionListener{
 
     public static void createGamePanel(){
         //background colors: #854D24 (dark), #EBD2B2 (light)
+        game.setLayout(new BorderLayout());
         chessBoard = new JButton[8][8];
 
         pieceAreaLayout = new CardLayout();
@@ -265,7 +266,7 @@ public abstract class UI implements ActionListener{
         
         //hideSelectButton();
         
-        game.add(horizSplit);
+        game.add(horizSplit, BorderLayout.CENTER);
 
     } //initializes components for game page
 
