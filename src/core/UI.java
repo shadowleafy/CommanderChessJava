@@ -29,6 +29,7 @@ public abstract class UI implements ActionListener{
     private static JPanel container;
     private static String selectedType;
     
+    private static JLabel title;
     private static JButton playButton;
     private static JButton instructionsButton;
     private static JButton languagesButton;
@@ -55,11 +56,45 @@ public abstract class UI implements ActionListener{
     private static JPanel pAction;
     private static JPanel pSelect;
 
+    private static int currWidth = 900;
+    private static int currHeight = 700;
+
     private static JButton[][] chessBoard;
 
     public static void start(){
         frame = new JFrame();
         frame.setTitle("Commander Chess");
+        frame.setSize(900, 700);
+
+        frame.addComponentListener(new ComponentAdapter(){
+            public void componentResized(ComponentEvent e){
+                currWidth = frame.getWidth();
+                currHeight = frame.getHeight();
+                GridBagConstraints g = new GridBagConstraints();
+                g.gridx = 0;
+                g.gridy = 1;
+                g.ipady = 30;
+                g.fill = GridBagConstraints.HORIZONTAL;
+
+                g.insets = new Insets(currHeight / 50, currWidth / 20, currHeight / 50, currWidth / 20);
+                GridBagLayout l = (GridBagLayout) main.getLayout();
+                
+                title.setFont(new Font("Calibri", Font.BOLD, currWidth / 30));
+                l.setConstraints(playButton, g);
+                playButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+                g.gridy = 2;
+                l.setConstraints(instructionsButton, g);
+                instructionsButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+                g.gridy = 3;
+                l.setConstraints(languagesButton, g);
+                languagesButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+                g.gridy = 4;
+                l.setConstraints(settingsButton, g);
+                settingsButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
+                
+                main.revalidate();
+            }
+        });
 
         layout = new CardLayout();
         container = new JPanel(layout);
@@ -84,7 +119,6 @@ public abstract class UI implements ActionListener{
         layout.show(container, "Menu"); //probably move
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 700);
         frame.setMinimumSize(new Dimension(900, 650));
         frame.setVisible(true);
 
@@ -97,7 +131,7 @@ public abstract class UI implements ActionListener{
         //languagesButton.setBounds(270,400, 250, 80);
         //settingsButton.setBounds(270,500, 250, 80);
         
-        JLabel title = new JLabel("Commander Chess");
+        title = new JLabel("Commander Chess");
         title.setFont(new Font("Calibri", Font.BOLD, 30));
 
         main.setLayout(new GridBagLayout());
@@ -105,9 +139,8 @@ public abstract class UI implements ActionListener{
         
         c.gridx = 0;
         c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 20;
         c.insets = new Insets(20, 20, 20, 20);
+        c.weightx = 0.5;
         main.add(title, c);
         
         playButton = new JButton("Play");
@@ -115,7 +148,7 @@ public abstract class UI implements ActionListener{
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
-        c.insets = new Insets(10, 10, 10, 10);
+        c.insets = new Insets(10, 50, 10, 50);
         playButton.addActionListener(e ->{
             layout.show(container, "Game");
 
@@ -131,7 +164,7 @@ public abstract class UI implements ActionListener{
         c.gridy = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
-        c.insets = new Insets(10, 10, 10, 10);
+        c.insets = new Insets(10, 50, 10, 50);
         instructionsButton.addActionListener(e -> {
             layout.show(container, "Instructions");
         });
@@ -143,7 +176,7 @@ public abstract class UI implements ActionListener{
         c.gridy = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
-        c.insets = new Insets(10, 10, 10, 10);
+        c.insets = new Insets(10, 50, 10, 50);
         languagesButton.addActionListener(e -> {
             //add functionality
         });
@@ -154,7 +187,7 @@ public abstract class UI implements ActionListener{
         c.gridy = 4;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
-        c.insets = new Insets(10, 10, 10, 10);
+        c.insets = new Insets(10, 50, 10, 50);
         main.add(settingsButton, c);
     } //intializes components for main menu
 
@@ -197,7 +230,7 @@ public abstract class UI implements ActionListener{
                         }
                     }
                     else {
-                        onInitSquareClicked(7-r, c);
+                        onInitSquareClicked(7 - r, c);
                     }
                     
                 });
@@ -332,7 +365,7 @@ public abstract class UI implements ActionListener{
         currSelectedSquare = null;
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
         selectedType = "square";
-        //highlight square
+        //chessBoard[row][col].setBackground(Constant.SELECTCOLOR); //highlights square
 
         if (!currPieceArray.isEmpty()){
             //get the rest of the info needed for info panel
