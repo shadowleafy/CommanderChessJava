@@ -45,18 +45,18 @@ public class PawnMove extends Action {
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
                     int color = getOwnerPiece().getController();
-                    if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("0,1"), false, false,  false) || 
-                    (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("0,2"), false, false,  false)) &&
-                    Utility.colorshiftLocation(myLoc, color)[1] == 1){
+//                    if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("0,1"), false, false,  false) ||
+//                    (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("0,2"), false, false,  false)) &&
+//                    Utility.colorshiftLocation(myLoc, color)[1] == 1){
                     if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
                         getOwnerPiece().movePiece(loc);
                     }
                         Game.finishAction(this);
                     }
-                    else{
-                        UI.cancel("That square isn't within movement range!");
-                    }
-                }
+//                    else{
+//                        UI.cancel("That square isn't within movement range!");
+//                    }
+//                }
             break;
         }
         
