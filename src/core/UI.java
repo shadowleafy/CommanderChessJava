@@ -50,6 +50,7 @@ public abstract class UI implements ActionListener{
     private static JPanel logArea;
     private static JTextArea mLog;
     private static CardLayout pieceAreaLayout;
+    private static JSplitPane bottomVertSplit;
 
     private static JPanel pBlank;
     private static JPanel pPickChar;
@@ -192,6 +193,7 @@ public abstract class UI implements ActionListener{
         pieceAreaLayout = new CardLayout();
         pieceArea = new JPanel(pieceAreaLayout);
         logArea = new JPanel(new BorderLayout());
+        pSelect = new JPanel();
 
         JPanel boardArea = new JPanel(new GridLayout(8, 8));
         boardArea.setPreferredSize(new Dimension(500, 500));
@@ -200,7 +202,8 @@ public abstract class UI implements ActionListener{
         createLog();
 
         select = new JButton("Select");
-        hideSelectButton();
+        pSelect.add(select);
+        selectShown = true;
         select.addActionListener(e -> {
             selectButtonFunction();
         });
@@ -250,10 +253,17 @@ public abstract class UI implements ActionListener{
             }
         }
 
-        JSplitPane vertSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pieceArea, logArea);
+        bottomVertSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pSelect, logArea);
+        JSplitPane vertSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pieceArea, bottomVertSplit);
         JSplitPane horizSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, boardArea, vertSplit);
+        bottomVertSplit.setDividerLocation(0.12);
+        bottomVertSplit.setResizeWeight(0.11);  
+        vertSplit.setDividerLocation(0.66);
         vertSplit.setResizeWeight(0.66);
+        horizSplit.setDividerLocation(0.66);
         horizSplit.setResizeWeight(0.66);
+        
+        //hideSelectButton();
         
         game.add(horizSplit);
 
@@ -374,7 +384,6 @@ public abstract class UI implements ActionListener{
         pPickChar = new JPanel();
         pCharInfo = new JPanel();
         pAction = new JPanel();
-        pSelect = new JPanel();
 
         JLabel initPieceMessage = new JLabel("Piece Information + Action Decisions will be here");
         pBlank.add(initPieceMessage);
@@ -385,13 +394,10 @@ public abstract class UI implements ActionListener{
 
         pAction.setLayout(new GridLayout(0, 1, 5, 5));
         
-        pSelect.setLayout(new GridLayout(0, 1, 5, 5));
-
         pieceArea.add(pBlank, "Blank");
         pieceArea.add(pPickChar, "Pick Character");
         pieceArea.add(pCharInfo, "Character Info");
         pieceArea.add(pAction, "Action");
-        pieceArea.add(pSelect, "Select");
         
         pieceAreaLayout.show(pieceArea, "Blank");
     }
@@ -482,13 +488,20 @@ public abstract class UI implements ActionListener{
 
     public static void showSelectButton(){
         if (!selectShown){
-            pSelect.add(select);
+            bottomVertSplit.setTopComponent(pSelect);
+            bottomVertSplit.setBottomComponent(logArea);
+            bottomVertSplit.setDividerLocation(0.12);
+            bottomVertSplit.revalidate();
+            selectShown = true;
         }
     }
 
     public static void hideSelectButton(){
         if (selectShown){
-            pSelect.remove(select);
+            bottomVertSplit.setTopComponent(logArea);
+            bottomVertSplit.setBottomComponent(null);
+            bottomVertSplit.revalidate();
+            selectShown = false;
         }
     }
 
