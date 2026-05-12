@@ -559,6 +559,7 @@ public abstract class UI implements ActionListener{
 
                     }
                     chessBoard[i][j].revalidate();
+                    chessBoard[i][j].repaint();
                 }
             }
         }
