@@ -206,18 +206,44 @@ public abstract class UI implements ActionListener {
         createPieceArea();
         createLog();
 
-        select = new JButton("Select");
-        pSelect.add(select);
         passTurn = new JButton("Pass Turn");
-        pSelect.add(passTurn);
-        selectShown = true;
-        select.addActionListener(e -> {
-            selectButtonFunction();
-        });
         passTurn.addActionListener(e -> {
             Game.passTurn();
             log("The turn has been passed.");
         });
+        pSelect.add(passTurn);
+        select = new JButton("Select");
+        select.addActionListener(e -> {
+            selectButtonFunction();
+        });
+        pSelect.add(select);
+        done = new JButton("Done");
+        done.addActionListener(e -> {
+            stepsDone++;
+            if (selectedAction != null) {
+                selectedAction.onUse();
+            }
+            selectedSquares.clear();
+            selectedPieces.clear();
+            pieceAreaLayout.show(pieceArea, "Blank");
+            pPickChar.removeAll();
+            currSelectedSquare = null;
+            currSelectedPiece = null;
+            updateBoard(board);
+            select.setText("Select");
+            select.setVisible(false);
+            done.setVisible(false);
+            passTurn.setVisible(true);
+            currInitSquare[0] = -1;
+            currInitSquare[1] = -1;
+
+            pSelect.repaint();
+            pSelect.revalidate();
+        });
+        pSelect.add(done);
+        done.setVisible(false);
+        select.setVisible(false);
+
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -228,16 +254,14 @@ public abstract class UI implements ActionListener {
                 chessBoard[7 - row][col].addActionListener(e -> {
                     selectedType = "square";
                     if (stepsDone != 0) {
-                        showSelectButton();
                         currSelectedSquare = loc;
                         if (Utility.squareInArrayList(selectedSquares, loc)) {
                             select.setText("Unselect");
                         } else {
                             select.setText("Select");
                         }
-                    } else {
-                        onInitSquareClicked(7 - r, c);
                     }
+                    onInitSquareClicked(7 - r, c);
 
                 });
                 if (row % 2 == 0) {
@@ -435,6 +459,7 @@ public abstract class UI implements ActionListener {
                 piece.addActionListener(e -> {
                     currSelectedPiece = p;
                     onInitPieceSelected(p);
+                    log(""+stepsDone);
                 });
                 pPickChar.add(piece);
             }
@@ -453,27 +478,30 @@ public abstract class UI implements ActionListener {
         pName = new JLabel(p.getDisplayName());
         if (p.getSelected()) {
             pName.setForeground(new Color(Constant.SELECTCOLOR));
-        }
-        else{
+        } else {
             pName.setForeground(null);
         }
         //get remaining piece info (movements, abilities, description)
         pCharInfo.add(pName);
 
-        for (int i = 0; i < p.getActions().size(); i++) { //creates list of action buttons
-            Action currAction = p.getActions().get(i);
-            JButton a = new JButton(currAction.getDisplayName());
-            a.addActionListener(e -> {
-                if (stepsDone == 0) {
-                    selectedAction = currAction;
-                }
-                stepsDone++;
-                selectedAction.onUse(); //check for method name
-                selectedSquares.clear();
-                selectedPieces.clear();
-                selectActionStuff();
-            });
-            pCharInfo.add(a);
+
+        if (stepsDone == 0) {
+            for (int i = 0; i < p.getActions().size(); i++) { //creates list of action buttons
+                Action currAction = p.getActions().get(i);
+                JButton a = new JButton(currAction.getDisplayName());
+                a.addActionListener(e -> {
+                    if (stepsDone == 0) {
+                        selectedAction = currAction;
+                    }
+                    stepsDone++;
+                    selectActionStuff();
+                    selectedAction.onUse(); //check for method name
+                    selectedSquares.clear();
+                    selectedPieces.clear();
+
+                });
+                pCharInfo.add(a);
+            }
         }
         pieceAreaLayout.show(pieceArea, "Character Info");
     }
@@ -481,29 +509,17 @@ public abstract class UI implements ActionListener {
     public static void selectActionStuff() { //fix layout
         //JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
         pAction.removeAll();
-        done = new JButton("Done");
-        done.addActionListener(e -> {
-            stepsDone++;
-            if (selectedAction != null) {
-                selectedAction.onUse();
-            }
-            selectedSquares.clear();
-            selectedPieces.clear();
-            pieceAreaLayout.show(pieceArea, "Blank");
-            pPickChar.removeAll();
-            currSelectedSquare = null;
-            currSelectedPiece = null;
-            updateBoard(board);
-            select.setText("Select");
-            currInitSquare[0] = -1;
-            currInitSquare[1] = -1;
-        });
+
         showSelectButton();
 
         //pAction.add(actionDesc);
-        pAction.add(done);
 
-        pieceAreaLayout.show(pieceArea, "Action");
+        select.setVisible(true);
+        done.setVisible(true);
+        passTurn.setVisible(false);
+
+
+        pieceAreaLayout.show(pieceArea, "Blank");
     }
 
     public static void selectButtonFunction() {
@@ -522,28 +538,24 @@ public abstract class UI implements ActionListener {
                 select.setText("Select");
                 if (pName != null) {
                     pName.setForeground(null);
-                }
-                else{
+                } else {
                     log("Error SN300: pName is currently null.");
                 }
             } else {
                 selectedPieces.add(currSelectedPiece);
                 select.setText("Unselect");
-                if (pName != null){
+                if (pName != null) {
                     pName.setForeground(new Color(Constant.SELECTCOLOR));
-                }
-                else{
+                } else {
                     log("Error SN300: pName is currently null.");
                 }
             }
         }
         if (currSelectedSquare != null) {
             updateSquare(board, currSelectedSquare);
-        }
-        else if (currSelectedPiece != null){
+        } else if (currSelectedPiece != null) {
             updateSquare(board, currSelectedPiece.getLocation());
-        }
-        else{
+        } else {
             log("Error SN202: After selection, the variable currSelectedSquare and currSelectedPiece are both still null.");
         }
     }
@@ -607,34 +619,30 @@ public abstract class UI implements ActionListener {
         }
 
         // Check and highlight / dehighlight square and pieces.
-        if (Utility.squareInArrayList(selectedSquares, loc)){
+        if (Utility.squareInArrayList(selectedSquares, loc)) {
             chessBoard[i][j].setBackground(new Color(0xc8a2c8));
-        }
-        else{
-            if ((i+j) % 2 == 0){
+        } else {
+            if ((i + j) % 2 == 0) {
                 chessBoard[i][j].setBackground(new Color(0xEBD2B2));
-            }
-            else{
+            } else {
                 chessBoard[i][j].setBackground(new Color(0x854D24));
             }
         }
 
-        for (Piece p : b.getBoardstate()[i][j]){
-            if (Utility.pieceInArrayList(selectedPieces, p)){
+        for (Piece p : b.getBoardstate()[i][j]) {
+            if (Utility.pieceInArrayList(selectedPieces, p)) {
                 p.setSelected(true);
-            }
-            else{
+            } else {
                 p.setSelected(false);
             }
         }
 
 
-
     }
 
-    public static void updateBoard(Board b){
-        for (int i = 0; i < b.getBoardstate().length; i++){
-            for (int j = 0; j < b.getBoardstate()[i].length; j++){
+    public static void updateBoard(Board b) {
+        for (int i = 0; i < b.getBoardstate().length; i++) {
+            for (int j = 0; j < b.getBoardstate()[i].length; j++) {
                 int[] k = {i, j};
                 updateSquare(b, k);
             }
@@ -649,12 +657,14 @@ public abstract class UI implements ActionListener {
     } // Visually show a message to players in a scrolling chat menu.
 
     public static void cancel(String message) {
-        stepsDone = 0;
         selectedSquares.clear();
         selectedPieces.clear();
         selectedAction = null;
+        select.setVisible(false);
+        done.setVisible(false);
+        passTurn.setVisible(true);
+        stepsDone = 0;
         log(message);
-        pAction.remove(done);
     }
 
     public static void newSquare() {

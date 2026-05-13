@@ -77,6 +77,8 @@ public class Game {
             }
           }
         }
+        board.checkStates();
+        UI.updateBoard(board);
     }
 
   public static void main(String[] args) {

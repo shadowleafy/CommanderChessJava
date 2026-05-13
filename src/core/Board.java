@@ -137,7 +137,7 @@ public class Board {
     System.out.println(Utility.toString2DArray(output));
   } */
   
-  private void checkStates(){
+  public void checkStates(){
     for (int i = 0; i < boardstate.length; i++){
       for (int j = 0; j < boardstate[i].length; j++){
         for (int k = 0; k < boardstate[i][j].size(); k++){
