@@ -56,6 +56,8 @@ public class Game {
         }
       }
     }
+    UI.updateBoard(board);
+    board.getActivePlayer().setActions(1);
   }
 
   public static void declareWinner(int winner){

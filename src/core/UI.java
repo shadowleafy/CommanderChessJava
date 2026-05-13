@@ -30,6 +30,7 @@ public abstract class UI implements ActionListener {
     private static String selectedType;
 
     private static JLabel title;
+    private static JLabel pName;
     private static JButton playButton;
     private static JButton instructionsButton;
     private static JButton languagesButton;
@@ -59,6 +60,7 @@ public abstract class UI implements ActionListener {
     private static JPanel pCharInfo;
     private static JPanel pAction;
     private static JPanel pSelect;
+    private static JButton passTurn;
 
     private static int currWidth = 900;
     private static int currHeight = 700;
@@ -206,9 +208,15 @@ public abstract class UI implements ActionListener {
 
         select = new JButton("Select");
         pSelect.add(select);
+        passTurn = new JButton("Pass Turn");
+        pSelect.add(passTurn);
         selectShown = true;
         select.addActionListener(e -> {
             selectButtonFunction();
+        });
+        passTurn.addActionListener(e -> {
+            Game.passTurn();
+            log("The turn has been passed.");
         });
 
         for (int row = 0; row < 8; row++) {
@@ -226,7 +234,6 @@ public abstract class UI implements ActionListener {
                             select.setText("Unselect");
                         } else {
                             select.setText("Select");
-
                         }
                     } else {
                         onInitSquareClicked(7 - r, c);
@@ -415,7 +422,7 @@ public abstract class UI implements ActionListener {
 
         pieceAreaLayout.show(pieceArea, "Blank");
         pPickChar.removeAll();
-        currSelectedSquare = null;
+        currSelectedSquare = new int[]{col, row};
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
         //chessBoard[row][col].setBackground(Constant.SELECTCOLOR); //highlights square
 
@@ -441,9 +448,15 @@ public abstract class UI implements ActionListener {
         pieceAreaLayout.show(pieceArea, "Blank");
         pPickChar.removeAll();
         pCharInfo.removeAll();
-        currSelectedPiece = null;
+        currSelectedPiece = p;
         selectedType = "piece";
-        JLabel pName = new JLabel(p.getDisplayName());
+        pName = new JLabel(p.getDisplayName());
+        if (p.getSelected()) {
+            pName.setForeground(new Color(Constant.SELECTCOLOR));
+        }
+        else{
+            pName.setForeground(null);
+        }
         //get remaining piece info (movements, abilities, description)
         pCharInfo.add(pName);
 
@@ -467,6 +480,7 @@ public abstract class UI implements ActionListener {
 
     public static void selectActionStuff() { //fix layout
         //JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
+        pAction.removeAll();
         done = new JButton("Done");
         done.addActionListener(e -> {
             stepsDone++;
@@ -475,6 +489,12 @@ public abstract class UI implements ActionListener {
             }
             selectedSquares.clear();
             selectedPieces.clear();
+            pieceAreaLayout.show(pieceArea, "Blank");
+            pPickChar.removeAll();
+            currSelectedSquare = null;
+            currSelectedPiece = null;
+            updateBoard(board);
+            select.setText("Select");
             currInitSquare[0] = -1;
             currInitSquare[1] = -1;
         });
@@ -487,20 +507,45 @@ public abstract class UI implements ActionListener {
     }
 
     public static void selectButtonFunction() {
-        if (selectedType.equals("square")) {
+
+        if (selectedType.equals("square") && currSelectedSquare != null) {
             if (Utility.squareInArrayList(selectedSquares, currSelectedSquare)) {
                 selectedSquares.remove(Utility.findSquareInArrayList(selectedSquares, currSelectedSquare));
+                select.setText("Select");
             } else {
                 selectedSquares.add(currSelectedSquare);
+                select.setText("Unselect");
             }
-        } else if (selectedType.equals("piece")) {
+        } else if (selectedType.equals("piece") && currSelectedPiece != null) {
             if (Utility.pieceInArrayList(selectedPieces, currSelectedPiece)) {
                 selectedPieces.remove(currSelectedPiece);
+                select.setText("Select");
+                if (pName != null) {
+                    pName.setForeground(null);
+                }
+                else{
+                    log("Error SN300: pName is currently null.");
+                }
             } else {
                 selectedPieces.add(currSelectedPiece);
+                select.setText("Unselect");
+                if (pName != null){
+                    pName.setForeground(new Color(Constant.SELECTCOLOR));
+                }
+                else{
+                    log("Error SN300: pName is currently null.");
+                }
             }
         }
-
+        if (currSelectedSquare != null) {
+            updateSquare(board, currSelectedSquare);
+        }
+        else if (currSelectedPiece != null){
+            updateSquare(board, currSelectedPiece.getLocation());
+        }
+        else{
+            log("Error SN202: After selection, the variable currSelectedSquare and currSelectedPiece are both still null.");
+        }
     }
 
     public static void showSelectButton() {
@@ -560,6 +605,29 @@ public abstract class UI implements ActionListener {
             chessBoard[i][j].setIcon(null);
 
         }
+
+        // Check and highlight / dehighlight square and pieces.
+        if (Utility.squareInArrayList(selectedSquares, loc)){
+            chessBoard[i][j].setBackground(new Color(0xc8a2c8));
+        }
+        else{
+            if ((i+j) % 2 == 0){
+                chessBoard[i][j].setBackground(new Color(0xEBD2B2));
+            }
+            else{
+                chessBoard[i][j].setBackground(new Color(0x854D24));
+            }
+        }
+
+        for (Piece p : b.getBoardstate()[i][j]){
+            if (Utility.pieceInArrayList(selectedPieces, p)){
+                p.setSelected(true);
+            }
+            else{
+                p.setSelected(false);
+            }
+        }
+
 
 
     }

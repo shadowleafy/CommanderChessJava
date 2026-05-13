@@ -21,6 +21,7 @@ public class Piece {
   private int[] location;
   private int index;
   private String[] iconReference; // [white, black]
+  private boolean selected;
 
   // for commanders only but java gets mad at me if i dont do it like this
   private String[] pieceIds;
@@ -28,6 +29,7 @@ public class Piece {
   private Board gameboard;
  
   public Piece(int ctrl, int[] loc, Board board){
+    selected = false;
     controller = ctrl;
     if (board != null) {
       controllerObj = board.getPlayerObject(controller);
@@ -101,6 +103,10 @@ public class Piece {
   public String[] getIconReference(){
     return iconReference;
   }
+
+  public boolean getSelected() {
+    return selected;
+  }
   
   public void setController(int ctrl){
     controller = ctrl;
@@ -140,6 +146,10 @@ public class Piece {
 
   public void setIcon(String[] i){
     iconReference = i;
+  }
+
+  public void setSelected(boolean v){
+    selected = v;
   }
 
   public void updateControllerObj(){

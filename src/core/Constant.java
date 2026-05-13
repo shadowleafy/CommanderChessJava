@@ -100,5 +100,5 @@ public class Constant {
 
     );
 
-    public static final String SELECTCOLOR = "0xE0B8FF";
+    public static final int SELECTCOLOR = 0xE0B8FF;
 }
