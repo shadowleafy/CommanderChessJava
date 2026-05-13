@@ -524,8 +524,8 @@ public abstract class UI implements ActionListener {
 
     public static void updateSquare(Board b, int[] loc) {
         board = b;
-        int i = loc[0];
-        int j = loc[1];
+        int i = loc[1];
+        int j = loc[0];
         ArrayList<Piece> currSquareArray = board.getBoardstate()[i][j];
         if (currSquareArray.size() > 1) {
             //set to multiple pieces image
