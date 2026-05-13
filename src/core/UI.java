@@ -216,11 +216,11 @@ public abstract class UI implements ActionListener{
         
         for (int row = 0; row < 8; row++){
             for (int col = 0; col < 8; col++){
-                chessBoard[row][col] = new JButton();
+                chessBoard[7-row][col] = new JButton();
                 int r = row;
                 int c = col;
-                int[] loc = {col, row};
-                chessBoard[row][col].addActionListener(e -> {
+                int[] loc = {col, 7-row};
+                chessBoard[7-row][col].addActionListener(e -> {
                     selectedType = "square";
                     if (stepsDone != 0){
                         showSelectButton();
@@ -240,23 +240,23 @@ public abstract class UI implements ActionListener{
                 });
                 if (row % 2 == 0){
                     if (col % 2 == 0){
-                        chessBoard[row][col].setBackground(new Color(0xEBD2B2));
+                        chessBoard[7-row][col].setBackground(new Color(0xEBD2B2));
                     }
                     else {
-                        chessBoard[row][col].setBackground(new Color(0x854D24));
+                        chessBoard[7-row][col].setBackground(new Color(0x854D24));
                     }
                 }
                 else{
                     if (col % 2 == 0){
-                        chessBoard[row][col].setBackground(new Color(0x854D24));
+                        chessBoard[7-row][col].setBackground(new Color(0x854D24));
                     }
                     else {
-                        chessBoard[row][col].setBackground(new Color(0xEBD2B2));
+                        chessBoard[7-row][col].setBackground(new Color(0xEBD2B2));
                     }
                 }
-                chessBoard[row][col].setOpaque(true);
-                chessBoard[row][col].setBorderPainted(false);
-                boardArea.add(chessBoard[row][col]);
+                chessBoard[7-row][col].setOpaque(true);
+                chessBoard[7-row][col].setBorderPainted(false);
+                boardArea.add(chessBoard[7-row][col]);
             }
         }
 
@@ -536,14 +536,14 @@ public abstract class UI implements ActionListener{
         // Update visual board
         for (int i = 0; i < board.getBoardstate().length; i++){
             for (int j = 0; j < board.getBoardstate()[i].length; j++){
-                for (int k = 0; k < board.getBoardstate()[i][j].size(); k++){
-                    ArrayList<Piece> currSquareArray = board.getBoardstate()[i][j];
+
+                    ArrayList<Piece> currSquareArray = board.getBoardstate()[7-i][j];
                     if (currSquareArray.size() > 1){
                         //set to multiple pieces image
                         try {
                             BufferedImage img = ImageIO.read(UI.class.getResource("/pixelarts/multiplepieces.png"));
                             Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
-                            chessBoard[i][j].setIcon(new ImageIcon(im));
+                            chessBoard[7-i][j].setIcon(new ImageIcon(im));
                         }
                         catch (IOException e){
                             log("Something has gone wrong.");
@@ -558,10 +558,7 @@ public abstract class UI implements ActionListener{
                             try {
                                 BufferedImage img = ImageIO.read(UI.class.getResource(currSquareArray.get(0).getIconLocation()));
                                 Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
-                                chessBoard[i][j].setIcon(new ImageIcon(im));
-                                if (currInitSquare[0] != -1){
-                                    chessBoard[7-currInitSquare[0]][currInitSquare[1]].setIcon(null);
-                                }
+                                chessBoard[7-i][j].setIcon(new ImageIcon(im));
                             }
                             catch (IOException e){
                                 log("Something has gone wrong.");
@@ -571,19 +568,19 @@ public abstract class UI implements ActionListener{
                         }
                         else{
                             // set to null
-                            chessBoard[i][j].setIcon(null);
+                            chessBoard[7-i][j].setIcon(null);
 
                         }
                     }
                     else{
                         // set to null
-                        chessBoard[i][j].setIcon(null);
+                        chessBoard[7-i][j].setIcon(null);
 
                     }
-                    chessBoard[i][j].revalidate();
-                    chessBoard[i][j].repaint();
+                    chessBoard[7-i][j].revalidate();
+                    chessBoard[7-i][j].repaint();
                 }
-            }
+
         }
 
     } //update where pieces appear too
@@ -601,11 +598,10 @@ public abstract class UI implements ActionListener{
         log(message);
         pAction.remove(done);
     }
-    public static void cancel(){
+    public static void newSquare(){
         stepsDone = 0;
         selectedSquares.clear();
         selectedPieces.clear();
-        selectedAction = null;
     }
     
 }
