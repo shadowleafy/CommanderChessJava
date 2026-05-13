@@ -338,7 +338,7 @@ public abstract class UI implements ActionListener{
     }
 
     public static void resizeGame(){
-        for (int r = 0; r < 8; r++){
+        /*for (int r = 0; r < 8; r++){
             for (int c = 0; c < 8; c++){
                 if (!(board.getBoardState()[r][c].isEmpty())){
                     Image img = chessBoard[r][c].getIcon();
@@ -346,7 +346,7 @@ public abstract class UI implements ActionListener{
                     chessBoard[r][c].setIcon(new ImageIcon(newImg));
                 }
             }
-        }
+        }*/
     }
 
     public static void resizeCharSelect(){
@@ -533,8 +533,8 @@ public abstract class UI implements ActionListener{
                         //set to multiple pieces image
                         try {
                             BufferedImage img = ImageIO.read(UI.class.getResource("/pixelarts/multiplepieces.png"));
-                            Image i = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
-                            chessBoard[i][j].setIcon(new ImageIcon(i));
+                            Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
+                            chessBoard[i][j].setIcon(new ImageIcon(im));
                         }
                         catch (IOException e){
                             log("Something has gone wrong.");
@@ -548,8 +548,8 @@ public abstract class UI implements ActionListener{
                             // set icon to image
                             try {
                                 BufferedImage img = ImageIO.read(UI.class.getResource(currSquareArray.get(0).getIconLocation()));
-                                Image i = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
-                                chessBoard[i][j].setIcon(new ImageIcon(i));
+                                Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
+                                chessBoard[i][j].setIcon(new ImageIcon(im));
                             }
                             catch (IOException e){
                                 log("Something has gone wrong.");
