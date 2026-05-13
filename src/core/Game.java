@@ -45,17 +45,14 @@ public class Game {
       for (ArrayList<Piece> arrp : arr){
         for (Piece p : arrp){
           p.onTurnEnd();
-          UI.updateBoard(board);
         }
       }
     }
     board.switchActivePlayer();
-    UI.updateBoard(board);
     for (ArrayList<Piece>[] arr : board.getBoardstate()){
       for (ArrayList<Piece> arrp : arr){
         for (Piece p : arrp){
           p.onTurnStart();
-          UI.updateBoard(board);
         }
       }
     }
@@ -75,7 +72,6 @@ public class Game {
           for (ArrayList<Piece> arrp : arr){
             for (Piece p : arrp){
               p.onActionUse(a);
-              UI.updateBoard(board);
             }
           }
         }

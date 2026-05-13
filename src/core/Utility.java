@@ -199,6 +199,14 @@ public class Utility {
     }
   }
 
+  public static String printArray(int[] i){
+    String output = "";
+    for (int k : i){
+      output += k;
+    }
+    return output;
+  }
+
   public static boolean compareVectors(int[] a, int[] b){
     if (a.length == b.length){
       for (int i = 0; i < a.length; i++){

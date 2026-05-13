@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public abstract class UI implements ActionListener{
+public abstract class UI implements ActionListener {
 
     // UI code here please :3
 
@@ -28,14 +28,14 @@ public abstract class UI implements ActionListener{
     private static CardLayout layout;
     private static JPanel container;
     private static String selectedType;
-    
+
     private static JLabel title;
     private static JButton playButton;
     private static JButton instructionsButton;
     private static JButton languagesButton;
     private static JButton settingsButton; //potentially remove
     private static JButton done;
-    
+
     private static JPanel main;
     private static JPanel game;
     private static JPanel charSelect;
@@ -65,7 +65,7 @@ public abstract class UI implements ActionListener{
 
     private static JButton[][] chessBoard;
 
-    public static void start(){
+    public static void start() {
         frame = new JFrame();
         frame.setTitle("Commander Chess");
         frame.setSize(900, 700);
@@ -73,21 +73,18 @@ public abstract class UI implements ActionListener{
         currInitSquare[0] = -1;
         currInitSquare[1] = -1;
 
-        frame.addComponentListener(new ComponentAdapter(){
-            public void componentResized(ComponentEvent e){
+        frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
                 currWidth = frame.getWidth();
                 currHeight = frame.getHeight();
-                
-                if (currCard.equals("Menu")){
+
+                if (currCard.equals("Menu")) {
                     resizeMain();
-                }
-                else if (currCard.equals("Game")){
+                } else if (currCard.equals("Game")) {
                     resizeGame();
-                }
-                else if (currCard.equals("Character Selection")){
+                } else if (currCard.equals("Character Selection")) {
                     resizeCharSelect();
-                }
-                else {
+                } else {
                     resizeInstructions();
                 }
             }
@@ -112,42 +109,42 @@ public abstract class UI implements ActionListener{
         container.add(charSelect, "Character Selection");
         container.add(instructions, "Instructions");
         frame.add(container);
-        
+
         currCard = "Menu";
         layout.show(container, "Menu"); //probably move
-        
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(900, 650));
         frame.setVisible(true);
 
     } // generate screen when first opened
 
-    public static void createMenuPanel(){
+    public static void createMenuPanel() {
         //title.setBounds(300, 50, 350, 100);
         //playButton.setBounds(270,200, 250, 80);
         //instructionsButton.setBounds(270, 300, 250, 80);
         //languagesButton.setBounds(270,400, 250, 80);
         //settingsButton.setBounds(270,500, 250, 80);
-        
+
         title = new JLabel("Commander Chess");
         title.setFont(new Font("Calibri", Font.BOLD, 30));
 
         main.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        
+
         c.gridx = 0;
         c.gridy = 0;
         c.insets = new Insets(20, 20, 20, 20);
         c.weightx = 0.5;
         main.add(title, c);
-        
+
         playButton = new JButton("Play");
         c.gridx = 0;
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 30;
         c.insets = new Insets(10, 50, 10, 50);
-        playButton.addActionListener(e ->{
+        playButton.addActionListener(e -> {
             layout.show(container, "Game");
             currCard = "Game";
 
@@ -157,7 +154,7 @@ public abstract class UI implements ActionListener{
             Game.beginGame(whiteArray, blackArray, "Hatsune Miku", "Kasane Teto");
         });
         main.add(playButton, c);
-        
+
         instructionsButton = new JButton("Instructions");
         c.gridx = 0;
         c.gridy = 2;
@@ -168,7 +165,7 @@ public abstract class UI implements ActionListener{
             layout.show(container, "Instructions");
             currCard = "Instructions";
         });
-        main.add(instructionsButton,c );
+        main.add(instructionsButton, c);
 
 
         languagesButton = new JButton("Language");
@@ -181,7 +178,7 @@ public abstract class UI implements ActionListener{
             //add functionality
         });
         main.add(languagesButton, c);
-        
+
         settingsButton = new JButton("Settings"); //potentially remove
         c.gridx = 0;
         c.gridy = 4;
@@ -191,7 +188,7 @@ public abstract class UI implements ActionListener{
         main.add(settingsButton, c);
     } //intializes components for main menu
 
-    public static void createGamePanel(){
+    public static void createGamePanel() {
         //background colors: #854D24 (dark), #EBD2B2 (light)
         game.setLayout(new BorderLayout());
         chessBoard = new JButton[8][8];
@@ -203,7 +200,7 @@ public abstract class UI implements ActionListener{
 
         JPanel boardArea = new JPanel(new GridLayout(8, 8));
         boardArea.setPreferredSize(new Dimension(500, 500));
-        
+
         createPieceArea();
         createLog();
 
@@ -213,50 +210,45 @@ public abstract class UI implements ActionListener{
         select.addActionListener(e -> {
             selectButtonFunction();
         });
-        
-        for (int row = 0; row < 8; row++){
-            for (int col = 0; col < 8; col++){
-                chessBoard[7-row][col] = new JButton();
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                chessBoard[7 - row][col] = new JButton();
                 int r = row;
                 int c = col;
-                int[] loc = {col, 7-row};
-                chessBoard[7-row][col].addActionListener(e -> {
+                int[] loc = {col, 7 - row};
+                chessBoard[7 - row][col].addActionListener(e -> {
                     selectedType = "square";
-                    if (stepsDone != 0){
+                    if (stepsDone != 0) {
                         showSelectButton();
                         currSelectedSquare = loc;
-                        if (Utility.squareInArrayList(selectedSquares, loc)){
+                        if (Utility.squareInArrayList(selectedSquares, loc)) {
                             select.setText("Unselect");
-                        }
-                        else{
+                        } else {
                             select.setText("Select");
 
                         }
-                    }
-                    else {
+                    } else {
                         onInitSquareClicked(7 - r, c);
                     }
-                    
+
                 });
-                if (row % 2 == 0){
-                    if (col % 2 == 0){
-                        chessBoard[7-row][col].setBackground(new Color(0xEBD2B2));
+                if (row % 2 == 0) {
+                    if (col % 2 == 0) {
+                        chessBoard[7 - row][col].setBackground(new Color(0xEBD2B2));
+                    } else {
+                        chessBoard[7 - row][col].setBackground(new Color(0x854D24));
                     }
-                    else {
-                        chessBoard[7-row][col].setBackground(new Color(0x854D24));
-                    }
-                }
-                else{
-                    if (col % 2 == 0){
-                        chessBoard[7-row][col].setBackground(new Color(0x854D24));
-                    }
-                    else {
-                        chessBoard[7-row][col].setBackground(new Color(0xEBD2B2));
+                } else {
+                    if (col % 2 == 0) {
+                        chessBoard[7 - row][col].setBackground(new Color(0x854D24));
+                    } else {
+                        chessBoard[7 - row][col].setBackground(new Color(0xEBD2B2));
                     }
                 }
-                chessBoard[7-row][col].setOpaque(true);
-                chessBoard[7-row][col].setBorderPainted(false);
-                boardArea.add(chessBoard[7-row][col]);
+                chessBoard[7 - row][col].setOpaque(true);
+                chessBoard[7 - row][col].setBorderPainted(false);
+                boardArea.add(chessBoard[7 - row][col]);
             }
         }
 
@@ -264,26 +256,26 @@ public abstract class UI implements ActionListener{
         JSplitPane vertSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pieceArea, bottomVertSplit);
         JSplitPane horizSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, boardArea, vertSplit);
         bottomVertSplit.setDividerLocation(0.12);
-        bottomVertSplit.setResizeWeight(0.11);  
+        bottomVertSplit.setResizeWeight(0.11);
         vertSplit.setDividerLocation(0.66);
         vertSplit.setResizeWeight(0.66);
         horizSplit.setDividerLocation(0.66);
         horizSplit.setResizeWeight(0.66);
-        
+
         //hideSelectButton();
-        
+
         game.add(horizSplit, BorderLayout.CENTER);
 
     } //initializes components for game page
 
-    public static void createInstructionsPanel(){
+    public static void createInstructionsPanel() {
         instructions.setLayout(new BorderLayout());
         JTextArea textarea = new JTextArea();
         textarea.setFont(new Font("Arial", Font.PLAIN, 20)); //change text size once have instructions
         textarea.setText("hi i need to make this text really long so ignore me while i ramble there is gonna be a fake skating" +
-                         " movie and im really excited but im afraid theyre not gonna cast it well and its gonna end up bad because"
-                         + " that happens so often. they need to cast the right people for dani and alec who capture their essence well" 
-                         + "and have that dynamic from the book so hopefully they can find the right people and the movie will be good."); //ADD INSTRUCTIONS HERE
+                " movie and im really excited but im afraid theyre not gonna cast it well and its gonna end up bad because"
+                + " that happens so often. they need to cast the right people for dani and alec who capture their essence well"
+                + "and have that dynamic from the book so hopefully they can find the right people and the movie will be good."); //ADD INSTRUCTIONS HERE
         textarea.setEditable(false);
         textarea.setLineWrap(true);
         textarea.setWrapStyleWord(true);
@@ -294,20 +286,20 @@ public abstract class UI implements ActionListener{
             layout.show(container, "Menu");
             currCard = "Menu";
         });
-        
+
         instructions.add(scrollpane, BorderLayout.CENTER);
         instructions.add(closeInstructions, BorderLayout.SOUTH);
     } //initialize components for instructions page
 
 
-    public static void createCharSelectPanel(){
+    public static void createCharSelectPanel() {
         charSelect.setLayout(new GridLayout());
 
         JLabel[] commanders = new JLabel[Constant.COMMANDER_IDS.length];
         JLabel charSelectTitle = new JLabel("Character Selection");
-        for (int i = 0; i < Constant.COMMANDER_IDS.length; i++){
+        for (int i = 0; i < Constant.COMMANDER_IDS.length; i++) {
             commanders[i] = new JLabel();
-            
+
         }
     } //initialize components for character selection page, show commanders, when clicked have drop down w descriptions
 
@@ -315,7 +307,7 @@ public abstract class UI implements ActionListener{
     
     } //need for override*/
 
-    public static void resizeMain(){
+    public static void resizeMain() {
         GridBagConstraints g = new GridBagConstraints();
         g.gridx = 0;
         g.gridy = 1;
@@ -324,7 +316,7 @@ public abstract class UI implements ActionListener{
 
         g.insets = new Insets(currHeight / 50, currWidth / 20, currHeight / 50, currWidth / 20);
         GridBagLayout l = (GridBagLayout) main.getLayout();
-                
+
         title.setFont(new Font("Calibri", Font.BOLD, currWidth / 30));
         l.setConstraints(playButton, g);
         playButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
@@ -337,11 +329,11 @@ public abstract class UI implements ActionListener{
         g.gridy = 4;
         l.setConstraints(settingsButton, g);
         settingsButton.setFont(new Font("Calibri", Font.PLAIN, currWidth / 50));
-                
+
         main.revalidate();
     }
 
-    public static void resizeGame(){
+    public static void resizeGame() {
         /*for (int r = 0; r < 8; r++){
             for (int c = 0; c < 8; c++){
                 if (!(board.getBoardState()[r][c].isEmpty())){
@@ -353,32 +345,32 @@ public abstract class UI implements ActionListener{
         }*/
     }
 
-    public static void resizeCharSelect(){
+    public static void resizeCharSelect() {
 
     }
 
-    public static void resizeInstructions(){
+    public static void resizeInstructions() {
 
     }
 
-    public static void generateGameUI(){
+    public static void generateGameUI() {
         layout.show(container, "Game");
         currCard = "Game";
     } // Generate the basic UI for playing the game.
 
 
-    public static void generateCharacterSelectUI(){
+    public static void generateCharacterSelectUI() {
         layout.show(container, "Character Selection");
         currCard = "Character Selection";
     } // Generate the basic UI for the character selection screen.
     //call before generating game
-    
-    public static void generateMainMenu(){
+
+    public static void generateMainMenu() {
         layout.show(container, "Menu");
         currCard = "Menu";
     } // Generate the basic UI for the main menu (play, menu, etc). (called when game ends, play instructions language settings)
 
-    public static void createLog(){
+    public static void createLog() {
         mLog = new JTextArea();
         mLog.setRows(12);
         mLog.setFont(new Font("Arial", Font.PLAIN, 14)); //change text size once have instructions
@@ -394,7 +386,7 @@ public abstract class UI implements ActionListener{
 
     } //creates initial log area
 
-    public static void createPieceArea(){
+    public static void createPieceArea() {
         pBlank = new JPanel();
         pPickChar = new JPanel();
         pCharInfo = new JPanel();
@@ -408,26 +400,26 @@ public abstract class UI implements ActionListener{
         pCharInfo.setLayout(new GridLayout(0, 1, 5, 5));
 
         pAction.setLayout(new GridLayout(0, 1, 5, 5));
-        
+
         pieceArea.add(pBlank, "Blank");
         pieceArea.add(pPickChar, "Pick Character");
         pieceArea.add(pCharInfo, "Character Info");
         pieceArea.add(pAction, "Action");
-        
+
         pieceAreaLayout.show(pieceArea, "Blank");
     }
 
-    public static void onInitSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
+    public static void onInitSquareClicked(int row, int col) { //change color of selected square to SELECTCOLOR
         currInitSquare[0] = row;
         currInitSquare[1] = col;
-        
+
         pieceAreaLayout.show(pieceArea, "Blank");
         pPickChar.removeAll();
         currSelectedSquare = null;
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
         //chessBoard[row][col].setBackground(Constant.SELECTCOLOR); //highlights square
 
-        if (!currPieceArray.isEmpty()){
+        if (!currPieceArray.isEmpty()) {
             //get the rest of the info needed for info panel
             for (Piece value : currPieceArray) {
                 JButton piece = new JButton(value.getDisplayName());
@@ -445,7 +437,7 @@ public abstract class UI implements ActionListener{
 
     } //when square on board is clicked
 
-    public static void onInitPieceSelected(Piece p){
+    public static void onInitPieceSelected(Piece p) {
         pieceAreaLayout.show(pieceArea, "Blank");
         pPickChar.removeAll();
         pCharInfo.removeAll();
@@ -455,7 +447,7 @@ public abstract class UI implements ActionListener{
         //get remaining piece info (movements, abilities, description)
         pCharInfo.add(pName);
 
-        for (int i = 0; i < p.getActions().size(); i++){ //creates list of action buttons
+        for (int i = 0; i < p.getActions().size(); i++) { //creates list of action buttons
             Action currAction = p.getActions().get(i);
             JButton a = new JButton(currAction.getDisplayName());
             a.addActionListener(e -> {
@@ -473,12 +465,14 @@ public abstract class UI implements ActionListener{
         pieceAreaLayout.show(pieceArea, "Character Info");
     }
 
-    public static void selectActionStuff(){ //fix layout
+    public static void selectActionStuff() { //fix layout
         //JTextArea actionDesc = new JTextArea(selectedAction.getDescription()); //double check later
         done = new JButton("Done");
         done.addActionListener(e -> {
             stepsDone++;
-            selectedAction.onUse();
+            if (selectedAction != null) {
+                selectedAction.onUse();
+            }
             selectedSquares.clear();
             selectedPieces.clear();
             currInitSquare[0] = -1;
@@ -492,28 +486,25 @@ public abstract class UI implements ActionListener{
         pieceAreaLayout.show(pieceArea, "Action");
     }
 
-    public static void selectButtonFunction(){
-        if (selectedType.equals("square")){
-            if (Utility.squareInArrayList(selectedSquares, currSelectedSquare)){
+    public static void selectButtonFunction() {
+        if (selectedType.equals("square")) {
+            if (Utility.squareInArrayList(selectedSquares, currSelectedSquare)) {
                 selectedSquares.remove(Utility.findSquareInArrayList(selectedSquares, currSelectedSquare));
-            }
-            else{
+            } else {
                 selectedSquares.add(currSelectedSquare);
             }
-        }
-        else if (selectedType.equals("piece")){
-            if (Utility.pieceInArrayList(selectedPieces, currSelectedPiece)){
+        } else if (selectedType.equals("piece")) {
+            if (Utility.pieceInArrayList(selectedPieces, currSelectedPiece)) {
                 selectedPieces.remove(currSelectedPiece);
-            }
-            else{
+            } else {
                 selectedPieces.add(currSelectedPiece);
             }
         }
 
     }
 
-    public static void showSelectButton(){
-        if (!selectShown){
+    public static void showSelectButton() {
+        if (!selectShown) {
             bottomVertSplit.setTopComponent(pSelect);
             bottomVertSplit.setBottomComponent(logArea);
             bottomVertSplit.setDividerLocation(0.12);
@@ -522,8 +513,8 @@ public abstract class UI implements ActionListener{
         }
     }
 
-    public static void hideSelectButton(){
-        if (selectShown){
+    public static void hideSelectButton() {
+        if (selectShown) {
             bottomVertSplit.setTopComponent(logArea);
             bottomVertSplit.setBottomComponent(null);
             bottomVertSplit.revalidate();
@@ -531,66 +522,65 @@ public abstract class UI implements ActionListener{
         }
     }
 
-    public static void updateBoard(Board b){
+    public static void updateSquare(Board b, int[] loc) {
         board = b;
-        // Update visual board
-        for (int i = 0; i < board.getBoardstate().length; i++){
-            for (int j = 0; j < board.getBoardstate()[i].length; j++){
+        int i = loc[0];
+        int j = loc[1];
+        ArrayList<Piece> currSquareArray = board.getBoardstate()[i][j];
+        if (currSquareArray.size() > 1) {
+            //set to multiple pieces image
+            try {
+                BufferedImage img = ImageIO.read(UI.class.getResource("/pixelarts/multiplepieces.png"));
+                Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
+                chessBoard[i][j].setIcon(new ImageIcon(im));
+            } catch (IOException e) {
+                log("Error SN200: The image at multiplepieces.png is null.");
+                log(e.getMessage());
+            }
 
-                    ArrayList<Piece> currSquareArray = board.getBoardstate()[7-i][j];
-                    if (currSquareArray.size() > 1){
-                        //set to multiple pieces image
-                        try {
-                            BufferedImage img = ImageIO.read(UI.class.getResource("/pixelarts/multiplepieces.png"));
-                            Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
-                            chessBoard[7-i][j].setIcon(new ImageIcon(im));
-                        }
-                        catch (IOException e){
-                            log("Something has gone wrong.");
-                            log(e.getMessage());
-                            break;
-                        }
+        } else if (currSquareArray.size() == 1) {
+            if (currSquareArray.get(0).getIconLocation() != null) {
+                // set icon to image
+                try {
+                    BufferedImage img = ImageIO.read(UI.class.getResource(currSquareArray.get(0).getIconLocation()));
+                    Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
+                    chessBoard[i][j].setIcon(new ImageIcon(im));
 
-                    }
-                    else if (currSquareArray.size() == 1){
-                        if (currSquareArray.get(0).getIconLocation() != null) {
-                            // set icon to image
-                            try {
-                                BufferedImage img = ImageIO.read(UI.class.getResource(currSquareArray.get(0).getIconLocation()));
-                                Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
-                                chessBoard[7-i][j].setIcon(new ImageIcon(im));
-                            }
-                            catch (IOException e){
-                                log("Something has gone wrong.");
-                                log(e.getMessage());
-                                break;
-                            }
-                        }
-                        else{
-                            // set to null
-                            chessBoard[7-i][j].setIcon(null);
-
-                        }
-                    }
-                    else{
-                        // set to null
-                        chessBoard[7-i][j].setIcon(null);
-
-                    }
-                    chessBoard[7-i][j].revalidate();
-                    chessBoard[7-i][j].repaint();
+                } catch (IOException e) {
+                    log("Error SN201: The image at " + currSquareArray.get(0).getIconLocation() + " is null.");
+                    log(e.getMessage());
                 }
+            } else {
+                // set to null
+                chessBoard[i][j].setIcon(null);
+
+            }
+        } else {
+            // set to null
+            chessBoard[i][j].setIcon(null);
 
         }
 
-    } //update where pieces appear too
 
-    public static void log(String s){
+    }
+
+    public static void updateBoard(Board b){
+        for (int i = 0; i < b.getBoardstate().length; i++){
+            for (int j = 0; j < b.getBoardstate()[i].length; j++){
+                int[] k = {i, j};
+                updateSquare(b, k);
+            }
+        }
+    }
+
+//update where pieces appear too
+
+    public static void log(String s) {
         mLog.append("\n" + s);
         mLog.append("\n-------------");
     } // Visually show a message to players in a scrolling chat menu.
 
-    public static void cancel(String message){
+    public static void cancel(String message) {
         stepsDone = 0;
         selectedSquares.clear();
         selectedPieces.clear();
@@ -598,10 +588,11 @@ public abstract class UI implements ActionListener{
         log(message);
         pAction.remove(done);
     }
-    public static void newSquare(){
+
+    public static void newSquare() {
         stepsDone = 0;
         selectedSquares.clear();
         selectedPieces.clear();
     }
-    
+
 }

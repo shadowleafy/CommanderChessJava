@@ -1,0 +1,15 @@
+Error Code Key:
+First Letter: S means "Stelle's code", A means "Alia's Code"
+Second Letter:
+N = "Some object is null and it shouldn't be."
+
+Number:
+First digit:
+0 = Fatal error: The program will now crash intentionally to prevent further errors.
+1 = Semi-fatal error: The program is no longer usable without a restart.
+2 = Non-fatal error: The program is still working, but something has failed.
+3 = Warning: Something is off, but nothing has gone wrong yet.
+4 = Everything is okay.
+5 = Exotic.
+
+Second to fourth digit code for different errors in order of discovery.

@@ -194,6 +194,8 @@ public class Piece {
     getBoard().updateDataOnSquare(end);
     onMoveFrom(start);
     onMoveTo(end);
+    UI.updateSquare(getBoard(), start);
+    UI.updateSquare(getBoard(), end);
   }
 
   public void capturePiece(Piece defendingPiece){
