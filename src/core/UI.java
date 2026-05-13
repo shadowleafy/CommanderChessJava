@@ -46,6 +46,7 @@ public abstract class UI implements ActionListener{
     private static boolean selectShown = false;
     private static int[] currSelectedSquare; //check type
     private static Piece currSelectedPiece;
+    private static int[] currInitSquare = new int[2];
 
     private static JPanel pieceArea;
     private static JPanel logArea;
@@ -68,6 +69,9 @@ public abstract class UI implements ActionListener{
         frame = new JFrame();
         frame.setTitle("Commander Chess");
         frame.setSize(900, 700);
+
+        currInitSquare[0] = -1;
+        currInitSquare[1] = -1;
 
         frame.addComponentListener(new ComponentAdapter(){
             public void componentResized(ComponentEvent e){
@@ -414,6 +418,9 @@ public abstract class UI implements ActionListener{
     }
 
     public static void onInitSquareClicked(int row, int col){ //change color of selected square to SELECTCOLOR
+        currInitSquare[0] = row;
+        currInitSquare[1] = col;
+        
         pieceAreaLayout.show(pieceArea, "Blank");
         pPickChar.removeAll();
         currSelectedSquare = null;
@@ -474,6 +481,8 @@ public abstract class UI implements ActionListener{
             selectedAction.onUse();
             selectedSquares.clear();
             selectedPieces.clear();
+            currInitSquare[0] = -1;
+            currInitSquare[1] = -1;
         });
         showSelectButton();
 
@@ -550,6 +559,9 @@ public abstract class UI implements ActionListener{
                                 BufferedImage img = ImageIO.read(UI.class.getResource(currSquareArray.get(0).getIconLocation()));
                                 Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
                                 chessBoard[i][j].setIcon(new ImageIcon(im));
+                                if (currInitSquare[0] != -1){
+                                    chessBoard[7-currInitSquare[0]][currInitSquare[1]].setIcon(null);
+                                }
                             }
                             catch (IOException e){
                                 log("Something has gone wrong.");
