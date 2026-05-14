@@ -18,6 +18,9 @@ public class basicMoveTemplate extends Action {
     }
 
     public boolean condition(){
+        int[] start = ownerPiece.getLocation();
+        int[] end = UI.selectedSquares.get(0);
+        int[] delta = Utility.diffVectors(end, start);
         return true;
     }
 

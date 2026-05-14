@@ -43,6 +43,7 @@ public abstract class UI implements ActionListener {
     private static String currCard;
 
     private static JButton select;
+    private static JButton cancel;
     private static boolean selectShown = false;
     private static int[] currSelectedSquare; //check type
     private static Piece currSelectedPiece;
@@ -205,17 +206,24 @@ public abstract class UI implements ActionListener {
         createPieceArea();
         createLog();
 
+
+        select = new JButton("Select");
+        select.addActionListener(e -> {
+            selectButtonFunction();
+        });
+
+        cancel = new JButton("Cancel");
+        cancel.addActionListener(e -> {
+           cancel("");
+        });
+        pSelect.add(cancel);
+        pSelect.add(select);
         passTurn = new JButton("Pass Turn");
         passTurn.addActionListener(e -> {
             Game.passTurn();
             log("The turn has been passed.");
         });
         pSelect.add(passTurn);
-        select = new JButton("Select");
-        select.addActionListener(e -> {
-            selectButtonFunction();
-        });
-        pSelect.add(select);
         done = new JButton("Done");
         done.addActionListener(e -> {
             stepsDone++;
@@ -232,6 +240,7 @@ public abstract class UI implements ActionListener {
             select.setText("Select");
             select.setVisible(false);
             done.setVisible(false);
+            cancel.setVisible(false);
             passTurn.setVisible(true);
             currInitSquare[0] = -1;
             currInitSquare[1] = -1;
@@ -242,6 +251,7 @@ public abstract class UI implements ActionListener {
         pSelect.add(done);
         done.setVisible(false);
         select.setVisible(false);
+        cancel.setVisible(false);
 
 
         for (int row = 0; row < 8; row++) {
@@ -436,6 +446,7 @@ public abstract class UI implements ActionListener {
     }
 
     public static void onInitSquareClicked(int row, int col) { //change color of selected square to SELECTCOLOR
+
         currInitSquare[0] = row;
         currInitSquare[1] = col;
 
@@ -466,6 +477,7 @@ public abstract class UI implements ActionListener {
     } //when square on board is clicked
 
     public static void onInitPieceSelected(Piece p) {
+        cancel.setVisible(true);
         pieceAreaLayout.show(pieceArea, "Blank");
         pPickChar.removeAll();
         pCharInfo.removeAll();
@@ -663,9 +675,14 @@ public abstract class UI implements ActionListener {
         selectedAction = null;
         select.setVisible(false);
         done.setVisible(false);
+        cancel.setVisible(false);
         passTurn.setVisible(true);
+        pieceAreaLayout.show(pieceArea, "Blank");
         stepsDone = 0;
-        log(message);
+        if (message != null) {
+            log(message);
+        }
+        updateBoard(board);
     }
 
     public static void newSquare() {

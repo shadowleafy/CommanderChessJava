@@ -18,6 +18,9 @@ public class basicCaptureTemplate extends Action {
     }   
 
     public boolean condition(){
+        int[] start = ownerPiece.getLocation();
+        int[] end = UI.selectedPieces.get(0).getLocation();
+        int[] delta = Utility.diffVectors(end, start);
         return true;
     }
 
