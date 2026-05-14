@@ -11,12 +11,12 @@ public class Rook extends Piece{
     
     public Rook(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
-        setPieceId("rook");
-        setDisplayName(Translation.getStatic("rook_display"));
-        Action rookCapture = new RookCapture(this);
-        Action rookMove = new RookMove(this);
-        Action[] arr = {rookCapture, rookMove};
-        setActions(Utility.arrayActionToArrayList(arr));
+        pieceId = "rook";
+        displayName = Translation.getStatic("rook_display");
+        Action capture = new RookCapture(this);
+        Action move = new RookMove(this);
+        Action[] arr = {capture, move};
+        actions = Utility.arrayActionToArrayList(arr);
     }  
 
 }

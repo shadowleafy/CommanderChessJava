@@ -11,12 +11,12 @@ public class Queen extends Piece{
     
     public Queen(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
-        setPieceId("queen");
-        setDisplayName(Translation.getStatic("queen_display"));
-        Action queenCapture = new QueenCapture(this);
-        Action queenMove = new QueenMove(this);
-        Action[] arr = {queenCapture, queenMove};
-        setActions(Utility.arrayActionToArrayList(arr));
+        pieceId = "queen";
+        displayName = Translation.getStatic("queen_display");
+        Action capture = new QueenCapture(this);
+        Action move = new QueenMove(this);
+        Action[] arr = {capture, move};
+        actions = Utility.arrayActionToArrayList(arr);
     }  
 
 }
