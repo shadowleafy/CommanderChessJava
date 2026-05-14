@@ -28,7 +28,7 @@ public class BishopMove extends basicMovement {
             int[] checkPoint = Utility.copyArray(start);
             while (!Utility.compareVectors(checkPoint, end)){
                 checkPoint = Utility.sumVectors(checkPoint, unitDelta);
-                if (ownerPiece.getBoard().getPiecesOn(checkPoint).size() != 0){
+                if (!ownerPiece.getBoard().getPiecesOn(checkPoint).isEmpty()){
                     return false;
                 }
             }

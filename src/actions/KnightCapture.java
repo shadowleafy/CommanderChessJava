@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class KnightCapture extends Action {
+public class KnightCapture extends basicCapture {
     
     public KnightCapture(Piece owner){
         super(owner);
@@ -17,8 +17,9 @@ public class KnightCapture extends Action {
         setDisplayName(Translation.getStatic("knight_capture_display"));
         setDescription(Translation.getStatic("knight_capture_description"));
         // set display name once translation is done better.
-    }   
+    }
 
-
-
+    public boolean condition(int[] start, int[] end, int[] delta) {
+        return (Utility.magnitudeSq(delta) == 5);
+    }
 }

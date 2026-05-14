@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PawnCapture extends Action {
+public class PawnCapture extends basicCapture {
 
     public PawnCapture(Piece owner) {
         super(owner);
@@ -19,6 +19,9 @@ public class PawnCapture extends Action {
         // set display name once translation is done better.
     }
 
-
-
+    public boolean condition(int[] start, int[] end, int[] delta) {
+        int color = ownerPiece.getController();
+        delta = Utility.colorshiftDelta(delta, color);
+        return ((delta[1] == 1) && (delta[0] == 1 || delta[0] == -1));
+    }
 }

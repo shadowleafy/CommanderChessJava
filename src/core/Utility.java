@@ -222,6 +222,14 @@ public class Utility {
     return false;
   }
 
+  public static int magnitudeSq(int[] a){
+    int output = 0;
+    for (int k : a){
+      output += k*k;
+    }
+    return output;
+  }
+
   public static int[] sortedAbs(int[] input){
     int[] output = copyArray(input);
     for (int i = 0; i < input.length; i++){
@@ -258,6 +266,22 @@ public class Utility {
     for (int i = 0; i < output.length; i++){
       output[i] = Integer.parseInt(input.substring(0, input.indexOf(",")));
       input = input.substring(input.indexOf(",")+1);
+    }
+    return output;
+  }
+
+  public static int[] colorshift(int[] input, int color){
+    int[] output = copyArray(input);
+    if (color == 1){
+      output[1] = 7-output[1];
+    }
+    return output;
+  }
+
+  public static int[] colorshiftDelta(int[] input, int color){
+    int[] output = copyArray(input);
+    if (color == 1){
+      output[1] *= -1;
     }
     return output;
   }

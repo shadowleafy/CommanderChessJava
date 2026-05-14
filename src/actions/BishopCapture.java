@@ -28,7 +28,7 @@ public class BishopCapture extends basicCapture {
             int[] checkPoint = Utility.copyArray(start);
             while (!Utility.compareVectors(checkPoint, end)){
                 checkPoint = Utility.sumVectors(checkPoint, unitDelta);
-                if (ownerPiece.getBoard().getPiecesOn(checkPoint).size() != 0 && !Utility.compareVectors(checkPoint, end)){
+                if (!ownerPiece.getBoard().getPiecesOn(checkPoint).isEmpty() && !Utility.compareVectors(checkPoint, end)){
                     return false;
                 }
             }

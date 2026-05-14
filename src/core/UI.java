@@ -483,7 +483,7 @@ public abstract class UI implements ActionListener {
         pCharInfo.removeAll();
         currSelectedPiece = p;
         selectedType = "piece";
-        pName = new JLabel(p.getDisplayName());
+        pName = new JLabel(p.getDisplayName() + "(" + p.getController() + ")");
         if (p.getSelected()) {
             pName.setForeground(new Color(Constant.SELECTCOLOR));
         } else {
