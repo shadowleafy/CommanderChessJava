@@ -11,12 +11,12 @@ public class Knight extends Piece{
     
     public Knight(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
-        setPieceId("knight");
-        setDisplayName(Translation.getStatic("knight_display"));
-        Action knightCapture = new KnightCapture(this);
-        Action knightMove = new KnightMove(this);
-        Action[] arr = {knightCapture, knightMove};
-        setActions(Utility.arrayActionToArrayList(arr));
+        pieceId = "knight";
+        displayName = Translation.getStatic("knight_display");
+        Action capture = new KnightCapture(this);
+        Action move = new KnightMove(this);
+        Action[] arr = {capture, move};
+        actions = Utility.arrayActionToArrayList(arr);
     }  
 
 }

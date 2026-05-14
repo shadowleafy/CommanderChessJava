@@ -11,16 +11,12 @@ public class King extends CommanderPiece {
     
     public King(int ctrl, int[] loc, Board board){
         super(ctrl, loc, board);
-        setPieceId("king");
-        setDisplayName(Translation.getStatic("king_display"));
-        Action kingCapture = new KingCapture(this);
-        Action kingMove = new KingMove(this);
-        Action[] arr = {kingCapture, kingMove};
-        setActions(Utility.arrayActionToArrayList(arr));
-
-        //for testing
-        String[] test = {"/pixelarts/kaimana-azuetidalforce.png", "/pixelarts/kaimana-azuetidalforce.png"};
-        setIcon(test);
+        pieceId = "king";
+        displayName = Translation.getStatic("king_display");
+        Action capture = new KingCapture(this);
+        Action move = new KingMove(this);
+        Action[] arr = {capture, move};
+        actions = Utility.arrayActionToArrayList(arr);
 
     }  
 
