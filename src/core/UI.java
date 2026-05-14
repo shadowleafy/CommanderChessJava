@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public abstract class UI implements ActionListener {
 
     // UI code here please :3
@@ -248,6 +247,7 @@ public abstract class UI implements ActionListener {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 chessBoard[7 - row][col] = new JButton();
+                chessBoard[7-row][col].setFocusPainted(false);
                 int r = row;
                 int c = col;
                 int[] loc = {col, 7 - row};
@@ -272,12 +272,7 @@ public abstract class UI implements ActionListener {
                 chessBoard[7 - row][col].setOpaque(true);
                 chessBoard[7 - row][col].setBorderPainted(false);
                 chessBoard[7-row][col].setFocusPainted(false);
-                chessBoard[7-row][col].addMouseListener(new MouseAdapter(){
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
 
-                });
 
                 boardArea.add(chessBoard[7 - row][col]);
             }

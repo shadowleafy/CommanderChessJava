@@ -9,24 +9,24 @@ import java.util.Map;
 
 public class Piece {
 
-  private int controller; // 0 means white, 1 means black
-  private Player controllerObj;
-  private String type;
-  private String pieceId;
-  private String displayName;
-  private String abbreviation;
-  private ArrayList<Action> actions;
-  private ArrayList<String> tags;
-  private Map<String, Integer> counters;
-  private int[] location;
-  private int index;
-  private String[] iconReference; // [white, black]
-  private boolean selected;
+  protected int controller; // 0 means white, 1 means black
+  protected Player controllerObj;
+  protected String type;
+  protected String pieceId;
+  protected String displayName;
+  protected String abbreviation;
+  protected ArrayList<Action> actions;
+  protected ArrayList<String> tags;
+  protected Map<String, Integer> counters;
+  protected int[] location;
+  protected int index;
+  protected String[] iconReference; // [white, black]
+  protected boolean selected;
 
   // for commanders only but java gets mad at me if i dont do it like this
-  private String[] pieceIds;
+  protected String[] pieceIds;
   
-  private Board gameboard;
+  protected Board gameboard;
  
   public Piece(int ctrl, int[] loc, Board board){
     selected = false;

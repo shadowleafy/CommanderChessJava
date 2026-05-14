@@ -334,58 +334,5 @@ public class Utility {
     return output;
   }
 // make sure that movement is not simplifyable if you are doing ray
-  public static boolean checkMoveValidity(Board board, int color, int[] start, int[] end, int[] m, boolean passthrough, boolean symmetric, boolean continuous){
-    int[] movement = colorshiftVector(m, color);
-    if (continuous){
-      if (passthrough){
-        if (symmetric){
-          return (compareVectorsSymmetric(movement, simplifyVector(diffVectors(end, start))) && board.getBoardstate()[end[1]][end[0]].size() == 0);
-        }
-        else{
-          return (compareVectors(movement, simplifyVector(diffVectors(end, start))) && board.getBoardstate()[end[1]][end[0]].size() == 0);
-        }
-      }
-      else{
-        if (symmetric){
-          return (compareVectorsSymmetric(movement, simplifyVector(diffVectors(end, start))) && collisionPoint(board, start, diffVectors(end, start)) == null);
-        }
-        else{
-          return (compareVectors(movement, simplifyVector(diffVectors(end, start))) && collisionPoint(board, start, diffVectors(end, start)) == null);
-        }
-      }
-    }
-    else{
-      if (passthrough){
-        if (symmetric){
-          return (compareVectorsSymmetric(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
-        }
-        else{
-          return (compareVectors(movement, diffVectors(end, start)) && board.getBoardstate()[end[1]][end[0]].size() == 0);
-        }
-      }
-      else{
-        if (symmetric){
-          return (compareVectorsSymmetric(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
-        }
-        else{
-          return (compareVectors(movement, diffVectors(end, start)) && collisionPoint(board, start, diffVectors(end, start)) == null);
-        }
-      }
-    }
-  }
-
-  public static boolean checkCaptureValidity(Board board, Piece startPiece, Piece endPiece, int[] movement, boolean passthrough, boolean symmetric, boolean continuous){
-    if (endPiece.getController() == startPiece.getController()){
-      return false;
-    }
-    else{
-      ArrayList<Piece>[][] alterBoardstate = copyBoardstate(board.getBoardstate());
-      int[] start = startPiece.getLocation();
-      int[] end = endPiece.getLocation();
-      alterBoardstate[end[1]][end[0]] = new ArrayList<Piece>();
-      Board alterBoard = new Board(8, 8, board.getWhitePlayer(), board.getBlackPlayer(), alterBoardstate);
-      return checkMoveValidity(alterBoard, startPiece.getController(), start, end, movement, passthrough, symmetric, continuous);
-    }
-  }
 
 }

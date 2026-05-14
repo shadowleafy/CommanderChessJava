@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class CommanderPiece extends Piece {
 
-  private int health;
+  protected int health;
 
   public CommanderPiece(int ctrl, int[] loc, Board board){
     super(ctrl, loc, board);

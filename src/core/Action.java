@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class Action {
   
-  private String type;
-  private String actionId;
-  private String displayName;
-  private String description;
-  private Piece ownerPiece;
-  private ArrayList<String> tags;
+  protected String type;
+  protected String actionId;
+  protected String displayName;
+  protected String description;
+  protected Piece ownerPiece;
+  protected ArrayList<String> tags;
   
   public Action(Piece owner){
     tags = new ArrayList<String>();
