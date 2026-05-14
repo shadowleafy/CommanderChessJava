@@ -1,26 +1,16 @@
 package actions;
 
 import core.*;
-import pieces.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
-public class basicCaptureTemplate extends Action {
+public class basicCapture extends Action {
     
-    public basicCaptureTemplate(Piece owner){
+    public basicCapture(Piece owner){
         super(owner);
-        this.setType("capture");
-        this.setActionId("XXX_capture");
-        // set display name once translation is done better.
     }   
 
-    public boolean condition(){
-        int[] start = ownerPiece.getLocation();
-        int[] end = UI.selectedPieces.get(0).getLocation();
-        int[] delta = Utility.diffVectors(end, start);
+    public boolean condition(int[] start, int[] end, int[] delta){
+
         return true;
     }
 
@@ -49,7 +39,10 @@ public class basicCaptureTemplate extends Action {
                     int[] loc = UI.selectedPieces.get(0).getLocation();
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
-                    if (condition()){
+                    int[] start = ownerPiece.getLocation();
+                    int[] end = UI.selectedPieces.get(0).getLocation();
+                    int[] delta = Utility.diffVectors(end, start);
+                    if (condition(start, end, delta)){
                         getOwnerPiece().capturePiece(UI.selectedPieces.get(0));
                         if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
                             getOwnerPiece().movePiece(loc);

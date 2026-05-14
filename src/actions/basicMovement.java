@@ -1,26 +1,15 @@
 package actions;
 
 import core.*;
-import pieces.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
-public class basicMoveTemplate extends Action {
+public class basicMovement extends Action {
     
-    public basicMoveTemplate(Piece owner){
+    public basicMovement(Piece owner){
         super(owner);
-        this.setType("move");
-        this.setActionId("XXX_move");
-        // set display name once translation is done better.
     }
 
-    public boolean condition(){
-        int[] start = ownerPiece.getLocation();
-        int[] end = UI.selectedSquares.get(0);
-        int[] delta = Utility.diffVectors(end, start);
+    public boolean condition(int[] start, int[] end, int[] delta){
         return true;
     }
 
@@ -50,7 +39,10 @@ public class basicMoveTemplate extends Action {
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
                     int color = getOwnerPiece().getController();
-                    if (condition()){
+                    int[] start = ownerPiece.getLocation();
+                    int[] end = UI.selectedSquares.get(0);
+                    int[] delta = Utility.diffVectors(end, start);
+                    if (condition(start, end, delta)){
                         getOwnerPiece().movePiece(loc);
                         Game.finishAction(this);
                     }
