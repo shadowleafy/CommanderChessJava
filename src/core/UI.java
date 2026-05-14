@@ -264,21 +264,21 @@ public abstract class UI implements ActionListener {
                     onInitSquareClicked(7 - r, c);
 
                 });
-                if (row % 2 == 0) {
-                    if (col % 2 == 0) {
-                        chessBoard[7 - row][col].setBackground(new Color(0xEBD2B2));
-                    } else {
-                        chessBoard[7 - row][col].setBackground(new Color(0x854D24));
-                    }
+                if ((row+col) % 2 == 0) {
+                    chessBoard[7 - row][col].setBackground(new Color(0x854D24));
                 } else {
-                    if (col % 2 == 0) {
-                        chessBoard[7 - row][col].setBackground(new Color(0x854D24));
-                    } else {
-                        chessBoard[7 - row][col].setBackground(new Color(0xEBD2B2));
-                    }
+                    chessBoard[7 - row][col].setBackground(new Color(0xEBD2B2));
                 }
                 chessBoard[7 - row][col].setOpaque(true);
                 chessBoard[7 - row][col].setBorderPainted(false);
+                chessBoard[7-row][col].setFocusPainted(false);
+                chessBoard[7-row][col].addMouseListener(new MouseAdapter(){
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                });
+
                 boardArea.add(chessBoard[7 - row][col]);
             }
         }
@@ -447,6 +447,7 @@ public abstract class UI implements ActionListener {
         pieceAreaLayout.show(pieceArea, "Blank");
         pPickChar.removeAll();
         currSelectedSquare = new int[]{col, row};
+        updateBoard(board);
         ArrayList<Piece> currPieceArray = board.getBoardstate()[row][col]; //row goes bottom to top
         //chessBoard[row][col].setBackground(Constant.SELECTCOLOR); //highlights square
 
@@ -619,9 +620,14 @@ public abstract class UI implements ActionListener {
         }
 
         // Check and highlight / dehighlight square and pieces.
-        if (Utility.squareInArrayList(selectedSquares, loc)) {
-            chessBoard[i][j].setBackground(new Color(0xc8a2c8));
-        } else {
+        if (Utility.compareVectors(loc, currSelectedSquare)){
+            chessBoard[i][j].setBackground(new Color(Constant.PICKCOLOR));
+        }
+        else if (Utility.squareInArrayList(selectedSquares, loc)) {
+            chessBoard[i][j].setBackground(new Color(Constant.SELECTCOLOR));
+        }
+
+        else {
             if ((i + j) % 2 == 0) {
                 chessBoard[i][j].setBackground(new Color(0xEBD2B2));
             } else {

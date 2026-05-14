@@ -101,4 +101,5 @@ public class Constant {
     );
 
     public static final int SELECTCOLOR = 0xE0B8FF;
+    public static final int PICKCOLOR = 0x24a0ed;
 }
