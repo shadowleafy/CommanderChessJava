@@ -17,7 +17,30 @@ public class BishopMove extends Action {
         setDisplayName(Translation.getStatic("bishop_move_display"));
         setDescription(Translation.getStatic("bishop_move_description"));
         // set display name once translation is done better.
-    }   
+    }
+
+    public boolean condition(){
+        int[] start = ownerPiece.getLocation();
+        int[] end = UI.selectedSquares.get(0);
+        int[] delta = Utility.diffVectors(end, start);
+        if (delta[0] == 0 || delta[1] == 0){
+            return false;
+        }
+        int[] unitDelta = {(delta[0] / Math.abs(delta[0])), (delta[1] / Math.abs(delta[1]))};
+        if (Math.abs(delta[0]) == Math.abs(delta[1])){
+            int[] checkPoint = Utility.copyArray(start);
+            while (!Utility.compareVectors(checkPoint, end)){
+                checkPoint = Utility.sumVectors(checkPoint, unitDelta);
+                if (ownerPiece.getBoard().getPiecesOn(checkPoint).size() != 0){
+                    return false;
+                }
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     public void onUse(){
         Piece owner = getOwnerPiece();
@@ -29,7 +52,7 @@ public class BishopMove extends Action {
                 else{
                     UI.cancel("You don't have enough actions to use this!");
                 }
-            break;
+                break;
             case 2:
                 if (UI.selectedSquares.size() >= 2) {
                     UI.cancel("You can only move to one square!");
@@ -45,19 +68,17 @@ public class BishopMove extends Action {
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
                     int color = getOwnerPiece().getController();
-                    if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,1"), false, true,  true)){
-                        if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
-                            getOwnerPiece().movePiece(loc);
-                        }
+                    if (condition()){
+                        getOwnerPiece().movePiece(loc);
                         Game.finishAction(this);
                     }
                     else{
                         UI.cancel("That square isn't within movement range!");
                     }
                 }
-            break;
+                break;
         }
-        
+
     }
 
 }

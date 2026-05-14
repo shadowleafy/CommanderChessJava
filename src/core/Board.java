@@ -96,6 +96,10 @@ public class Board {
     return boardstate;
   }
 
+  public ArrayList<Piece> getPiecesOn(int[] loc){
+    return boardstate[loc[1]][loc[0]];
+  }
+
   public int getGlobalVariable(String key){
     if (globalVariables.containsKey(key)){
       return globalVariables.get(key);

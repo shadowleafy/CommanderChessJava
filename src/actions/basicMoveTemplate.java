@@ -15,7 +15,11 @@ public class basicMoveTemplate extends Action {
         this.setType("move");
         this.setActionId("XXX_move");
         // set display name once translation is done better.
-    }   
+    }
+
+    public boolean condition(){
+        return true;
+    }
 
     public void onUse(){
         Piece owner = getOwnerPiece();
@@ -43,10 +47,8 @@ public class basicMoveTemplate extends Action {
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
                     int color = getOwnerPiece().getController();
-                    if (Utility.checkMoveValidity(gameboard, color, myLoc, loc, Utility.formVector("1,1"), false, true,  true)){
-                        if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
-                            getOwnerPiece().movePiece(loc);
-                        }
+                    if (condition()){
+                        getOwnerPiece().movePiece(loc);
                         Game.finishAction(this);
                     }
                     else{

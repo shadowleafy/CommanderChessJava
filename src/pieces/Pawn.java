@@ -14,7 +14,7 @@ public class Pawn extends Piece{
         setPieceId("pawn");
         setDisplayName(Translation.getStatic("pawn_display"));
         Action pawnCapture = new PawnCapture(this);
-        Action pawnMove = new PawnMove(this);
+        Action pawnMove = new BishopMove(this);
         Action[] arr = {pawnCapture, pawnMove};
         setActions(Utility.arrayActionToArrayList(arr));
     }  

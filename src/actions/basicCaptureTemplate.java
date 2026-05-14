@@ -17,6 +17,10 @@ public class basicCaptureTemplate extends Action {
         // set display name once translation is done better.
     }   
 
+    public boolean condition(){
+        return true;
+    }
+
     public void onUse(){
         Piece owner = getOwnerPiece();
         switch(UI.stepsDone){
@@ -42,7 +46,7 @@ public class basicCaptureTemplate extends Action {
                     int[] loc = UI.selectedPieces.get(0).getLocation();
                     Board gameboard = this.getOwnerPiece().getBoard();
                     int[] myLoc = this.getOwnerPiece().getLocation();
-                    if (Utility.checkCaptureValidity(gameboard, getOwnerPiece(), UI.selectedPieces.get(0), Utility.formVector("1,1"), false, true,  true)){
+                    if (condition()){
                         getOwnerPiece().capturePiece(UI.selectedPieces.get(0));
                         if (gameboard.getBoardstate()[loc[1]][loc[0]].size() == 0){
                             getOwnerPiece().movePiece(loc);
