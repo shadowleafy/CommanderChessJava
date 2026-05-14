@@ -3,6 +3,8 @@ package core;
 import actions.*;
 import pieces.*;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +73,7 @@ public class Utility {
   public static ArrayList<String> formArrayList(String input){
     String storage = input;
     ArrayList<String> output = new ArrayList<String>();
-    while (storage.indexOf("|") != -1){
+    while (storage.contains("|")){
       output.add(storage.substring(0, storage.indexOf("|")));
       storage = storage.substring(storage.indexOf("|")+1);
     }
@@ -177,28 +179,6 @@ public class Utility {
     }
   }
 
-  public static int[] colorshiftVector(int[] a, int color){
-    int[] output = copyArray(a);
-    if (color == 0){
-      return output;
-    }
-    else{
-      output[1] *= -1;
-      return output;
-    }
-  }
-
-  public static int[] colorshiftLocation(int[] a, int color){
-    int[] output = copyArray(a);
-    if (color == 0){
-      return output;
-    }
-    else{
-      output[1] = 7 - output[1];
-      return output;
-    }
-  }
-
   public static String printArray(int[] i){
     String output = "";
     for (int k : i){
@@ -230,37 +210,6 @@ public class Utility {
     return output;
   }
 
-  public static int[] sortedAbs(int[] input){
-    int[] output = copyArray(input);
-    for (int i = 0; i < input.length; i++){
-      int minimum = Math.abs(output[i]);
-      int mindex = 0;
-      for (int j = i+1; j < input.length; j++){
-        if (Math.abs(output[j]) < minimum){
-          minimum = Math.abs(output[j]);
-          mindex = j;
-        }
-        swapValues(output, i, mindex);
-      }
-    }
-    return output;
-  }
-
-  public static boolean compareVectorsSymmetric(int[] a, int[] b){
-
-    if (a.length == b.length){
-      int[] aSorted = sortedAbs(a);
-      int[] bSorted = sortedAbs(b);
-      for (int i = 0; i < a.length; i++){
-        if (!(aSorted[i] == bSorted[i])){
-          return false;
-        }
-      }
-      return true;
-    }
-    return false;
-  }
-
   public static int[] formVector(String input){
     int[] output = new int[countInString(input, ",")];
     for (int i = 0; i < output.length; i++){
@@ -285,32 +234,7 @@ public class Utility {
     }
     return output;
   }
-  
-  public static int[] collisionPoint(Board board, int[] start, int[] rayValue){
-    int[] newStart = copyArray(start);
-    int[] end = sumVectors(newStart, rayValue);
-    int[] simplifiedRayValue = simplifyVector(rayValue);
-    newStart = sumVectors(newStart, simplifiedRayValue);
-    ArrayList[][] gameboard = board.getBoardstate();
-    while (gameboard[newStart[1]][newStart[0]].size() == 0){
 
-      if (rayValue[0] < 0 && newStart[0] <= end[0]){
-        return null;
-      }
-      if (rayValue[0] > 0 && newStart[0] >= end[0]){
-        return null;
-      }
-      if (rayValue[1] < 0 && newStart[1] < end[1]){
-        return null;
-      }
-      if (rayValue[1] > 0 && newStart[1] > end[1]){
-        return null;
-      }
-
-      sumVectors(newStart, rayValue);
-    }
-    return newStart;
-  }
   
   public static String convertChessNotation(int[] loc){
     return Constant.LETTERS[loc[0]] + (loc[1] + 1);
@@ -318,7 +242,7 @@ public class Utility {
 
   public static int countInString(String input, String target){
     int count = 0;
-    while (input.indexOf(target) != -1){
+    while (input.contains(target)){
       count++;
       input = input.substring(input.indexOf(target) + 1);
     }
@@ -326,28 +250,15 @@ public class Utility {
   }
 
   public static Piece idToPiece(String id, int ctrl, int[] loc, Board board){
-    Piece output = null;
-    switch(id) {
-      case "king":
-        output = new King(ctrl, loc, board);
-        break;
-      case "queen":
-        output = new Queen(ctrl, loc, board);
-        break;
-      case "bishop":
-        output = new Bishop(ctrl, loc, board);
-        break;
-      case "knight":
-        output = new Knight(ctrl, loc, board);
-        break;
-      case "rook":
-        output = new Rook(ctrl, loc, board);
-        break;
-      case "pawn" :
-        output = new Pawn(ctrl, loc, board);
-        break;
-    }
-    return output;
+      return switch (id) {
+          case "king" -> new King(ctrl, loc, board);
+          case "queen" -> new Queen(ctrl, loc, board);
+          case "bishop" -> new Bishop(ctrl, loc, board);
+          case "knight" -> new Knight(ctrl, loc, board);
+          case "rook" -> new Rook(ctrl, loc, board);
+          case "pawn" -> new Pawn(ctrl, loc, board);
+          default -> null;
+      };
   }
 
   public static Action idToActionObj(String id, Piece owner){
@@ -357,7 +268,16 @@ public class Utility {
     }
     return output;
   }
-// make sure that movement is not simplifyable if you are doing ray
 
+  public static void invertImage(BufferedImage image){
+    for (int i = 0; i < image.getWidth(); i++){
+      for (int j = 0; j < image.getHeight(); j++){
+        int colorCode = image.getRGB(i, j);
+        Color color = new Color(colorCode, true);
+        color = new Color(255-color.getRed(), 255-color.getGreen(), 255-color.getBlue());
+        image.setRGB(i, j, color.getRGB());
+      }
+    }
+  }
 
 }

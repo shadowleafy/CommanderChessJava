@@ -596,6 +596,9 @@ public abstract class UI implements ActionListener {
             //set to multiple pieces image
             try {
                 BufferedImage img = ImageIO.read(UI.class.getResource("/pixelarts/multiplepieces.png"));
+                if (currSquareArray.get(0).getController() == 1){
+                    Utility.invertImage(img);
+                }
                 Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
                 chessBoard[i][j].setIcon(new ImageIcon(im));
             } catch (IOException e) {
@@ -608,6 +611,9 @@ public abstract class UI implements ActionListener {
                 // set icon to image
                 try {
                     BufferedImage img = ImageIO.read(UI.class.getResource(currSquareArray.get(0).getIconLocation()));
+                    if (currSquareArray.get(0).getController() == 1){
+                        Utility.invertImage(img);
+                    }
                     Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
                     chessBoard[i][j].setIcon(new ImageIcon(im));
 

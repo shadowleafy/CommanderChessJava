@@ -20,7 +20,7 @@ public class Piece {
   protected Map<String, Integer> counters;
   protected int[] location;
   protected int index;
-  protected String[] iconReference; // [white, black]
+  protected String iconReference; // [white, black]
   protected boolean selected;
 
   // for commanders only but java gets mad at me if i dont do it like this
@@ -42,8 +42,7 @@ public class Piece {
   }
 
   public String getIconLocation(){
-    // return iconReference[controller];
-    return "/pixelarts/kaimana-azuretidalforce.png";
+    return iconReference;
   }
   
   // i have changed the code. will this update?
@@ -100,7 +99,7 @@ public class Piece {
     return type;
   }
 
-  public String[] getIconReference(){
+  public String getIconReference(){
     return iconReference;
   }
 
@@ -144,7 +143,7 @@ public class Piece {
     counters.put(type, count);
   }
 
-  public void setIcon(String[] i){
+  public void setIcon(String i){
     iconReference = i;
   }
 
