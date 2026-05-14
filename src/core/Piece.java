@@ -211,6 +211,7 @@ public class Piece {
     defendingPiece.processCapturedBy(this);
     onCapturePiece(defendingPiece);
     defendingPiece.onCapturedBy(this);
+    gameboard.checkStates();
   }
 
   public void die(){

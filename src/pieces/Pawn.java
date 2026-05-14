@@ -13,8 +13,8 @@ public class Pawn extends Piece{
         super(ctrl, loc, board);
         pieceId = "pawn";
         displayName = Translation.getStatic("pawn_display");
-        Action capture = new PawnCapture(this);
-        Action move = new PawnMove(this);
+        Action capture = new BishopCapture(this);
+        Action move = new BishopMove(this);
         Action[] arr = {capture, move};
         actions = Utility.arrayActionToArrayList(arr);
     }  
