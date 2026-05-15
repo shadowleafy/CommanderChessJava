@@ -275,7 +275,9 @@ public class Utility {
         int colorCode = image.getRGB(i, j);
         Color color = new Color(colorCode, true);
         color = new Color(255-color.getRed(), 255-color.getGreen(), 255-color.getBlue());
-        image.setRGB(i, j, color.getRGB());
+        if ((colorCode>>24) != 0x00) {
+          image.setRGB(i, j, color.getRGB());
+        }
       }
     }
   }

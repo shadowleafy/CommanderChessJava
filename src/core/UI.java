@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Map;
 
 public abstract class UI implements ActionListener {
 
@@ -30,6 +31,9 @@ public abstract class UI implements ActionListener {
 
     private static JLabel title;
     private static JLabel pName;
+    private static JLabel pDesc;
+    private static JLabel pTags;
+    private static JLabel pCounters;
     private static JButton playButton;
     private static JButton instructionsButton;
     private static JButton languagesButton;
@@ -483,14 +487,49 @@ public abstract class UI implements ActionListener {
         pCharInfo.removeAll();
         currSelectedPiece = p;
         selectedType = "piece";
-        pName = new JLabel(p.getDisplayName() + "(" + p.getController() + ")");
+        pName = new JLabel(p.getDisplayName() + " (Controlled by " + p.getControllerObj().getDisplayName() + ")");
         if (p.getSelected()) {
             pName.setForeground(new Color(Constant.SELECTCOLOR));
+            pName.setText("[Selected] " + p.getDisplayName() + " (Controlled by " + p.getControllerObj().getDisplayName() + ")");
         } else {
             pName.setForeground(null);
+            pName.setText(p.getDisplayName() + " (Controlled by " + p.getControllerObj().getDisplayName() + ")");
         }
         //get remaining piece info (movements, abilities, description)
         pCharInfo.add(pName);
+        pDesc = new JLabel();
+        String desc = p.getDescription();
+        pDesc.setText(desc);
+        desc = "Tags: ";
+        for (String tag : p.getTags()){
+            desc += tag + ", ";
+        }
+
+        if (p.getTags().isEmpty()){
+            desc += "None";
+        }
+        else{
+            desc = desc.substring(0, desc.length()-2);
+        }
+        pTags = new JLabel(desc);
+        desc = "Counters: ";
+        for (String counter : p.getCounters().keySet()){
+            desc += counter;
+            desc += " (" + p.getCounters(counter) + "), ";
+        }
+
+        if (p.getCounters().keySet().isEmpty()){
+            desc += "None";
+        }
+        else{
+            desc = desc.substring(0, desc.length()-2);
+        }
+        pCounters = new JLabel(desc);
+        pCharInfo.add(pDesc);
+        pCharInfo.add(pTags);
+        pCharInfo.add(pCounters);
+
+
 
 
         if (stepsDone == 0) {
@@ -546,6 +585,7 @@ public abstract class UI implements ActionListener {
                 select.setText("Select");
                 if (pName != null) {
                     pName.setForeground(null);
+                    pName.setText(currSelectedPiece.getDisplayName() + " (Controlled by " + currSelectedPiece.getControllerObj().getDisplayName() + ")");
                 } else {
                     log("Error SN300: pName is currently null.");
                 }
@@ -554,6 +594,7 @@ public abstract class UI implements ActionListener {
                 select.setText("Unselect");
                 if (pName != null) {
                     pName.setForeground(new Color(Constant.SELECTCOLOR));
+                    pName.setText("[Selected] " + currSelectedPiece.getDisplayName() + " (Controlled by " + currSelectedPiece.getControllerObj().getDisplayName() + ")");
                 } else {
                     log("Error SN300: pName is currently null.");
                 }
@@ -616,6 +657,7 @@ public abstract class UI implements ActionListener {
                     }
                     Image im = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE); //check later
                     chessBoard[i][j].setIcon(new ImageIcon(im));
+                    chessBoard[i][j].setText(null);
 
                 } catch (IOException e) {
                     log("Error SN201: The image at " + currSquareArray.get(0).getIconLocation() + " is null.");
@@ -624,12 +666,13 @@ public abstract class UI implements ActionListener {
             } else {
                 // set to null
                 chessBoard[i][j].setIcon(null);
+                chessBoard[i][j].setText(currSquareArray.get(0).getDisplayName());
 
             }
         } else {
             // set to null
             chessBoard[i][j].setIcon(null);
-
+            chessBoard[i][j].setText(null);
         }
 
         // Check and highlight / dehighlight square and pieces.

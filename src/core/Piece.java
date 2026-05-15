@@ -22,6 +22,7 @@ public class Piece {
   protected int index;
   protected String iconReference; // [white, black]
   protected boolean selected;
+  protected String description;
 
   // for commanders only but java gets mad at me if i dont do it like this
   protected String[] pieceIds;
@@ -42,7 +43,8 @@ public class Piece {
   }
 
   public String getIconLocation(){
-    return iconReference;
+    //return "/pixelarts/kaimana-azuretidalforce.png";
+      return iconReference;
   }
   
   // i have changed the code. will this update?
@@ -78,7 +80,11 @@ public class Piece {
     }
     return 0;
   }
-  
+
+  public Map<String, Integer> getCounters(){
+    return counters;
+  }
+
   public ArrayList<String> getTags(){
     return tags;
   }
@@ -106,6 +112,8 @@ public class Piece {
   public boolean getSelected() {
     return selected;
   }
+
+  public String getDescription(){ return description; }
   
   public void setController(int ctrl){
     controller = ctrl;

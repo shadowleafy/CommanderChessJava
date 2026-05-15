@@ -7,6 +7,7 @@ public class basicCapture extends Action {
     
     public basicCapture(Piece owner){
         super(owner);
+        type = "move";
     }   
 
     public boolean condition(int[] start, int[] end, int[] delta){
