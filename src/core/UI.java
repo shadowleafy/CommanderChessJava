@@ -46,6 +46,11 @@ public abstract class UI implements ActionListener {
     private static JPanel instructions;
     private static String currCard;
 
+    private static CardLayout charSelectLayout;
+    private static JPanel charSelectPanel;
+    private static JSplitPane charSelectSplit;
+    private static JPanel charSelectSwitch;
+
     private static JButton select;
     private static JButton cancel;
     private static boolean selectShown = false;
@@ -333,14 +338,57 @@ public abstract class UI implements ActionListener {
 
 
     public static void createCharSelectPanel() {
-        charSelect.setLayout(new GridLayout());
+        charSelect.setLayout(new BorderLayout());
+        charSelectLayout = new CardLayout();
+        charSelectPanel = new JPanel(charSelectLayout);
+        charSelectSwitch = new JPanel();
+        charSelectSwitch.setLayout(new GridBagLayout());
 
-        JLabel[] commanders = new JLabel[Constant.COMMANDER_IDS.length];
+        //create next and prev buttons
+        JButton csNext = new JButton("Next");
+        JButton csPrevious = new JButton("Previous");
+        csNext.addActionListener(e -> {
+            charSelectLayout.next(charSelectPanel);
+        });
+        csPrevious.addActionListener( e->{
+            charSelectLayout.previous(charSelectPanel);
+        });
+
+        GridBagConstraints g = new GridBagConstraints();
+        g.gridx = 0;
+        g.weightx = 0.25;
+        g.weighty = 1.0;
+        charSelectSwitch.add(csPrevious, g);
+        JPanel p = new JPanel();
+        g.gridx = 1;
+        g.weightx = 0.5;
+        charSelectSwitch.add(p, g);
+        g.gridx = 2;
+        g.weightx = 0.25;
+        g.weighty = 1.0;
+        charSelectSwitch.add(csNext, g);
+
+        //create card for each commander
+        JLabel[] commanderName = new JLabel[Constant.COMMANDER_IDS.length];
+        ImageIcon[] commanderImage = new ImageIcon[Constant.COMMANDER_IDS.length];
         JLabel charSelectTitle = new JLabel("Character Selection");
-        for (int i = 0; i < Constant.COMMANDER_IDS.length; i++) {
-            commanders[i] = new JLabel();
+        for (int i = 0; i < Constant.COMMANDER_IDS.length; i++){
+            JPanel character = new JPanel();
+            commanderName[i] = new JLabel();
+            commanderImage[i] = new ImageIcon();
+            JLabel characterImage = new JLabel(commanderImage[i]);
 
+            character.add(commanderName[i]);
+            character.add(characterImage);
+            charSelectPanel.add(character);
         }
+
+        charSelectSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, charSelectPanel, charSelectSwitch);
+        charSelectSplit.setDividerLocation(0.9);
+        charSelectSplit.setResizeWeight(0.9);
+
+        charSelectLayout.show(charSelectPanel, "   "); //add first commander later
+        charSelect.add(charSelectSplit, BorderLayout.CENTER);
     } //initialize components for character selection page, show commanders, when clicked have drop down w descriptions
 
     /*public void actionPerformed(ActionEvent e){
@@ -376,13 +424,34 @@ public abstract class UI implements ActionListener {
     public static void resizeGame() {
         /*for (int r = 0; r < 8; r++){
             for (int c = 0; c < 8; c++){
-                if (!(board.getBoardState()[r][c].isEmpty())){
-                    Image img = chessBoard[r][c].getIcon();
-                    Image newImg = img.getScaledInstance(currWidth / 15, currHeight / 14, Image.SCALE_REPLICATE);
+                if (!(board.getBoardstate()[r][c].isEmpty())){
+                    int squareWidth = chessBoard[r][c].getWidth();
+                    int squareHeight = chessBoard[r][c].getHeight();
+                    if (squareWidth <= 0 || squareHeight <= 0){
+                        continue;
+                    }
+                    ImageIcon image = (ImageIcon) chessBoard[r][c].getIcon();
+                    int imgWidth = image.getIconWidth();
+                    int imgHeight = image.getIconHeight();
+                    int tarWidth = (int) (squareWidth * 0.9);
+                    int tarHeight = (int) (squareHeight * 0.9);
+                    double scaleW = (double) (tarWidth / imgWidth);
+                    double scaleH = (double) (tarHeight / imgHeight);
+
+                    double scale = Math.min(scaleW, scaleH);
+
+                    int w = (int) (imgWidth * scale);
+                    int h = (int) (imgHeight * scale);
+                    if (w <= 0 || h <= 0){
+                        continue;
+                    }
+                    Image img = image.getImage();
+                    Image newImg = img.getScaledInstance(w, h, Image.SCALE_SMOOTH);
                     chessBoard[r][c].setIcon(new ImageIcon(newImg));
                 }
             }
         }*/
+ 
     }
 
     public static void resizeCharSelect() {
